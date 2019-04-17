@@ -1,0 +1,46 @@
+{
+  "name": "cmtt-diet-gopher",
+  "version": "1.0.0",
+  "description": "Specialized Nutrition/Diet App",
+  "main": "server.js",
+  "scripts": {
+    "build": "next build",
+    "dev": "node server.js",
+    "heroku-postbuild": "npm run build",
+    "seedMongo": "node db/mongodb/seedMongo.js",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js && node db/mongodb/seedMongo.js",
+    "start:dev": "node server.js && node db/mongodb/seedMongo.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csinlasath/CMTT-Diet-Gopher.git"
+  },
+  "keywords": [
+    "next.js",
+    "express.js",
+    "react"
+  ],
+  "author": "Christopher Sinlasath, Mason Dobbs, Tiffany Keller, Travis Morris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csinlasath/CMTT-Diet-Gopher/issues"
+  },
+  "homepage": "https://github.com/csinlasath/CMTT-Diet-Gopher#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0",
+    "eslint": "^5.16.0",
+    "express": "^4.16.4",
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.5.2",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.5",
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-markdown": "^4.0.8",
+    "sequelize": "^5.6.0"
+  }
+}
