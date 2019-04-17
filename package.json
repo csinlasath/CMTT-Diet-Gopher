@@ -8,7 +8,7 @@
     "dev": "node server.js",
     "heroku-postbuild": "npm run build",
     "seedMongo": "node db/mongodb/seedMongo.js",
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js && node db/mongodb/seedMongo.js",
     "start:dev": "node server.js && node db/mongodb/seedMongo.js",
     "test": "echo \"Error: no test specified\" && exit 1"

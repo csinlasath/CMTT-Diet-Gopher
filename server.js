@@ -1,14 +1,14 @@
-var fetch = require('isomorphic-unfetch');
+const fetch = require('isomorphic-unfetch');
 require('dotenv').config();
-var devEnv = process.env.NODE_ENV !== 'production';
-var server = devEnv ? 'http://localhost:3000' : 'https://cmtt-diet-gopher.herokuapp.com/';
+const devEnv = process.env.NODE_ENV !== 'production';
+const localServer = devEnv ? 'http://localhost:3000' : 'https://cmtt-diet-gopher.herokuapp.com/';
 
 const express = require('express');
-const mongoose = require('mongoose');
 const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const userMongoRoutes = require('./controllers/mongodb/usersController');
 
 app.prepare().then(() => {
   const server = express();
@@ -17,6 +17,10 @@ app.prepare().then(() => {
   server.use(express.urlencoded({ extended: false }));
   server.use(express.json());
   server.use(express.static('pages'));
+  server.use(userMongoRoutes);
+  
+  require('./routes/userRoutes')(server);
+  require('./routes/foodRoutes')(server);
 
   server.get('*', (req, res) => {
     return handle(req, res);
@@ -25,7 +29,7 @@ app.prepare().then(() => {
   let db = require('./models/mysql');
 
   db.sequelize
-    .sync({ force: false })
+    .sync({ force: true })
     .then(() => {
       server.listen(PORT, err => {
         if (err) throw err;
