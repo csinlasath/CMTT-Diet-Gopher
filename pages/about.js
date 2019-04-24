@@ -1,7 +1,7 @@
-import Layout from '../components/Layout';
+import Main from '../compositions/main';
 
 const About = () => (
-  <Layout>
+  <Main>
     <div>
       <h1>About Diet Gopher
       </h1>
@@ -9,7 +9,7 @@ const About = () => (
 
       <p> Dieting is hard, let us do some of the work for you</p>
     </div>
-  </Layout>
+  </Main>
 );
 
 export default About;

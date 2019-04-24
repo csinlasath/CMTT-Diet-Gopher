@@ -1,7 +1,7 @@
-import Layout from '../components/Layout';
+import Main from '../compositions/main';
 
 const Technology = () => (
-  <Layout>
+  <Main>
     <div>
       <h1>Technology Used
       </h1>
@@ -9,7 +9,7 @@ const Technology = () => (
 
 
     </div>
-  </Layout>
+  </Main>
 );
 
 export default Technology;
