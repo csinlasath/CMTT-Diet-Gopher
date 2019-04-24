@@ -10,7 +10,7 @@ class Main extends Component {
     }
 
     render() {
-        return (
+return (            
             <Fragment>
                 <Head />
                 <Navbar />
