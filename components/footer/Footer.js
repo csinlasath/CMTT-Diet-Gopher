@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <Fragment>
       <footer className='page-footer'>
-        <nav className='navbar fixed-bottom footer-copyright'>
+        <nav className='navbar footer-copyright'>
           <div className='container'>
             <div className='row hide-on-large-only center'>
               <span id='copyright'>
@@ -32,6 +32,10 @@ class Footer extends Component {
       <style jsx>{`
         #copyright {
           margin: 0px 20px 0px 0px;
+        }
+
+        footer {
+          height: 50px;
         }
 
         li {

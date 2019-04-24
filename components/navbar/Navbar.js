@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Link from 'next/link';
 
-const Navbar = () => (
+const Navbar = (props) => (
   <Fragment>
   <nav className="navbar navbar-expand navbar-light bg-light mb-4">
     <div className="container">
@@ -19,9 +19,15 @@ const Navbar = () => (
           </li>
         </ul>
       </div>
+      <button type='button' className='btn btn-outline-dark sign-on-btn' id='login-btn' data-toggle='modal' data-target='#loginModal' onClick={(e) => props.loginButtonHandler(e)}>Login</button>
+      <button type='button' className='btn btn-outline-dark sign-on-btn' id='signup-btn' data-toggle='modal' data-target='#loginModal' onClick={(e) => props.loginButtonHandler(e)}>Sign Up</button>
     </div>
   </nav>
   <style jsx>{`
+    .sign-on-btn {
+      margin: 0px 0px 0px 10px;
+    }
+
     ul {
       list-style-type: none;
     }
