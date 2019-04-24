@@ -1,23 +1,16 @@
-import React, { Component, Fragment } from 'react';
-import Link from 'next/link';
-import Main from '../compositions/main';
-import styles from './index/style.js';
+import React, { Component, Fragment } from "react";
+import Layout from "../components/Layout";
+import Link from "next/link";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-    }
 
-    render() {
-        return (
-            <Fragment>
-                <Main>
-                    <button className='btn btn-primary'>Home Page</button>
-                </Main>
-                <style jsx>{styles}</style>
-            </Fragment>
-        );
-    }
-}
+const Index = () => (
+  <Layout>
+    <div>
+      <h1> Customize Your Diet</h1>
+    </div>
+  
+  </Layout>
+ 
+);
 
-export default App;
+export default Index;
