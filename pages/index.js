@@ -1,16 +1,22 @@
-import React, { Component, Fragment } from "react";
-import Layout from "../components/Layout";
+import React, { Component, Fragment } from 'react';
+import Main from '../compositions/main';
+import HeroJumbotron from '../components/hero-jumbotron';
 import Link from "next/link";
 
 
-const Index = () => (
-  <Layout>
-    <div>
-      <h1> Customize Your Diet</h1>
-    </div>
-  
-  </Layout>
- 
-);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-export default Index;
+  render() {
+    return (
+      <Main>
+        <HeroJumbotron />
+      </Main>
+    );
+  }
+}
+
+export default App;

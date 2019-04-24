@@ -1,8 +1,8 @@
+import React, { Component, Fragment } from 'react';
 import Link from 'next/link';
 
-
-
 const Navbar = () => (
+  <Fragment>
   <nav className="navbar navbar-expand navbar-light bg-light mb-4">
     <div className="container">
       <a className="navbar-brand" href="#">Diet Gopher</a>
@@ -17,14 +17,16 @@ const Navbar = () => (
           <li className="nav-item">
             <Link href="/technology"><a className="nav-link">Technology</a></Link>
           </li>
-         
         </ul>
       </div>
-     </div>
-     </nav>
-   
-
-
+    </div>
+  </nav>
+  <style jsx>{`
+    ul {
+      list-style-type: none;
+    }
+  `}</style>
+  </Fragment>
 );
 
 export default Navbar;
