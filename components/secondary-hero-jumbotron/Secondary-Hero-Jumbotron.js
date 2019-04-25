@@ -11,9 +11,9 @@ const SecondaryHeroJumbotron = (props) => (
                     <div className='form-group'>
                         <label htmlFor='secondary-hero-search' className='form-control text-center'>Search</label>
                         <div className='input-group' id='secondary-hero-search'>
-                            <input type='text' className='form-control bg-light' name='secondary-hero-search' placeholder='Search for Food Nutritional Facts' id='secondary-hero-search-field'></input>
+                            <input type='text' className='form-control bg-light' name='secondary-hero-search' value={props.searchValue} placeholder='Search for Food Nutritional Facts' id='secondary-hero-search-field' onChange={props.formStateChange}></input>
                             <div className='input-group-append'>
-                                <button className='btn btn-outline-dark' id='secondary-hero-search-btn'>Search</button>
+                                <button type='button' className='btn btn-outline-dark' id='secondary-hero-search-btn' onClick={props.btnClickFunc}>Search</button>
                             </div>
                         </div>
                     </div>
