@@ -21,9 +21,10 @@ module.exports = function (server) {
     });
     //get recipe by ingredient
     server.get('/api/recipe/:ingr', (req, res) => {
+        let query = req.params.ingr.toLowerCase();
         db.recipe.findAll({
             where: {
-                foodIngredients: includes(req.params.ingr)
+                foodIngredients: sequelize.where(sequelize.fn('LOWER', sequelize.col('foodIngredients')), 'LIKE', '%' + query + '%')
             }
         }).then((dbRecipe) => {
             return res.json(dbRecipe);
