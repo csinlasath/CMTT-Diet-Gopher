@@ -15,62 +15,71 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSearchTopic: "",
+      currentSearchTopic: "8675309",
       secondaryHeroSearchValue: "",
       recipeSearchQuery: "",
-      recipeSearchDiet: "",
-      recipeSearchType: "",
-      recipeSearchCuisine: "",
+      recipeSearchDiet: "none",
+      recipeSearchType: "none",
+      recipeSearchCuisine: "none",
       recipeSearchInclude: "",
       recipeSearchExclude: "",
       recipeSearchAllergies: "",
       recipeSearchResultsArr: []
     };
-  }
+  };
 
   secondSearchFieldChange = (e) => {
     this.setState({
       secondaryHeroSearchValue: e.target.value
     });
-  }
+  };
 
-  secondHeroSearch = () => {
-    console.log(`This is what is getting submitted in Hero Search:  "${this.state.secondaryHeroSearchValue}"`);
-    const heroSearchValue = this.state.secondaryHeroSearchValue;
-    this.setState((state) => ({
-      currentSearchTopic: heroSearchValue,
-      secondaryHeroSearchValue: ""
-    }), () => {
-      console.log(this.state);
+  // secondHeroSearch = (event) => {
+  //   console.log(`This is what is getting submitted in Hero Search:  "${this.state.secondaryHeroSearchValue}"`);
+  //   const heroSearchValue = this.state.secondaryHeroSearchValue;
+  //   console.log(this);
+  //   this.setState((state) => ({
+  //     currentSearchTopic: "",
+  //     secondaryHeroSearchValue: ""
+  //   }), () => {
+  //     console.log(this.state);
+  //   });
+  // };
+  recipeSearch = () => {
+    this.setState({
+      currentSearchTopic: "recipes"
     });
-  }
+  };
+
+  menuSearch = () => {
+    this.setState({
+      currentSearchTopic: "menu"
+    });
+  };
+
+  grocerySearch = () => {
+    this.setState({
+      currentSearchTopic: "grocery"
+    });
+  };
 
   primarySearchFormChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value.trim()
     });
-  }
+  };
 
   primarySearchSubmit = () => {
-    const recipeQuery = this.state.recipeSearchQuery;
-    const recipeDiet = `&diet=${this.state.recipeSearchDiet}`;
-    const recipeType = `&type=${this.state.recipeSearchType}`;
-    const recipeCuisine = `&cuisine=${this.state.recipeSearchQuery}`;
-    const recipeInclude = `&ingredients=${this.state.recipeSearchQuery}`;
-    const recipeExclude = `&excludeIngredients=${this.state.recipeSearchQuery}`;
-    const recipeAllergies = `&intolerances=${this.state.recipeSearchQuery}`;
-
     const body = {
-      'query': recipeQuery,
-      'diet': recipeDiet,
-      'type': recipeType,
-      'cuisine': recipeCuisine,
-      'ingredients': recipeInclude,
-      'excludeIngredients': recipeExclude,
-      'intolerances': recipeAllergies,
-    }
-
-    const searchQuery = '/api/recipes';
+      'query': this.state.recipeSearchQuery,
+      'diet': this.state.recipeSearchDiet,
+      'type': this.state.recipeSearchType,
+      'cuisine': this.state.recipeSearchCuisine,
+      'ingredients': this.state.recipeSearchInclude,
+      'excludeIngredients': this.state.recipeSearchExclude,
+      'intolerances': this.state.recipeSearchAllergies,
+    };
+    const searchQuery = `/api/recipes/`;
 
     fetch(searchQuery, {
       method: 'POST',
@@ -86,21 +95,10 @@ class App extends Component {
         recipeSearchResultsArr: json.results
       });
     });
-  }
+  };
 
   render() {
-    if (this.state.currentSearchTopic === "" || null) {
-      return (
-        <Main>
-          <HeroJumbotron />
-          <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFunc={this.secondHeroSearch} />
-          <LoginModal>
-            This is a test
-          </LoginModal>
-        </Main>
-      );
-    }
-    else {
+    if (this.state.currentSearchTopic === "recipes"){
       return (
         <Main>
           <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.primarySearchSubmit} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
@@ -109,6 +107,17 @@ class App extends Component {
                 return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
             })}
           </ResultsContainer>
+        </Main>
+      );
+    }
+    else {
+      return (
+        <Main>
+          <HeroJumbotron />
+          <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickRec={this.recipeSearch} btnClickMenu={this.menuSearch} btnClickGroc={this.grocerySearch} />
+          <LoginModal>
+            This is a test
+          </LoginModal>
         </Main>
       );
     }

@@ -7,33 +7,29 @@ module.exports = function (server) {
     server.post('/api/recipes', (req, res) => {
         console.log(req.body);
         let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?";
-        if (req.body.query) {
+        if (req.body.query !== "") {
             let query = req.body.query.replace(" ", "+");
             requestString = requestString + "query=" + query.replace(",", "") + "&";
         };
         if (req.body.cuisine !== "none") {
             requestString = requestString + "cuisine=" + req.body.cuisine + "&";
         };
-        // if (req.body.vegan) {
-        //     requestString = requestString + "diet=vegan&";
-        // } else if (res.body.vegetarian) {
-        //     requestString = requestString + "diet=vegetarian&";
-        // } else if (req.body.ketogenic) {
-        //     requestString = requestString + "diet=ketogenic&";
-        // };
-        if (req.body.ingredients) {
+        if (req.body.diet !== "none") {
+            requestString = requestString + "diet=" + req.body.diet + "&";
+        };
+        if (req.body.ingredients !== "") {
             let ingredients = req.body.ingredients.replace(" ", "%2C+");
             requestString = requestString + "includeIngredients=" + ingredients.replace(",", "") + "&";
         };
-        if (req.body.excludeIngredients) {
+        if (req.body.excludeIngredients !== "") {
             let ingredients = req.body.excludeIngredients.replace(" ", "%2C+");
-            requestString = requestString + "excludeIngredients=" + ingredients + "&";
+            requestString = requestString + "excludeIngredients=" + ingredients.replace(",", "") + "&";
         };
-        if (req.body.intolerances) {
-            let intolerances = req.body.excludeIngredients.replace(" ", "%2C+");
-            requestString = requestString + "intolerances=" + intolerances + "&";
+        if (req.body.intolerances !== "") {
+            let intolerances = req.body.intolerances.replace(" ", "%2C+");
+            requestString = requestString + "intolerances=" + intolerances.replace(",", "") + "&";
         };
-        if (req.body.type) {
+        if (req.body.type !== "none") {
             requestString = requestString + "type=" + req.body.type + "&"
         };
         requestString = requestString + "limitLicense=false&offset=0&number=20";
