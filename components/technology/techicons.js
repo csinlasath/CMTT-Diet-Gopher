@@ -35,7 +35,7 @@ const TechIcons = props => (
                 font-size: 10rem;
               
                 
-                
+
             }
         }
         .container {
