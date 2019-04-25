@@ -40,16 +40,12 @@ module.exports = (sequelize, DataType) => {
             type: DataTypes.BOOLEAN,
             allowNull: true
         },
-        foodIngredients: {
+        foodPlanDate: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        foodPlanDate: {
-            type: DataType.STRING,
-            allowNull: true
-        },
         calRange: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         proRange: {
@@ -57,8 +53,12 @@ module.exports = (sequelize, DataType) => {
             allowNull: true
         },
         notes: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
+        },
+        stared: {
+            type: DataTypes.BOOLEAN,
+            defualt: false
         }
     });
 

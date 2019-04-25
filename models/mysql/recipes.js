@@ -41,11 +41,11 @@ module.exports = (sequelize, DataType) => {
             allowNull: true
         },
         foodPlanDate: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         calRange: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         proRange: {
@@ -53,7 +53,7 @@ module.exports = (sequelize, DataType) => {
             allowNull: true
         },
         comments: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         }
     });
