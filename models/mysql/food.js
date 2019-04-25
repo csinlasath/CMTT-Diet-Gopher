@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         stared: {
-            typr: DataTypes.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             default: false
         }
     });
