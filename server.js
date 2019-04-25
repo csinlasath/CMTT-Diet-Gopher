@@ -19,10 +19,14 @@ app.prepare().then(() => {
   server.use(express.static('pages'));
   server.use(userMongoRoutes);
   
-  require('./routes/userRoutes')(server);
+  require('./routes/apiRoutes')(server);
   require('./routes/foodRoutes')(server);
   require('./routes/recipeRoutes')(server);
-  require('./routes/apiRoutes')(server);
+  require('./routes/userRoutes')(server);
+
+  server.get('/', (req, res) => {
+    return handle(req, res);
+  });
 
   server.get('*', (req, res) => {
     return handle(req, res);

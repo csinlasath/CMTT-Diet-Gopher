@@ -1,23 +1,28 @@
 import React, { Component, Fragment } from 'react';
-import Link from 'next/link';
 import Main from '../compositions/main';
-import styles from './index/style.js';
+import HeroJumbotron from '../components/hero-jumbotron';
+import SecondaryHeroJumbotron from '../components/secondary-hero-jumbotron';
+import LoginModal from '../components/login-modal';
+import Link from "next/link";
+
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-    render() {
-        return (
-            <Fragment>
-                <Main>
-                    <button className='btn btn-primary'>Home Page</button>
-                </Main>
-                <style jsx>{styles}</style>
-            </Fragment>
-        );
-    }
+  render() {
+    return (
+      <Main>
+        <HeroJumbotron />
+        <SecondaryHeroJumbotron />
+        <LoginModal>
+          This is a test
+        </LoginModal>
+      </Main>
+    );
+  }
 }
 
 export default App;

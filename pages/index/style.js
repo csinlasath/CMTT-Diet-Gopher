@@ -2,8 +2,9 @@ const styles = {
     h1: {
         textAlign: 'center',
         margin: `${0} auto`,
-        color: 'green',
+        color: 'green'
     }
+
 }
 
 export default styles;

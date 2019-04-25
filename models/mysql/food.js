@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         calRange: {
-            type: DataType.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         proRange: {
