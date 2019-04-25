@@ -50,4 +50,24 @@ module.exports = function (server) {
             return res.json(dbRecipe);
         });
     });
+    //get all favorited recipes
+    server.get('/api/favorited', (req, res) => {
+        let results = [];
+        db.favorited.findAll({
+            where: {
+                userID: req.body.userID
+            }
+        }).then((dbFavorites) => {
+            for (let i = 0; i < dbFavorites.length; i++) {
+                db.recipe.findOne({
+                    where: {
+                        id: dbFavorites[i].itemID
+                    }
+                }).then((dbRecipe) => {
+                    results.push(dbRecipe);
+                });
+            };
+            return res.json(results);
+        });
+    });
 };
