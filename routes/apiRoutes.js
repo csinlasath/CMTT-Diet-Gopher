@@ -48,7 +48,7 @@ module.exports = function (server) {
     });
     //get recipe info
     server.get('/api/recipe/:id', (req, res) => {
-        unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + req.params.id + "/information")
+        unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + req.params.id + "/information?includeNutrition=true")
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1")
             .end(function (result) {
