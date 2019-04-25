@@ -69,7 +69,8 @@ class App extends Component {
       'excludeIngredients': recipeExclude,
       'intolerances': recipeAllergies,
     }
-    const searchQuery = `/api/recipes/`;
+
+    const searchQuery = '/api/recipes';
 
     fetch(searchQuery, {
       method: 'POST',
@@ -105,7 +106,7 @@ class App extends Component {
           <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.primarySearchSubmit} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
           <ResultsContainer>
             {this.state.recipeSearchResultsArr.map((recipe) => {
-              return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image}/>
+                return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
             })}
           </ResultsContainer>
         </Main>
