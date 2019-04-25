@@ -5,21 +5,22 @@ const key = "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1";
 module.exports = function (server) {
     //search for recipes
     server.post('/api/recipes', (req, res) => {
+        console.log(req.body);
         let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?";
-        if (res.body.query) {
+        if (req.body.query) {
             let query = req.body.query.replace(" ", "+");
             requestString = requestString + "query=" + query.replace(",", "") + "&";
         };
         if (req.body.cuisine !== "none") {
             requestString = requestString + "cuisine=" + req.body.cuisine + "&";
         };
-        if (res.body.vegan) {
-            requestString = requestString + "diet=vegan&";
-        } else if (res.body.vegetarian) {
-            requestString = requestString + "diet=vegetarian&";
-        } else if (res.body.ketogenic) {
-            requestString = requestString + "diet=ketogenic&";
-        };
+        // if (req.body.vegan) {
+        //     requestString = requestString + "diet=vegan&";
+        // } else if (res.body.vegetarian) {
+        //     requestString = requestString + "diet=vegetarian&";
+        // } else if (req.body.ketogenic) {
+        //     requestString = requestString + "diet=ketogenic&";
+        // };
         if (req.body.ingredients) {
             let ingredients = req.body.ingredients.replace(" ", "%2C+");
             requestString = requestString + "includeIngredients=" + ingredients.replace(",", "") + "&";
@@ -28,20 +29,21 @@ module.exports = function (server) {
             let ingredients = req.body.excludeIngredients.replace(" ", "%2C+");
             requestString = requestString + "excludeIngredients=" + ingredients + "&";
         };
-        if (res.body.intolerances) {
+        if (req.body.intolerances) {
             let intolerances = req.body.excludeIngredients.replace(" ", "%2C+");
             requestString = requestString + "intolerances=" + intolerances + "&";
         };
-        if (res.body.type) {
+        if (req.body.type) {
             requestString = requestString + "type=" + req.body.type + "&"
         };
         requestString = requestString + "limitLicense=false&offset=0&number=20";
+        console.log(`This is the request string: ${requestString}`)
         unirest.get(requestString)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)
             .end(function (result) {
                 if (result.status === 200) {
-                    res.json(results.body)
+                    res.json(result.body)
                 };
             });
     });

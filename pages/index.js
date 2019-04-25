@@ -5,6 +5,7 @@ import SecondaryHeroJumbotron from '../components/secondary-hero-jumbotron';
 import LoginModal from '../components/login-modal';
 import SearchRecipes from '../components/search-recipes';
 import ResultsContainer from '../components/results-container';
+import SearchResultsRecipes from '../components/search-results-recipes';
 import Link from "next/link";
 
 
@@ -23,7 +24,7 @@ class App extends Component {
       recipeSearchInclude: "",
       recipeSearchExclude: "",
       recipeSearchAllergies: "",
-      
+      recipeSearchResultsArr: []
     };
   }
 
@@ -48,7 +49,6 @@ class App extends Component {
     this.setState({
       [e.target.name]: e.target.value.trim()
     });
-    console.log(`${this.state.recipeSearchQuery}`);
   }
 
   primarySearchSubmit = () => {
@@ -60,21 +60,31 @@ class App extends Component {
     const recipeExclude = `&excludeIngredients=${this.state.recipeSearchQuery}`;
     const recipeAllergies = `&intolerances=${this.state.recipeSearchQuery}`;
 
+    const body = {
+      'query': recipeQuery,
+      'diet': recipeDiet,
+      'type': recipeType,
+      'cuisine': recipeCuisine,
+      'ingredients': recipeInclude,
+      'excludeIngredients': recipeExclude,
+      'intolerances': recipeAllergies,
+    }
     const searchQuery = `/api/recipes/`;
 
     fetch(searchQuery, {
       method: 'POST',
-      body: {
-        query: recipeQuery,
-      },
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }).then((res) => {
-        res.json()
-      }).then((json) => {
-        console.log(json);
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        recipeSearchResultsArr: json.results
       });
+    });
   }
 
   render() {
@@ -92,9 +102,11 @@ class App extends Component {
     else {
       return (
         <Main>
-          <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.primarySearchSubmit} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies}  />
+          <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.primarySearchSubmit} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
           <ResultsContainer>
-
+            {this.state.recipeSearchResultsArr.map((recipe) => {
+              return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image}/>
+            })}
           </ResultsContainer>
         </Main>
       );
