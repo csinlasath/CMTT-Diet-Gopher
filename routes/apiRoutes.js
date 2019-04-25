@@ -11,10 +11,10 @@ module.exports = function (server) {
             let query = req.body.query.replace(" ", "+");
             requestString = requestString + "query=" + query.replace(",", "") + "&";
         };
-        if (req.body.cuisine !== "") {
+        if (req.body.cuisine !== "none") {
             requestString = requestString + "cuisine=" + req.body.cuisine + "&";
         };
-        if (req.body.diet !== "") {
+        if (req.body.diet !== "none") {
             requestString = requestString + "diet=" + req.body.diet + "&";
         };
         if (req.body.ingredients !== "") {
@@ -29,7 +29,7 @@ module.exports = function (server) {
             let intolerances = req.body.intolerances.replace(" ", "%2C+");
             requestString = requestString + "intolerances=" + intolerances.replace(",", "") + "&";
         };
-        if (req.body.type !== "") {
+        if (req.body.type !== "none") {
             requestString = requestString + "type=" + req.body.type + "&"
         };
         requestString = requestString + "limitLicense=false&offset=0&number=20";
