@@ -40,10 +40,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: true
         },
-        foodIngredients: {
-            type: DataTypes.STRING,
-            allowNull: true
-        },
         foodPlanDate: {
             type: DataTypes.STRING,
             allowNull: true
@@ -59,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
         notes: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        stared: {
+            type: DataTypes.BOOLEAN,
+            defualt: false
         }
     });
 
