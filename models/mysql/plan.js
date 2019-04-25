@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             allowNull: true
         },
+        foodKeto: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true
+        },
         foodNuts: {
             type: DataTypes.BOOLEAN,
             allowNull: true

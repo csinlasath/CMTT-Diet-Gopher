@@ -3,10 +3,11 @@ const unirest = require('unirest');
 const key = "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1";
 
 module.exports = function (server) {
+    //search for recipes
     server.get('/api/recipes', (req, res) => {
         let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?";
         if (res.body.query) {
-            let query = req.body.query.replace(" ","+");
+            let query = req.body.query.replace(" ", "+");
             requestString = requestString + "query=" + query.replace(",", "") + "&";
         };
         if (req.body.cuisine !== "none") {
@@ -14,9 +15,9 @@ module.exports = function (server) {
         };
         if (res.body.vegan) {
             requestString = requestString + "diet=vegan&";
-        }else if (res.body.vegetarian) {
+        } else if (res.body.vegetarian) {
             requestString = requestString + "diet=vegetarian&";
-        }else if (res.body.ketogenic) {
+        } else if (res.body.ketogenic) {
             requestString = requestString + "diet=ketogenic&";
         };
         if (req.body.ingredients) {
@@ -36,13 +37,26 @@ module.exports = function (server) {
         };
         requestString = requestString + "limitLicense=false&offset=0&number=20";
         unirest.get(requestString)
-        .header("X-RapidAPI-Key", API_KEY)
-        .end(function (result) {
-            if (result.status === 200) {
-            getRecipeData(result.body);
-            res.json(results.body)
-            };
-        });
+            .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+            .header("X-RapidAPI-Key", API_KEY)
+            .end(function (result) {
+                if (result.status === 200) {
+                    getRecipeData(result.body);
+                    res.json(results.body)
+                };
+            });
+    });
+    //get recipe info
+    server.get('/api/recipe/:id', (req, res) => {
+        unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + req.params.id + "/information")
+            .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+            .header("X-RapidAPI-Key", "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1")
+            .end(function (result) {
+                if (result.status === 200) {
+                    getRecipeData(result.body);
+                    res.json(results.body)
+                };
+            });
     });
 };
 
