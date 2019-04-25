@@ -21,6 +21,8 @@ app.prepare().then(() => {
   
   require('./routes/userRoutes')(server);
   require('./routes/foodRoutes')(server);
+  require('./routes/recipeRoutes')(server);
+  require('./routes/apiRoutes')(server);
 
   server.get('*', (req, res) => {
     return handle(req, res);
