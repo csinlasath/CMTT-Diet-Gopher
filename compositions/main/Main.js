@@ -27,16 +27,13 @@ return (
                         min-height: 100%;
                         margin-bottom: -50px;
                     }
-
                     h1.title {
                         font-family: 'Roboto', sans-serif;
                         color: #222;
                     }
-
                     #root {
                         min-width: 1000px;
                     }
-
                 `}</style>
             </Fragment>
         );

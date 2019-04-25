@@ -1,15 +1,16 @@
-import Main from '../compositions/main';
+import Main from '../compositions/main/Main';
+import Techicons from '../components/technology/techicons';
+
+
+
 
 const Technology = () => (
   <Main>
-    <div>
-      <h1>Technology Used
-      </h1>
-      <p>info about tech used</p>
-
-
-    </div>
+    
+  <Techicons> </Techicons>
+ 
   </Main>
+
 );
 
 export default Technology;

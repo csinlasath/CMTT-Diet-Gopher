@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/csinlasath/CMTT-Diet-Gopher#readme",
   "dependencies": {
+    "babel-plugin-import-static-files": "^1.0.4",
     "dotenv": "^7.0.0",
     "eslint": "^5.16.0",
     "express": "^4.16.4",
