@@ -5,7 +5,7 @@ const Navbar = (props) => (
   <Fragment>
     <nav className="navbar navbar-expand navbar-light bg-light mb-4">
       <div className="container">
-        <a className="navbar-brand" href="#">Diet Gopher</a>
+        <a className="navbar-brand" href="/">Diet Gopher</a>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
