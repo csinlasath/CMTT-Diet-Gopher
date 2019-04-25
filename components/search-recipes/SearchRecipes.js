@@ -8,7 +8,7 @@ const SearchRecipes = (props) => (
                     <div className='input-group-prepend'>
                         <label htmlFor='recipeSearchQuery' className='form-control bg-light text-dark text-center col'>Search Recipe</label>
                     </div>
-                    <input type='text' className='form-control bg-light col' name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(required: e.g. Chicken)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)}></input>
+                    <input type='text' className='form-control bg-light col' name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)}></input>
                     <div className='input-group-append'>
                         <button type='button' className='btn btn-outline-dark col' id='recipeQuerySearchButton' onClick={props.btnClickFunc}>Search</button>
                     </div>
@@ -17,8 +17,7 @@ const SearchRecipes = (props) => (
             </div>
             <div className='form-group row'>
                 <select className='form-control btn btn-outline-dark' name='recipeSearchDiet' id='recipeSearchDiet' onChange={(e) => props.formStateChange(e)}>
-                    <option defaultValue>Choose Diet (Required)</option>
-                    <option value='none'>No Preferences</option>
+                    <option value='none' defaultValue>Choose Diet (Optional)</option>
                     <option value='ketogenic'>Ketogenic</option>
                     <option value='vegan'>Vegan</option>
                     <option value='vegetarian'>Vegetarian</option>

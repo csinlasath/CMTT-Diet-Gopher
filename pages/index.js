@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSearchTopic: "",
+      currentSearchTopic: "8675309",
       secondaryHeroSearchValue: "",
       recipeSearchQuery: "",
       recipeSearchDiet: "",
@@ -26,13 +26,13 @@ class App extends Component {
       recipeSearchAllergies: "",
       recipeSearchResultsArr: []
     };
-  }
+  };
 
   secondSearchFieldChange = (e) => {
     this.setState({
       secondaryHeroSearchValue: e.target.value
     });
-  }
+  };
 
   secondHeroSearch = () => {
     console.log(`This is what is getting submitted in Hero Search:  "${this.state.secondaryHeroSearchValue}"`);
@@ -43,32 +43,24 @@ class App extends Component {
     }), () => {
       console.log(this.state);
     });
-  }
+  };
 
   primarySearchFormChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value.trim()
     });
-  }
+  };
 
   primarySearchSubmit = () => {
-    const recipeQuery = this.state.recipeSearchQuery;
-    const recipeDiet = `&diet=${this.state.recipeSearchDiet}`;
-    const recipeType = `&type=${this.state.recipeSearchType}`;
-    const recipeCuisine = `&cuisine=${this.state.recipeSearchQuery}`;
-    const recipeInclude = `&ingredients=${this.state.recipeSearchQuery}`;
-    const recipeExclude = `&excludeIngredients=${this.state.recipeSearchQuery}`;
-    const recipeAllergies = `&intolerances=${this.state.recipeSearchQuery}`;
-
     const body = {
-      'query': recipeQuery,
-      'diet': recipeDiet,
-      'type': recipeType,
-      'cuisine': recipeCuisine,
-      'ingredients': recipeInclude,
-      'excludeIngredients': recipeExclude,
-      'intolerances': recipeAllergies,
-    }
+      'query': this.state.recipeSearchQuery,
+      'diet': this.state.recipeSearchDiet,
+      'type': this.state.recipeSearchType,
+      'cuisine': this.state.recipeSearchCuisine,
+      'ingredients': this.state.recipeSearchInclude,
+      'excludeIngredients': this.state.recipeSearchExclude,
+      'intolerances': this.state.recipeSearchAllergies,
+    };
     const searchQuery = `/api/recipes/`;
 
     fetch(searchQuery, {
@@ -85,10 +77,10 @@ class App extends Component {
         recipeSearchResultsArr: json.results
       });
     });
-  }
+  };
 
   render() {
-    if (this.state.currentSearchTopic === "" || null) {
+    if (this.state.currentSearchTopic === "8675309" || null) {
       return (
         <Main>
           <HeroJumbotron />
