@@ -4,7 +4,7 @@ const key = "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1";
 
 module.exports = function (server) {
     //search for recipes
-    server.get('/api/recipes', (req, res) => {
+    server.post('/api/recipes', (req, res) => {
         let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?";
         if (res.body.query) {
             let query = req.body.query.replace(" ", "+");
