@@ -56,8 +56,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true
         },
-        stared: {
-            typr: DataTypes.BOOLEAN,
+        favorited: {
+            type: DataTypes.BOOLEAN,
             default: false
         }
     });
