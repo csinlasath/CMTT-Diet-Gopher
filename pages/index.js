@@ -4,6 +4,7 @@ import HeroJumbotron from '../components/hero-jumbotron';
 import SecondaryHeroJumbotron from '../components/secondary-hero-jumbotron';
 import LoginModal from '../components/login-modal';
 import SearchRecipes from '../components/search-recipes';
+import SearchMenuItems from '../components/search-menu-items';
 import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
@@ -82,6 +83,29 @@ class App extends Component {
     });
   };
 
+  menuSearchSubmit = () => {
+    const body = {
+      'query': this.state.recipeSearchQuery
+    };
+
+    const searchQuery = '/api/menu/items';
+    console.log(body);
+    fetch(searchQuery, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        recipeSearchResultsArr: json.menuItems
+      });
+    });
+  }
+
   primarySearchSubmit = () => {
     const body = {
       'query': this.state.recipeSearchQuery,
@@ -127,6 +151,18 @@ class App extends Component {
       return (
         <Main>
           <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} searchValueQuery={this.state.recipeQuery} />
+          <ResultsContainer>
+            {this.state.recipeSearchResultsArr.map((recipe) => {
+              return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
+            })}
+          </ResultsContainer>
+        </Main>
+      )
+    }
+    else if (this.state.currentSearchTopic === "menu") {
+      return (
+        <Main>
+          <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickFunc={this.menuSearchSubmit} searchValueQuery={this.state.recipeQuery} />
           <ResultsContainer>
             {this.state.recipeSearchResultsArr.map((recipe) => {
               return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />

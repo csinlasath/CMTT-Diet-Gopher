@@ -55,7 +55,7 @@ module.exports = function (server) {
             });
     });
     //get menu items by query
-    server.get('/api/menu/items', (req, res) => {
+    server.post('/api/menu/items', (req, res) => {
         let query = req.body.query.replace(" ", "+");
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/search?offset=0&number=5&query=" + query)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
