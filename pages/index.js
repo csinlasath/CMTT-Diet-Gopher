@@ -4,6 +4,7 @@ import HeroJumbotron from '../components/hero-jumbotron';
 import SecondaryHeroJumbotron from '../components/secondary-hero-jumbotron';
 import LoginModal from '../components/login-modal';
 import SearchRecipes from '../components/search-recipes';
+import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
 import Link from "next/link";
@@ -34,17 +35,6 @@ class App extends Component {
     });
   };
 
-  // secondHeroSearch = (event) => {
-  //   console.log(`This is what is getting submitted in Hero Search:  "${this.state.secondaryHeroSearchValue}"`);
-  //   const heroSearchValue = this.state.secondaryHeroSearchValue;
-  //   console.log(this);
-  //   this.setState((state) => ({
-  //     currentSearchTopic: "",
-  //     secondaryHeroSearchValue: ""
-  //   }), () => {
-  //     console.log(this.state);
-  //   });
-  // };
   recipeSearch = () => {
     this.setState({
       currentSearchTopic: "recipes"
@@ -66,6 +56,29 @@ class App extends Component {
   primarySearchFormChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value.trim()
+    });
+  };
+
+  grocerySearchSubmit = () => {
+    const body = {
+      'query': this.state.recipeSearchQuery
+    };
+
+    const searchQuery = '/api/grocery/items';
+    console.log(body);
+    fetch(searchQuery, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        recipeSearchResultsArr: json.products
+      });
     });
   };
 
@@ -98,17 +111,29 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.currentSearchTopic === "recipes"){
+    if (this.state.currentSearchTopic === "recipes") {
       return (
         <Main>
           <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.primarySearchSubmit} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
           <ResultsContainer>
             {this.state.recipeSearchResultsArr.map((recipe) => {
-                return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
+              return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
             })}
           </ResultsContainer>
         </Main>
-      );
+      )
+    }
+    else if (this.state.currentSearchTopic === "grocery") {
+      return (
+        <Main>
+          <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} searchValueQuery={this.state.recipeQuery} />
+          <ResultsContainer>
+            {this.state.recipeSearchResultsArr.map((recipe) => {
+              return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} />
+            })}
+          </ResultsContainer>
+        </Main>
+      )
     }
     else {
       return (
