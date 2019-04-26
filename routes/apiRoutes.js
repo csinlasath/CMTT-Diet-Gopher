@@ -1,6 +1,8 @@
 const db = require('../models/mysql');
 const unirest = require('unirest');
-const key = "8c68a1cfd3msh3017b321c5ca61ep11bf0ajsn1060d25710b1";
+const key = process.env.SPOONACULAR_API_KEY;
+
+require('dotenv');
 
 module.exports = function (server) {
     //search for recipes
