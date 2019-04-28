@@ -9,7 +9,6 @@ const buttonStyle = {
 
 const SearchGrocery = (props) => (
     <Fragment>
-        <div className="search">
             <div className="input-group">
                 <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} title="Search">
                     <div className="search">
@@ -56,12 +55,11 @@ const SearchGrocery = (props) => (
                     margin: 20px 7px 7px 7px;
                 }
                 .search {
-                    min-width: 50vw;
+                    min-width: 75vw;
                     max-width: 90vw;
                 }
                 `}</style>
             </div>
-        </div>
     </Fragment>
 )
 

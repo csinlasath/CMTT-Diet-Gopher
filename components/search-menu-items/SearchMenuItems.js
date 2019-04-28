@@ -8,7 +8,6 @@ const buttonStyle = {
 
 const SearchMenuItems = (props) => (
     <Fragment>
-        <div className="search">
             <div className="input-group">
                 <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} title="Search">
                     <div className="search">
@@ -55,12 +54,11 @@ const SearchMenuItems = (props) => (
                     margin: 20px 7px 7px 7px;
                     }
                     .search {
-                    min-width: 50vw;
+                    min-width: 75vw;
                     max-width: 90vw;
                     }
         `       }</style>
             </div>
-        </div>
     </Fragment>
 )
 
