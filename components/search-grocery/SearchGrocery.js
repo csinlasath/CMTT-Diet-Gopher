@@ -52,7 +52,7 @@ const SearchGrocery = (props) => (
                     color: black;
                     text-align: center;
                 }
-                #recipeQuerySearchButton {
+                #groceryQuerySearchButton {
                     margin: 20px 7px 7px 7px;
                 }
                 .search {
