@@ -242,6 +242,11 @@ const SearchRecipes = (props) => (
                 #recipeQuerySearchButton {
                     margin: 20px 7px 7px 7px;
                 }
+                .input-group {
+                    max-width: 1070px;
+                    margin: auto;
+                    margin-top: 25px;
+                }
                 .btn-group {
                     width: 90%;
                 }
