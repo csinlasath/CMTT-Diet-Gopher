@@ -8,7 +8,7 @@ const HeroJumbotron = (props) => (
         </div>
         <style jsx>{`
             #hero-jumbotron {
-                height: 400px;
+                height: fit-content;
             }
 
             .sign-up-btn {

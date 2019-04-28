@@ -27,7 +27,7 @@ module.exports = function (server) {
             let ingredients = req.body.excludeIngredients.replace(" ", "%2C+");
             requestString = requestString + "excludeIngredients=" + ingredients.replace(",", "") + "&";
         };
-        if (req.body.intolerances !== "") {
+        if (req.body.intolerances !== "none") {
             let intolerances = req.body.intolerances.replace(" ", "%2C+");
             requestString = requestString + "intolerances=" + intolerances.replace(",", "") + "&";
         };
@@ -81,7 +81,7 @@ module.exports = function (server) {
     });
     //get grocery items by query
     server.post('/api/grocery/items', (req, res) => {
-        console.log(req);
+        console.log(req.body);
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/products/search?offset=0&number=25&query=" + req.body.query)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)
