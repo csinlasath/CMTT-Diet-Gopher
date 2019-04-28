@@ -33,7 +33,6 @@ class App extends Component {
   };
 
   pickSearch = (e) => {
-    console.log(e)
     this.setState({
       currentSearchTopic: e.target.name
     });
@@ -96,6 +95,7 @@ class App extends Component {
         searchResultsArr: json.menuItems
       });
     });
+    document.dispatchEvent(new MouseEvent('click'));
   }
 
   recipeSearchSubmit = () => {
@@ -124,6 +124,7 @@ class App extends Component {
         searchResultsArr: json.results
       });
     });
+    document.dispatchEvent(new MouseEvent('click'));
   };
 
   clickRecipe() {
@@ -134,6 +135,7 @@ class App extends Component {
     }).then((json) => {
       console.log(json);
     });
+    document.dispatchEvent(new MouseEvent('click'));
   };
 
   render() {
