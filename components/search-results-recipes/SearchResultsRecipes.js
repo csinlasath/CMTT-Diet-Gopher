@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 const SearchResults = (props) => (
     <Fragment>
-        <button type='button' className='list-group-item' data-spoonId={props.resultId}>
+        <button type='button' className='list-group-item' onClick={() => props.clickHandler()} data-id={props.resultId}>
             <div className='card text-center'>
                 <div className='row'>
                     <div className='col-md-4'>
