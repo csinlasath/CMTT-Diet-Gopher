@@ -10,15 +10,16 @@ import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
 import SearchRecipeResultsDetails from '../components/search-recipes-results-details';
-
+import SignedInHero from '../components/signed-in-hero/';
 
 import fetch from 'isomorphic-unfetch';
+import FavoriteRecipes from '../components/favorites-recipes';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
       userId: "",
       currentFocus: "8675309",
       menuSearchQuery: "",
@@ -43,6 +44,12 @@ class App extends Component {
       currentFocus: e.target.name
     });
   };
+
+  displayFavorites = () => {
+    this.setState({
+      currentFocus: "favorites"
+    });
+  }
 
   primarySearchFormChange = (e) => {
     this.setState({
@@ -214,10 +221,17 @@ class App extends Component {
             </MainLoggedIn>
           );
           break;
+        case "favorites":
+          return (
+            <MainLoggedIn>
+              <FavoriteRecipes />
+            </MainLoggedIn>
+          );
+          break;
         default:
           return (
             <MainLoggedIn>
-              <HeroJumbotron />
+              <SignedInHero btnClickFavorite={this.displayFavorites} />
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
               <LoginModal>
                 This is a test
