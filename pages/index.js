@@ -53,7 +53,7 @@ class App extends Component {
   typeSearchChange = (e) => {
     this.setState({
       currentFocus: e,
-      searchResultsArr: []
+      // searchResultsArr: []
     });
   };
 
@@ -140,6 +140,8 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
+      let temp = json.nutrition.nutrients;
+      json.nutrition.nutrients = temp.slice(0,8);
       console.log(json);
       this.setState({
         recipeDetails: json,
@@ -165,6 +167,12 @@ class App extends Component {
       return res.json();
     }).then((json) => {
       console.log(json);
+    });
+  };
+
+  backButton = (e) => {
+    this.setState({
+      currentFocus: e.target.getAttribute('data-id')
     });
   };
 
@@ -266,7 +274,7 @@ class App extends Component {
         case "recipeDetail":
           return (
             <Main>
-              <SearchRecipeResultsDetails result={this.state.recipeDetails} />
+              <SearchRecipeResultsDetails clickBack={this.backButton} result={this.state.recipeDetails} />
             </Main>
           );
           break;
