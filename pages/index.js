@@ -10,8 +10,6 @@ import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
 import SearchRecipeResultsDetails from '../components/search-recipes-results-details';
-
-
 import fetch from 'isomorphic-unfetch';
 
 class App extends Component {
