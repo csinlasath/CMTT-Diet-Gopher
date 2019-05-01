@@ -7,7 +7,12 @@ module.exports = (sequelize, DataTypes) => {
         userID: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
+
     });
     return favorited;
 };
