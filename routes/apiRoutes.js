@@ -80,7 +80,7 @@ module.exports = function (server) {
             });
     });
     //get menu item by id
-    server.get('/api/menu/items/:id', (req, res) => {
+    server.get('/api/menu/item/:id', (req, res) => {
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/" + req.params.id)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)

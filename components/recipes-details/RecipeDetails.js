@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const SearchRecipeResultsDetails = (props) => (
+const RecipeDetails = (props) => (
     <Fragment>
         <div className="container main">
             <div className="row">
@@ -77,7 +77,7 @@ const SearchRecipeResultsDetails = (props) => (
                     <h5 id="ingredients-title" className="text-center">Ingredients</h5>
                     <ul id="ingredients">
                         {props.result.extendedIngredients.map(ing => {
-                                    return <li>{ing.original}</li>
+                                    return <li key={ing.id}>{ing.original}</li>
                                 })}
                     </ul>
                 </div>
@@ -85,7 +85,7 @@ const SearchRecipeResultsDetails = (props) => (
                     <h5 id="instructions-title" className="text-center">Instructions</h5>
                     <ul id="instructions">
                         {props.result.analyzedInstructions[0].steps.map(inst => {
-                                    return <li>{inst.step}</li>
+                                    return <li key={inst.number}>{inst.step}</li>
                                 })}
                     </ul>
                 </div>
@@ -160,4 +160,4 @@ const SearchRecipeResultsDetails = (props) => (
     </Fragment>
 );
 
-export default SearchRecipeResultsDetails;
+export default RecipeDetails;
