@@ -42,6 +42,11 @@ const SearchMenuItems = (props) => (
                     margin: auto;
                     width: 90%;
                     }
+                    .input-group {
+                    max-width: 1070px;
+                    margin: auto;
+                    margin-top: 25px;
+                    }
                     label {
                     height: 100%;
                     width: 100%;
