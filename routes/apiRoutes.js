@@ -56,6 +56,17 @@ module.exports = function (server) {
                 };
             });
     });
+    //get recipe super detail
+    server.get('/api/recipe/super/:id', (req, res) => {
+        unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + req.params.id + "/nutritionWidget.json")
+            .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+            .header("X-RapidAPI-Key", key)
+            .end(function (result) {
+                if (result.status === 200) {
+                    res.json(result.body)
+                };
+            });
+    });
     //get menu items by query
     server.post('/api/menu/items', (req, res) => {
         let query = req.body.query.replace(" ", "+");
