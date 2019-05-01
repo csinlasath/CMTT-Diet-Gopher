@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Head from '../../components/head';
-import NavbarComponent from '../../components/navbar';
+import NavbarLoggedIn from '../../components/navbar-logged-in';
 import Footer from '../../components/footer';
 
 class Main extends Component {
@@ -17,7 +17,7 @@ class Main extends Component {
         return (
             <Fragment>
                 <Head />
-                <NavbarComponent loginButtonHandler={this.signOnButton} />
+                <NavbarLoggedIn loginButtonHandler={this.signOnButton} />
                 <div className='container container-wrapper'>
                     {this.props.children}
                 </div>
