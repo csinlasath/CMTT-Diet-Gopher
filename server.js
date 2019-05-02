@@ -9,6 +9,9 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const userMongoRoutes = require('./controllers/mongodb/usersController');
+const recipeMongoRoutes = require('./controllers/mongodb/recipesController');
+const menuMongoRoutes = require('./controllers/mongodb/menuController');
+const groceryMongoRoutes = require('./controllers/mongodb/groceryController');
 
 app.prepare().then(() => {
   const server = express();
@@ -18,6 +21,9 @@ app.prepare().then(() => {
   server.use(express.json());
   server.use(express.static('pages'));
   server.use(userMongoRoutes);
+  server.use(recipeMongoRoutes);
+  server.use(menuMongoRoutes);
+  server.use(groceryMongoRoutes);
   
   require('./routes/apiRoutes')(server);
   require('./routes/foodRoutes')(server);

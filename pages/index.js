@@ -19,8 +19,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      userId: "",
+      isLoggedIn: true,
+      userId: "808",
       currentFocus: "8675309",
       menuSearchQuery: "",
       grocerySearchQuery: "",
@@ -37,13 +37,15 @@ class App extends Component {
       menuDetails: [],
       groceryResultsArr: [],
       groceryDetails: [],
-      itemId: ""
+      itemId: "",
+      favorite: false
     };
   };
 
   pickSearch = (e) => {
     this.setState({
-      currentFocus: e.target.name
+      currentFocus: e.target.name,
+      favorite: false
     });
   };
 
@@ -55,7 +57,8 @@ class App extends Component {
 
   typeSearchChange = (e) => {
     this.setState({
-      currentFocus: e
+      currentFocus: e,
+      favorite: false
     });
   };
 
@@ -143,13 +146,26 @@ class App extends Component {
       return res.json();
     }).then((json) => {
       let temp = json.nutrition.nutrients;
-      json.nutrition.nutrients = temp.slice(0,8);
+      json.nutrition.nutrients = temp.slice(0, 8);
       console.log(json);
       this.setState({
         recipeDetails: json,
         currentFocus: "recipeDetail"
       });
       window.scrollTo(0, 0);
+    });
+    fetch('/api/favorited/' + this.state.userId, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].itemId === id && json[i].type === "recipe") {
+          this.setState({
+            favorite: true
+          });
+        };
+      };
     });
   };
 
@@ -166,6 +182,18 @@ class App extends Component {
       });
       window.scrollTo(0, 0);
     });
+    fetch('/api/favorited/' + this.state.userId, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].itemId === id && json[i].type === "menu") {
+          this.setState({
+            favorite: true
+          });
+        };
+      };
+    });
   };
 
   clickGrocery = (e) => {
@@ -175,19 +203,112 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         groceryDetails: json,
         currentFocus: "groceryDetail"
       });
       window.scrollTo(0, 0);
     });
+    fetch('/api/favorited/' + this.state.userId, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].itemId === id && json[i].type === "grocery") {
+          this.setState({
+            favorite: true
+          });
+        };
+      };
+    });
   };
 
   backButton = (e) => {
     this.setState({
-      currentFocus: e.target.getAttribute('data-id')
+      currentFocus: e.target.getAttribute('data-id'),
+      favorite: false
     });
+  };
+
+  favoriteClick = (e) => {
+    const id = e.target.getAttribute('data-id');
+    const type = e.target.getAttribute('data-type');
+    let body = this.state.recipeDetails;
+    let bodyGrocery = this.state.groceryDetails;
+    let bodyMenu = this.state.menuDetails;
+    let body2 = {};
+    body2.userId = this.state.userId;
+    body2.type = type;
+    body2.itemId = id
+    if (type === "recipe" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/recipes/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+      }
+    else if (type === "grocery" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/grocery/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ bodyGrocery })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+    }
+    else if (type === "menu" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/menu/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ bodyMenu })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+    }
+    if (!this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/add/favorite",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body2 })
+        })
+        .catch(function (res) { console.log(res) });
+      this.setState({
+        favorite: true
+      });
+    }
+    else if (this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/delete/favorite",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body2 })
+        })
+        .catch(function (res) { console.log(res) });
+      this.setState({
+        favorite: false
+      });
+    }
   };
 
   render() {
@@ -232,21 +353,21 @@ class App extends Component {
         case "recipeDetail":
           return (
             <MainLoggedIn>
-              <RecipeDetails result={this.state.recipeDetails} />
+              <RecipeDetails result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "groceryDetail":
           return (
             <MainLoggedIn>
-              <GroceryDetails clickBack={this.backButton} result={this.state.groceryDetails} />
+              <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "menuDetail":
           return (
             <MainLoggedIn>
-              <MenuDetails clickBack={this.backButton} result={this.state.menuDetails} />
+              <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
@@ -292,7 +413,7 @@ class App extends Component {
             <Main>
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
-              {console.log(this.state.menuResultsArr)}
+                {console.log(this.state.menuResultsArr)}
                 {this.state.menuResultsArr.map((recipe) => {
                   return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickMenu} />
                 })}
@@ -303,24 +424,24 @@ class App extends Component {
         case "recipeDetail":
           return (
             <Main>
-              <RecipeDetails clickBack={this.backButton} result={this.state.recipeDetails} />
+              <RecipeDetails clickBack={this.backButton} favorite={this.state.favorite} favoriteClick={this.favoriteClick} result={this.state.recipeDetails} />
             </Main>
           );
           break;
         case "groceryDetail":
-            return (
-              <Main>
-                <GroceryDetails clickBack={this.backButton} result={this.state.groceryDetails} />
-              </Main>
-            );
-            break;
+          return (
+            <Main>
+              <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
+            </Main>
+          );
+          break;
         case "menuDetail":
-            return (
-              <Main>
-                <MenuDetails clickBack={this.backButton} result={this.state.menuDetails} />
-              </Main>
-            );
-            break;
+          return (
+            <Main>
+              <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+            </Main>
+          );
+          break;
         default:
           return (
             <Main>

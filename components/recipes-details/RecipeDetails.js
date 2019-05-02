@@ -7,7 +7,7 @@ const RecipeDetails = (props) => (
                 <div className="col-lg-6 imageDiv">
                     <i data-id="recipes" onClick={(e) => { props.clickBack(e)}} className=" arrow fas fa-arrow-circle-left"></i>
                     <img className='recipeImg' alt={`${props.result.title} Image`} src={props.result.image} />
-                    <i className="star fas fa-heart"></i>
+                    {props.favorite ? <i className="star fas fa-heart favorite" onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type="recipe"></i> : <i className="star fas fa-heart" onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type="recipe"></i>}
                     <div className="row">
                         <div className="col-md-12">
                             <div className="card">
@@ -120,6 +120,9 @@ const RecipeDetails = (props) => (
                 }
                 .star:hover {
                     cursor:pointer;
+                }
+                .favorite {
+                    color: red!important;
                 }
                 .arrow {
                     font-size: 40px;

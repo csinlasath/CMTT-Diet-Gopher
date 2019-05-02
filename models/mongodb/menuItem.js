@@ -4,11 +4,14 @@ const Schema = mongoose.Schema;
 const menuSchema = new Schema({
   id: { type: String, required: true, unique: true},
   title: { type: String, required: true },
-  image: { type: String, required: false },
-  calories: { type: String, required: false },
-  carbs: { type: String, required: false },
-  fat: { type: String, required: false },
-  protein: { type: String, required: false }
+  restaurantChain: { type: String, required: true },
+  images: { type: Array, required: false },
+  nutrition: { type: [{
+    calories: { type: String },
+    carbs: { type: String},
+    fat: { type: String },
+    protein: { type: String }
+  }]},
 });
 
 const MenuItem = mongoose.model("MenuItem", menuSchema);
