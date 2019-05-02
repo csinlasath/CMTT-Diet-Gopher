@@ -17,7 +17,7 @@ class Main extends Component {
         return (
             <Fragment>
                 <Head />
-                <NavbarLoggedIn loginButtonHandler={this.signOnButton} />
+                <NavbarLoggedIn btnClickFront={this.signOnButton} />
                 <div className='container container-wrapper'>
                     {this.props.children}
                 </div>

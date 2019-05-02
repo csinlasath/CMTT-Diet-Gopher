@@ -56,17 +56,6 @@ module.exports = function (server) {
                 };
             });
     });
-    //get recipe super detail
-    server.get('/api/recipe/super/:id', (req, res) => {
-        unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + req.params.id + "/nutritionWidget.json")
-            .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-            .header("X-RapidAPI-Key", key)
-            .end(function (result) {
-                if (result.status === 200) {
-                    res.json(result.body)
-                };
-            });
-    });
     //get menu items by query
     server.post('/api/menu/items', (req, res) => {
         let query = req.body.query.replace(" ", "+");
@@ -80,7 +69,7 @@ module.exports = function (server) {
             });
     });
     //get menu item by id
-    server.get('/api/menu/item/:id', (req, res) => {
+    server.get('/api/menu/:id', (req, res) => {
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/menuItems/" + req.params.id)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)
@@ -103,7 +92,7 @@ module.exports = function (server) {
             });
     });
     //get grocery item by id
-    server.get('/api/grocery/items/:id', (req, res) => {
+    server.get('/api/grocery/:id', (req, res) => {
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/products/" + req.params.id)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)

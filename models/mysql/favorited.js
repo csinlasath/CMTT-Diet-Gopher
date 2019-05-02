@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const favorited = sequelize.define("favorited", {
-        itemID: {
+        itemId: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        userID: {
+        userId: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-
     });
     return favorited;
 };

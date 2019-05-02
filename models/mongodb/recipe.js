@@ -11,12 +11,14 @@ const recipeSchema = new Schema({
   glutenFree: { type: Boolean, required: false},
   image: { type: String, required: false },
   ketogenic: { type: Boolean, required: false },
-  nutrition: { type: Array, required: false },
+  nutrition: { type: [{
+    nutrients: { type: Array }
+  }]},
   preparationMinutes: { type: String, required: false },
   servings: { type: String, required: false },
   vegan: { type: Boolean, required: false },
   vegetarian: { type: Boolean, required: false },
-  whole30: { type:Boolean, required: false }
+  whole30: { type: Boolean, required: false }
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

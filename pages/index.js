@@ -22,7 +22,7 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: true,
-      userId: "",
+      userId: "808",
       currentFocus: "8675309",
       menuSearchQuery: "",
       grocerySearchQuery: "",
@@ -39,13 +39,15 @@ class App extends Component {
       menuDetails: [],
       groceryResultsArr: [],
       groceryDetails: [],
-      itemId: ""
+      itemId: "",
+      favorite: false
     };
   };
 
   pickSearch = (e) => {
     this.setState({
-      currentFocus: e.target.name
+      currentFocus: e.target.name,
+      favorite: false
     });
   };
 
@@ -63,7 +65,8 @@ class App extends Component {
 
   typeSearchChange = (e) => {
     this.setState({
-      currentFocus: e
+      currentFocus: e,
+      favorite: false
     });
   };
 
@@ -144,58 +147,124 @@ class App extends Component {
     document.dispatchEvent(new MouseEvent('click'));
   };
 
-  clickRecipe = (e) => {
+  clickItem = (e) => {
     const id = e.target.getAttribute('data-id');
-    fetch('/api/recipe/' + id, {
+    const type = e.target.getAttribute('data-type');
+    const details = type + "Details"
+    fetch('/api/' + type + '/' + id, {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      let temp = json.nutrition.nutrients;
-      json.nutrition.nutrients = temp.slice(0,8);
-      console.log(json);
+      if (json.nutrition.nutrients) {
+        let temp = json.nutrition.nutrients;
+        json.nutrition.nutrients = temp.slice(0, 8);
+      }
       this.setState({
-        recipeDetails: json,
-        currentFocus: "recipeDetail"
+        [details]: json,
+        currentFocus: type + "Detail"
       });
       window.scrollTo(0, 0);
     });
-  };
-
-  clickMenu = (e) => {
-    const id = e.target.getAttribute('data-id');
-    fetch('/api/menu/item/' + id, {
+    fetch('/api/favorited/' + this.state.userId, {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
-      this.setState({
-        menuDetails: json,
-        currentFocus: "menuDetail"
-      });
-      window.scrollTo(0, 0);
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].itemId === id && json[i].type === type) {
+          this.setState({
+            favorite: true
+          });
+        };
+      };
     });
-  };
-
-  clickGrocery = (e) => {
-    const id = e.target.getAttribute('data-id');
-    console.log(id);
-    fetch('/api/grocery/items/' + id, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      console.log(json);
-      this.setState({
-        groceryDetails: json,
-        currentFocus: "groceryDetail"
-      });
-      window.scrollTo(0, 0);
-    });
-  };
+  }
 
   backButton = (e) => {
     this.setState({
-      currentFocus: e.target.getAttribute('data-id')
+      currentFocus: e.target.getAttribute('data-id'),
+      favorite: false
     });
+  };
+
+  favoriteClick = (e) => {
+    const id = e.target.getAttribute('data-id');
+    const type = e.target.getAttribute('data-type');
+    let body = this.state.recipeDetails;
+    let bodyGrocery = this.state.groceryDetails;
+    let bodyMenu = this.state.menuDetails;
+    let body2 = {};
+    body2.userId = this.state.userId;
+    body2.type = type;
+    body2.itemId = id
+    if (type === "recipe" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/recipes/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+    }
+    else if (type === "grocery" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/grocery/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ bodyGrocery })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+    }
+    else if (type === "menu" && !this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/menu/add",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ bodyMenu })
+        })
+        .then(function (res) { console.log(res) })
+        .catch(function (res) { console.log(res) });
+    }
+    if (!this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/add/favorite",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body2 })
+        })
+        .catch(function (res) { console.log(res) });
+      this.setState({
+        favorite: true
+      });
+    }
+    else if (this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/delete/favorite",
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({ body2 })
+        })
+        .catch(function (res) { console.log(res) });
+      this.setState({
+        favorite: false
+      });
+    }
   };
 
   render() {
@@ -207,7 +276,7 @@ class App extends Component {
               <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
               <ResultsContainer>
                 {this.state.recipeResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickRecipe} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -219,7 +288,7 @@ class App extends Component {
               <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.groceryResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickGrocery} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -231,7 +300,7 @@ class App extends Component {
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.menuResultsArr.map((recipe) => {
-                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickMenu} />
+                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -240,21 +309,21 @@ class App extends Component {
         case "recipeDetail":
           return (
             <MainLoggedIn>
-              <RecipeDetails result={this.state.recipeDetails} />
+              <RecipeDetails result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "groceryDetail":
           return (
             <MainLoggedIn>
-              <GroceryDetails clickBack={this.backButton} result={this.state.groceryDetails} />
+              <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "menuDetail":
           return (
             <MainLoggedIn>
-              <MenuDetails clickBack={this.backButton} result={this.state.menuDetails} />
+              <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
@@ -284,7 +353,7 @@ class App extends Component {
               <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
               <ResultsContainer>
                 {this.state.recipeResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickRecipe} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>
@@ -296,7 +365,7 @@ class App extends Component {
               <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.groceryResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickGrocery} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>
@@ -307,9 +376,9 @@ class App extends Component {
             <Main>
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
-              {console.log(this.state.menuResultsArr)}
+                {console.log(this.state.menuResultsArr)}
                 {this.state.menuResultsArr.map((recipe) => {
-                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickMenu} />
+                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>
@@ -318,24 +387,24 @@ class App extends Component {
         case "recipeDetail":
           return (
             <Main>
-              <RecipeDetails clickBack={this.backButton} result={this.state.recipeDetails} />
+              <RecipeDetails clickBack={this.backButton} favorite={this.state.favorite} favoriteClick={this.favoriteClick} result={this.state.recipeDetails} />
             </Main>
           );
           break;
         case "groceryDetail":
-            return (
-              <Main>
-                <GroceryDetails clickBack={this.backButton} result={this.state.groceryDetails} />
-              </Main>
-            );
-            break;
+          return (
+            <Main>
+              <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
+            </Main>
+          );
+          break;
         case "menuDetail":
-            return (
-              <Main>
-                <MenuDetails clickBack={this.backButton} result={this.state.menuDetails} />
-              </Main>
-            );
-            break;
+          return (
+            <Main>
+              <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+            </Main>
+          );
+          break;
         default:
           return (
             <Main>

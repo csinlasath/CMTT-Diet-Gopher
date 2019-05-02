@@ -5,11 +5,13 @@ const grocerySchema = new Schema({
   id: { type: String, required: true, unique: true},
   title: { type: String, required: true },
   ingredientList: { type: String, required: false },
-  image: { type: String, required: false },
-  calories: { type: String, required: false },
-  carbs: { type: String, required: false },
-  fat: { type: String, required: false },
-  protein: { type: String, required: false },
+  images: { type: Array, required: false },
+  nutrition: { type: [{
+    calories: { type: String },
+    carbs: { type: String},
+    fat: { type: String },
+    protein: { type: String }
+  }]},
   servingSize: { type: String, required: false }
 });
 

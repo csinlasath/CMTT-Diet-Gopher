@@ -5,9 +5,10 @@ const MONOGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/diet_gopher
 const db = require('../../models/mongodb');
 mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
-//adds a recipe
-router.route('/api/recipes/add').post((req, res) => {
-    db.Recipe.create(req.body.body)
+//adds a grocery item
+router.route('/api/grocery/add').post((req, res) => {
+    console.log("hit");
+    db.GroceryItem.create(req.body.bodyGrocery)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));
 });
