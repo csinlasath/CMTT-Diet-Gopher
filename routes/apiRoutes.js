@@ -7,7 +7,6 @@ require('dotenv');
 module.exports = function (server) {
     //search for recipes
     server.post('/api/recipes', (req, res) => {
-        console.log(req.body);
         let requestString = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?";
         if (req.body.query !== "") {
             let query = req.body.query.replace(" ", "+");
@@ -81,7 +80,6 @@ module.exports = function (server) {
     });
     //get grocery items by query
     server.post('/api/grocery/items', (req, res) => {
-        console.log(req.body);
         unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/products/search?offset=0&number=25&query=" + req.body.query)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
             .header("X-RapidAPI-Key", key)

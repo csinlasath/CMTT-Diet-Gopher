@@ -16,6 +16,7 @@ const recipeSchema = new Schema({
   }]},
   preparationMinutes: { type: String, required: false },
   servings: { type: String, required: false },
+  type: { type: String, required: true },
   vegan: { type: Boolean, required: false },
   vegetarian: { type: Boolean, required: false },
   whole30: { type: Boolean, required: false }

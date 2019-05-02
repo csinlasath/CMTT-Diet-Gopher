@@ -8,19 +8,21 @@ module.exports = function (server) {
                 userID: req.params.id
             }
         }).then((dbFavorites) => {
-            console.log(dbFavorites);
             res.json(dbFavorites);
         });
     });
     //add favorite recipe
     server.post('/api/add/favorite', (req, res) => {
-        console.log(req.body.body2);
-        db.favorited.create(req.body.body2)
+        db.favorited.create(req.body.toFavorite).then((result) => {
+            res.json(result)
+        })
     });
     //delete favorite recipe
     server.post('/api/delete/favorite', (req, res) => {
         db.favorited.destroy({
-            where: req.body.body2
-        });
+            where: req.body.toFavorite
+        }).then((result) => {
+            res.json(result)
+        })
     });
 };

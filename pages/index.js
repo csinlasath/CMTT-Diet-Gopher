@@ -38,7 +38,8 @@ class App extends Component {
       groceryResultsArr: [],
       groceryDetails: [],
       itemId: "",
-      favorite: false
+      favorite: false,
+      favoritesArr: []
     };
   };
 
@@ -68,7 +69,6 @@ class App extends Component {
     };
 
     const searchQuery = '/api/grocery/items';
-    console.log(body);
     fetch(searchQuery, {
       method: 'POST',
       body: JSON.stringify(body),
@@ -92,7 +92,6 @@ class App extends Component {
     };
 
     const searchQuery = '/api/menu/items';
-    console.log(body);
     fetch(searchQuery, {
       method: 'POST',
       body: JSON.stringify(body),
@@ -181,15 +180,34 @@ class App extends Component {
   favoriteClick = (e) => {
     const id = e.target.getAttribute('data-id');
     const type = e.target.getAttribute('data-type');
-    let body = this.state.recipeDetails;
-    let bodyGrocery = this.state.groceryDetails;
-    let bodyMenu = this.state.menuDetails;
-    let body2 = {};
-    body2.userId = this.state.userId;
-    body2.type = type;
-    body2.itemId = id
-    if (type === "recipe" && !this.state.favorite && this.state.isLoggedIn) {
-      fetch("/api/recipes/add",
+    let body = [];
+    let toFavorite = {};
+    toFavorite.userId = this.state.userId;
+    toFavorite.type = type;
+    toFavorite.itemId = id;
+    switch (type) {
+      case "recipe":
+      body = this.state.recipeDetails;
+      body.type = "recipe";
+      toFavorite.image = this.state.recipeDetails.image;
+      toFavorite.title = this.state.recipeDetails.title;
+      break;
+      case "grocery":
+      body = this.state.groceryDetails;
+      body.type = "grocery";
+      toFavorite.image = this.state.groceryDetails.images[1];
+      toFavorite.title = this.state.groceryDetails.title;
+      break;
+      case "menu":
+      body = this.state.menuDetails;
+      body.type = "menu";
+      toFavorite.image = this.state.menuDetails.images[1];
+      toFavorite.title = this.state.menuDetails.title;
+      toFavorite.restaurantChain = this.state.menuDetails.restaurantChain;
+      break;
+    };
+    if (!this.state.favorite && this.state.isLoggedIn) {
+      fetch("/api/"+type+"/add",
         {
           headers: {
             'Accept': 'application/json',
@@ -200,34 +218,6 @@ class App extends Component {
         })
         .then(function (res) { console.log(res) })
         .catch(function (res) { console.log(res) });
-    }
-    else if (type === "grocery" && !this.state.favorite && this.state.isLoggedIn) {
-      fetch("/api/grocery/add",
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify({ bodyGrocery })
-        })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) });
-    }
-    else if (type === "menu" && !this.state.favorite && this.state.isLoggedIn) {
-      fetch("/api/menu/add",
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify({ bodyMenu })
-        })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) });
-    }
-    if (!this.state.favorite && this.state.isLoggedIn) {
       fetch("/api/add/favorite",
         {
           headers: {
@@ -235,12 +225,15 @@ class App extends Component {
             'Content-Type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({ body2 })
+          body: JSON.stringify({ toFavorite })
+        })
+        .then((result) => {
+          console.log(result);
+          this.setState({
+            favorite: true
+          });
         })
         .catch(function (res) { console.log(res) });
-      this.setState({
-        favorite: true
-      });
     }
     else if (this.state.favorite && this.state.isLoggedIn) {
       fetch("/api/delete/favorite",
@@ -250,21 +243,71 @@ class App extends Component {
             'Content-Type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({ body2 })
+          body: JSON.stringify({ toFavorite })
+        })
+        .then(result => {
+          console.log(result);
+          this.setState({
+            favorite: false
+          });
         })
         .catch(function (res) { console.log(res) });
-      this.setState({
-        favorite: false
-      });
-    }
+    };
+  };
+
+  favorites = () => {
+    this.setState({
+      favoritesArr: []
+    })
+    let favorites = [];
+    // fetch("/api/favorited/" + this.state.userId, {
+    // }).then((res) => {
+    //   return res.json();
+    // }).then((json) => {
+    //   console.log(json);
+    //   for (let i = 0; i < json.length; i++) {
+    //     switch (json[i].type) {
+    //       case "recipe":
+    //       fetch("/api/favRecipes/" + json[i].itemId, {
+    //       }).then((res) => {
+    //         return res.json();
+    //       }).then((json) => {
+    //         favorites.push(json);
+    //       });
+    //       break;
+    //       case "menu":
+    //       fetch("/api/favMenu/" + json[i].itemId, {
+    //       }).then((res) => {
+    //         return res.json();
+    //       }).then((json) => {
+    //         favorites.push(json);
+    //       });
+    //       break;
+    //       case "grocery":
+    //       fetch("/api/favGrocery/" + json[i].itemId, {
+    //       }).then((res) => {
+    //         return res.json();
+    //       }).then((json) => {
+    //         favorites.push(json);
+    //       });
+    //       break;
+    //     };
+    //   };
+    //   console.log(favorites);
+    //   this.setState({
+    //     favoritesArr: favorites,
+    //     currentFocus: "favorites"
+    //   });
+    // });
   };
 
   render() {
+    console.log(this.state.favoritesArr);
     if (this.state.isLoggedIn) {
       switch (this.state.currentFocus) {
         case "recipes":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
               <ResultsContainer>
                 {this.state.recipeResultsArr.map((recipe) => {
@@ -276,7 +319,7 @@ class App extends Component {
           break;
         case "grocery":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.groceryResultsArr.map((recipe) => {
@@ -288,7 +331,7 @@ class App extends Component {
           break;
         case "menu":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.menuResultsArr.map((recipe) => {
@@ -300,28 +343,39 @@ class App extends Component {
           break;
         case "recipeDetail":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <RecipeDetails result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "groceryDetail":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
         case "menuDetail":
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+            </MainLoggedIn>
+          );
+          break;
+        case "favorites":
+          return (
+            <MainLoggedIn favorites={this.favorites}>
+              <ResultsContainer>
+                {this.state.favoritesArr.map((recipe) => {
+                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
+                })}
+              </ResultsContainer>
             </MainLoggedIn>
           );
           break;
         default:
           return (
-            <MainLoggedIn>
+            <MainLoggedIn favorites={this.favorites}>
               <HeroJumbotron />
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
               <LoginModal>
@@ -361,7 +415,6 @@ class App extends Component {
             <Main>
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
-                {console.log(this.state.menuResultsArr)}
                 {this.state.menuResultsArr.map((recipe) => {
                   return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}

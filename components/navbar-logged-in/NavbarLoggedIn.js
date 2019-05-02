@@ -13,9 +13,9 @@ const NavbarLoggedIn = (props) => (
         <Nav.Link href="/technology">Technology</Nav.Link>
       </Nav>
       <Nav className="mr-auto">
-        <Nav.Link name="favorites" onClick={(e) => props.btnClickFront(e)}>Favorites</Nav.Link>
-        <Nav.Link name="plan" onClick={(e) => props.btnClickFront(e)}>Plan</Nav.Link>
-        <Nav.Link name="history" onClick={(e) => props.btnClickFront(e)}>History</Nav.Link>
+        <Nav.Link name="favorites" onClick={props.favorites}>Favorites</Nav.Link>
+        <Nav.Link name="plan" onClick={props.favorites}>Plan</Nav.Link>
+        <Nav.Link name="history" onClick={props.favorites}>History</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Navbar>

@@ -6,10 +6,18 @@ const db = require('../../models/mongodb');
 mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
 //adds a recipe
-router.route('/api/recipes/add').post((req, res) => {
+router.route('/api/recipe/add').post((req, res) => {
     db.Recipe.create(req.body.body)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));
+});
+//gets a recipe
+router.route('/api/favRecipes/:id').get((req, res) => {
+    console.log(req.params.id);
+    db.Recipe.findOne({
+        id: req.params.id
+    }).then(dbRecipe => res.json(dbRecipe))
+    .catch(err => res.status(422).json(err));
 });
     
 module.exports = router;
