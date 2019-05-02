@@ -14,7 +14,7 @@ const SearchGrocery = (props) => (
                     <div className="search">
                         <div className='form-group inputs'>
                             <div className="form-group inputs">
-                                <label for="grocerySearchQuery">Grocery Search</label>
+                                <label htmlFor="grocerySearchQuery">Grocery Search</label>
                                 <input type="text" className="form-control" name='grocerySearchQuery' value={props.searchValueQuery} placeholder='(e.g. Cool Ranch Doritos)' id='grocerySearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                         </div>
