@@ -9,7 +9,7 @@ import SearchMenuItems from '../components/search-menu-items';
 import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
-import SignedInHero from '../components/signed-in-hero/';
+// import SignedInHero from '../components/signed-in-hero/';
 import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
@@ -337,7 +337,7 @@ class App extends Component {
         default:
           return (
             <MainLoggedIn>
-              <SignedInHero btnClickFavorite={this.displayFavorites} />
+              {/* <SignedInHero btnClickFavorite={this.displayFavorites} /> */}
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
               <LoginModal>
                 This is a test
