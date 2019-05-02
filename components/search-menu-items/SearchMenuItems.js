@@ -13,7 +13,7 @@ const SearchMenuItems = (props) => (
                     <div className="search">
                         <div className='form-group inputs'>
                             <div className="form-group inputs">
-                                <label htmlFor="menuSearchQuery">Grocery Search</label>
+                                <label htmlFor="menuSearchQuery">Menu Search</label>
                                 <input type="text" className="form-control" name='menuSearchQuery' value={props.searchValueQuery} placeholder='(e.g. Doritos Locos Tacos)' id='menuSearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                         </div>

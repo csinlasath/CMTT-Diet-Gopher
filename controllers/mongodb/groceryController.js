@@ -7,10 +7,17 @@ mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
 //adds a grocery item
 router.route('/api/grocery/add').post((req, res) => {
-    console.log("hit");
     db.GroceryItem.create(req.body.bodyGrocery)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));
+});
+//gets a grocery item
+router.route('/api/favGrocery/:id').get((req, res) => {
+    console.log(req.params.id);
+    db.GroceryItem.findOne({
+        id: req.params.id
+    }).then(dbGrocery => res.json(dbGrocery))
+    .catch(err => res.status(422).json(err));
 });
     
 module.exports = router;

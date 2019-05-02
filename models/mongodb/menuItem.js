@@ -6,6 +6,7 @@ const menuSchema = new Schema({
   title: { type: String, required: true },
   restaurantChain: { type: String, required: true },
   images: { type: Array, required: false },
+  type: { type: String, required: true },
   nutrition: { type: [{
     calories: { type: String },
     carbs: { type: String},

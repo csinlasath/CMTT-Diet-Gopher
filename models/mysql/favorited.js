@@ -11,6 +11,18 @@ module.exports = (sequelize, DataTypes) => {
         type: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        restaurantChain: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     });
     return favorited;
