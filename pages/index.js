@@ -139,46 +139,21 @@ class App extends Component {
     document.dispatchEvent(new MouseEvent('click'));
   };
 
-  clickRecipe = (e) => {
+  clickItem = (e) => {
     const id = e.target.getAttribute('data-id');
-    fetch('/api/recipe/' + id, {
+    const type = e.target.getAttribute('data-type');
+    const details = type + "Details"
+    fetch('/api/' + type + '/' + id, {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      let temp = json.nutrition.nutrients;
-      json.nutrition.nutrients = temp.slice(0, 8);
-      console.log(json);
+      if (json.nutrition.nutrients) {
+        let temp = json.nutrition.nutrients;
+        json.nutrition.nutrients = temp.slice(0, 8);
+      }
       this.setState({
-        recipeDetails: json,
-        currentFocus: "recipeDetail"
-      });
-      window.scrollTo(0, 0);
-    });
-    fetch('/api/favorited/' + this.state.userId, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      console.log(json);
-      for (let i = 0; i < json.length; i++) {
-        if (json[i].itemId === id && json[i].type === "recipe") {
-          this.setState({
-            favorite: true
-          });
-        };
-      };
-    });
-  };
-
-  clickMenu = (e) => {
-    const id = e.target.getAttribute('data-id');
-    fetch('/api/menu/item/' + id, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      console.log(json);
-      this.setState({
-        menuDetails: json,
-        currentFocus: "menuDetail"
+        [details]: json,
+        currentFocus: type + "Detail"
       });
       window.scrollTo(0, 0);
     });
@@ -187,41 +162,14 @@ class App extends Component {
       return res.json();
     }).then((json) => {
       for (let i = 0; i < json.length; i++) {
-        if (json[i].itemId === id && json[i].type === "menu") {
+        if (json[i].itemId === id && json[i].type === type) {
           this.setState({
             favorite: true
           });
         };
       };
     });
-  };
-
-  clickGrocery = (e) => {
-    const id = e.target.getAttribute('data-id');
-    console.log(id);
-    fetch('/api/grocery/items/' + id, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      this.setState({
-        groceryDetails: json,
-        currentFocus: "groceryDetail"
-      });
-      window.scrollTo(0, 0);
-    });
-    fetch('/api/favorited/' + this.state.userId, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      for (let i = 0; i < json.length; i++) {
-        if (json[i].itemId === id && json[i].type === "grocery") {
-          this.setState({
-            favorite: true
-          });
-        };
-      };
-    });
-  };
+  }
 
   backButton = (e) => {
     this.setState({
@@ -252,7 +200,7 @@ class App extends Component {
         })
         .then(function (res) { console.log(res) })
         .catch(function (res) { console.log(res) });
-      }
+    }
     else if (type === "grocery" && !this.state.favorite && this.state.isLoggedIn) {
       fetch("/api/grocery/add",
         {
@@ -320,7 +268,7 @@ class App extends Component {
               <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
               <ResultsContainer>
                 {this.state.recipeResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickRecipe} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -332,7 +280,7 @@ class App extends Component {
               <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.groceryResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickGrocery} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -344,7 +292,7 @@ class App extends Component {
               <SearchMenuItems formStateChange={this.primarySearchFormChange} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.menuResultsArr.map((recipe) => {
-                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickMenu} />
+                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>
@@ -390,7 +338,7 @@ class App extends Component {
               <SearchRecipes formStateChange={this.primarySearchFormChange} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
               <ResultsContainer>
                 {this.state.recipeResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickRecipe} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>
@@ -402,7 +350,7 @@ class App extends Component {
               <SearchGrocery formStateChange={this.primarySearchFormChange} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
               <ResultsContainer>
                 {this.state.groceryResultsArr.map((recipe) => {
-                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickGrocery} />
+                  return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>
@@ -415,7 +363,7 @@ class App extends Component {
               <ResultsContainer>
                 {console.log(this.state.menuResultsArr)}
                 {this.state.menuResultsArr.map((recipe) => {
-                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} imageLink={recipe.image} clickHandler={this.clickMenu} />
+                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
                 })}
               </ResultsContainer>
             </Main>

@@ -77,7 +77,7 @@ const RecipeDetails = (props) => (
                     <h5 id="ingredients-title" className="text-center">Ingredients</h5>
                     <ul id="ingredients">
                         {props.result.extendedIngredients.map(ing => {
-                                    return <li key={ing.id}>{ing.original}</li>
+                                    return <li key={ing.original}>{ing.original}</li>
                                 })}
                     </ul>
                 </div>
