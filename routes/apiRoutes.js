@@ -33,7 +33,7 @@ module.exports = function (server) {
         if (req.body.type !== "none") {
             requestString = requestString + "type=" + req.body.type + "&"
         };
-        requestString = requestString + "limitLicense=false&offset=0&number=20";
+        requestString = requestString + "&instructionsRequired=true&limitLicense=false&offset=0&number=20";
         console.log(`This is the request string: ${requestString}`)
         unirest.get(requestString)
             .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
