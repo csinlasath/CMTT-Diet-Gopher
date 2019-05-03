@@ -7,7 +7,7 @@ mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
 //adds a menu item
 router.route('/api/menu/add').post((req, res) => {
-    db.MenuItem.create(req.body.bodyMenu)
+    db.MenuItem.create(req.body.body)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));
 });
