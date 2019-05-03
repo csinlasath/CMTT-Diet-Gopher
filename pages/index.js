@@ -151,7 +151,7 @@ class App extends Component {
         json.nutrition.nutrients = temp.slice(0, 8);
       };
       if (json.analyzedInstructions.length > 1) {
-        for (let i = 0; i < json.analyzedInstructions.length; i++) {
+        for (let i = 1; i < json.analyzedInstructions.length; i++) {
           json.analyzedInstructions[0].steps.push(json.analyzedInstructions[i].steps[0])
         };
       };
