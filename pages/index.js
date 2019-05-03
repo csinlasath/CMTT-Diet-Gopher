@@ -204,14 +204,23 @@ class App extends Component {
   };
 
   backButton = (e) => {
+    if (this.state.previousFocus === "favorites") {
+      fetch("/api/favorited/" + this.state.userId, {
+      }).then((res) => {
+        return res.json();
+      }).then((json) => {
+        this.setState({
+          favoritesArr: json
+        });
+      });
+    };
     this.setState({
       currentFocus: this.state.previousFocus,
-      // currentFocus: e.target.getAttribute('data-id'),
       favorite: false
     });
   };
 
-  //when you click "Favorites" in the Navbar
+  //when you click the favorites heart in details
   favoriteClick = (e) => {
     const id = e.target.getAttribute('data-id');
     const type = e.target.getAttribute('data-type');
@@ -290,12 +299,12 @@ class App extends Component {
     };
   };
 
+  //when you click favorites in the navbar
   favorites = () => {
     fetch("/api/favorited/" + this.state.userId, {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         favoritesArr: json,
         currentFocus: "favorites"
