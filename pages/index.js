@@ -204,7 +204,7 @@ class App extends Component {
   };
 
   backButton = (e) => {
-    if (this.state.previousFocus = "favorites") {
+    if (this.state.previousFocus === "favorites") {
       fetch("/api/favorited/" + this.state.userId, {
       }).then((res) => {
         return res.json();
