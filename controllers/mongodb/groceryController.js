@@ -7,7 +7,7 @@ mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
 //adds a grocery item
 router.route('/api/grocery/add').post((req, res) => {
-    db.GroceryItem.create(req.body.bodyGrocery)
+    db.GroceryItem.create(req.body.body)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));
 });
