@@ -11,9 +11,9 @@ const recipeSchema = new Schema({
   glutenFree: { type: Boolean, required: false},
   image: { type: String, required: false },
   ketogenic: { type: Boolean, required: false },
-  nutrition: { type: [{
+  nutrition: { type: {
     nutrients: { type: Array }
-  }]},
+  }},
   preparationMinutes: { type: String, required: false },
   servings: { type: String, required: false },
   type: { type: String, required: true },

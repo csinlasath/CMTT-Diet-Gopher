@@ -12,7 +12,7 @@ router.route('/api/recipe/add').post((req, res) => {
       .catch(err => res.status(422).json(err));
 });
 //gets a recipe
-router.route('/api/favRecipes/:id').get((req, res) => {
+router.route('/api/favrecipe/:id').get((req, res) => {
     console.log(req.params.id);
     db.Recipe.findOne({
         id: req.params.id
