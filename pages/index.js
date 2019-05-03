@@ -53,12 +53,6 @@ class App extends Component {
     });
   };
 
-  displayFavorites = () => {
-    this.setState({
-      currentFocus: "favorites"
-    });
-  }
-
   primarySearchFormChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value.trim()
@@ -87,7 +81,6 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         groceryResultsArr: json.products
       });
@@ -110,7 +103,6 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         menuResultsArr: json.menuItems
       });
@@ -139,7 +131,6 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         recipeResultsArr: json.results
       });
@@ -156,11 +147,15 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       if (json.nutrition.nutrients) {
         let temp = json.nutrition.nutrients;
         json.nutrition.nutrients = temp.slice(0, 8);
-      }
+      };
+      if (json.analyzedInstructions.length > 1) {
+        for (let i = 0; i < json.analyzedInstructions.length; i++) {
+          json.analyzedInstructions[0].steps.push(json.analyzedInstructions[i].steps[0])
+        };
+      };
       this.setState({
         [details]: json,
         previousFocus: this.state.currentFocus,
@@ -192,7 +187,6 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
       this.setState({
         [details]: json,
         previousFocus: this.state.currentFocus,
@@ -272,7 +266,6 @@ class App extends Component {
           body: JSON.stringify({ toFavorite })
         })
         .then((result) => {
-          console.log(result);
           this.setState({
             favorite: true
           });
@@ -290,7 +283,6 @@ class App extends Component {
           body: JSON.stringify({ toFavorite })
         })
         .then(result => {
-          console.log(result);
           this.setState({
             favorite: false
           });
