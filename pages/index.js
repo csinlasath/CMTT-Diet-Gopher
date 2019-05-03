@@ -24,6 +24,7 @@ class App extends Component {
       isLoggedIn: true,
       userId: "808",
       currentFocus: "8675309",
+      previousFocus: "8675309",
       menuSearchQuery: "",
       grocerySearchQuery: "",
       recipeSearchQuery: "",
@@ -146,6 +147,7 @@ class App extends Component {
     document.dispatchEvent(new MouseEvent('click'));
   };
 
+  //when you click an item in search results
   clickItem = (e) => {
     const id = e.target.getAttribute('data-id');
     const type = e.target.getAttribute('data-type');
@@ -154,12 +156,14 @@ class App extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
+      console.log(json);
       if (json.nutrition.nutrients) {
         let temp = json.nutrition.nutrients;
         json.nutrition.nutrients = temp.slice(0, 8);
       }
       this.setState({
         [details]: json,
+        previousFocus: this.state.currentFocus,
         currentFocus: type + "Detail"
       });
       window.scrollTo(0, 0);
@@ -176,15 +180,38 @@ class App extends Component {
         };
       };
     });
-  }
+  };
+
+  //When you click an item in favorites
+  clickFavorite = (e) => {
+    const id = e.target.getAttribute('data-id');
+    const type = e.target.getAttribute('data-type');
+    const details = type + "Details"
+    // /api/favmenu/:id
+    fetch('/api/fav' + type + '/' + id, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        [details]: json,
+        previousFocus: this.state.currentFocus,
+        currentFocus: type + "Detail",
+        favorite: true
+      });
+      window.scrollTo(0, 0);
+    });
+  };
 
   backButton = (e) => {
     this.setState({
-      currentFocus: e.target.getAttribute('data-id'),
+      currentFocus: this.state.previousFocus,
+      // currentFocus: e.target.getAttribute('data-id'),
       favorite: false
     });
   };
 
+  //when you click "Favorites" in the Navbar
   favoriteClick = (e) => {
     const id = e.target.getAttribute('data-id');
     const type = e.target.getAttribute('data-type');
@@ -264,53 +291,19 @@ class App extends Component {
   };
 
   favorites = () => {
-    this.setState({
-      favoritesArr: []
-    })
-    let favorites = [];
-    // fetch("/api/favorited/" + this.state.userId, {
-    // }).then((res) => {
-    //   return res.json();
-    // }).then((json) => {
-    //   console.log(json);
-    //   for (let i = 0; i < json.length; i++) {
-    //     switch (json[i].type) {
-    //       case "recipe":
-    //       fetch("/api/favRecipes/" + json[i].itemId, {
-    //       }).then((res) => {
-    //         return res.json();
-    //       }).then((json) => {
-    //         favorites.push(json);
-    //       });
-    //       break;
-    //       case "menu":
-    //       fetch("/api/favMenu/" + json[i].itemId, {
-    //       }).then((res) => {
-    //         return res.json();
-    //       }).then((json) => {
-    //         favorites.push(json);
-    //       });
-    //       break;
-    //       case "grocery":
-    //       fetch("/api/favGrocery/" + json[i].itemId, {
-    //       }).then((res) => {
-    //         return res.json();
-    //       }).then((json) => {
-    //         favorites.push(json);
-    //       });
-    //       break;
-    //     };
-    //   };
-    //   console.log(favorites);
-    //   this.setState({
-    //     favoritesArr: favorites,
-    //     currentFocus: "favorites"
-    //   });
-    // });
+    fetch("/api/favorited/" + this.state.userId, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+      this.setState({
+        favoritesArr: json,
+        currentFocus: "favorites"
+      });
+    });
   };
 
   render() {
-    console.log(this.state.favoritesArr);
     if (this.state.isLoggedIn) {
       switch (this.state.currentFocus) {
         case "recipes":
@@ -374,8 +367,8 @@ class App extends Component {
           return (
             <MainLoggedIn favorites={this.favorites}>
               <ResultsContainer>
-                {this.state.favoritesArr.map((recipe) => {
-                  return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
+                {this.state.favoritesArr.map((favorite) => {
+                  return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} />
                 })}
               </ResultsContainer>
             </MainLoggedIn>

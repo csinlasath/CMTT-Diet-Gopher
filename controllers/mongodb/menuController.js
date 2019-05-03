@@ -12,7 +12,7 @@ router.route('/api/menu/add').post((req, res) => {
       .catch(err => res.status(422).json(err));
 });
 //gets a menu item
-router.route('/api/favMenu/:id').get((req, res) => {
+router.route('/api/favmenu/:id').get((req, res) => {
     console.log(req.params.id);
     db.MenuItem.findOne({
         id: req.params.id

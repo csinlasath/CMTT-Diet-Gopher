@@ -12,7 +12,7 @@ router.route('/api/grocery/add').post((req, res) => {
       .catch(err => res.status(422).json(err));
 });
 //gets a grocery item
-router.route('/api/favGrocery/:id').get((req, res) => {
+router.route('/api/favgrocery/:id').get((req, res) => {
     console.log(req.params.id);
     db.GroceryItem.findOne({
         id: req.params.id

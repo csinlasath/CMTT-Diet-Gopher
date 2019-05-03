@@ -7,12 +7,12 @@ const grocerySchema = new Schema({
   ingredientList: { type: String, required: false },
   images: { type: Array, required: false },
   type: { type: String, required: true },
-  nutrition: { type: [{
+  nutrition: { type: {
     calories: { type: String },
     carbs: { type: String},
     fat: { type: String },
     protein: { type: String }
-  }]},
+  }},
   servingSize: { type: String, required: false }
 });
 
