@@ -12,6 +12,7 @@ const SearchGrocery = (props) => (
             <div className="input-group">
                 <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} title="Search">
                     <div className="search">
+                        <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
                         <div className='form-group inputs'>
                             <div className="form-group inputs">
                                 <label htmlFor="grocerySearchQuery">Grocery Search</label>
@@ -62,6 +63,17 @@ const SearchGrocery = (props) => (
                 .search {
                     min-width: 75vw;
                     max-width: 90vw;
+                    position: relative;
+                }
+                .closeButton {
+                    font-size: 30px;
+                    position: absolute;
+                    right: 1%;
+                    top: 0.3%;
+                    color: black;
+                }
+                .closeButton:hover {
+                    cursor: pointer;
                 }
                 `}</style>
             </div>

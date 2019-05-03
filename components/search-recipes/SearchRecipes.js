@@ -14,6 +14,7 @@ const SearchRecipes = (props) => (
                 <DropdownButton id="dropdown-basic-button" variant='default' style={buttonStyle} title="Search">
                     <MediaQuery maxDeviceWidth={530}>
                         <div className="searchMobile">
+                            <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
                             <div className="form-group inputs">
                                 <label htmlFor="recipeSearchQuery">Recipe Search</label>
                                 <input type="text" className="form-control" name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
@@ -107,7 +108,8 @@ const SearchRecipes = (props) => (
                         </div>
                     </MediaQuery>
                     <MediaQuery minDeviceWidth={531}>
-                    <div className="searchDesktop">
+                        <div className="searchDesktop">
+                            <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
                             <div className="form-group inputs">
                                 <label htmlFor="recipeSearchQuery">Recipe Search</label>
                                 <input type="text" className="form-control" name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
@@ -253,9 +255,23 @@ const SearchRecipes = (props) => (
                 .searchMobile {
                     min-width: 95vw;
                     max-width: 90vw;
+                    padding-top: 10px;
+                    position: relative;
                 }
                 .searchDesktop {
-                    min-width: 70vw;
+                    min-width: 60vw;
+                    padding-top: 10px;
+                    position: relative;
+                }
+                .closeButton {
+                    font-size: 30px;
+                    position: absolute;
+                    right: 1%;
+                    top: 0.3%;
+                    color: black;
+                }
+                .closeButton:hover {
+                    cursor: pointer;
                 }
             `}</style>
         </div>
