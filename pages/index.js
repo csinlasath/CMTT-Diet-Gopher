@@ -15,7 +15,6 @@ import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
 import fetch from 'isomorphic-unfetch';
-import FavoriteRecipes from '../components/favorites-recipes';
 
 class App extends Component {
   constructor(props) {
@@ -156,6 +155,7 @@ class App extends Component {
           json.analyzedInstructions[0].steps.push(json.analyzedInstructions[i].steps[0])
         };
       };
+      console.log(json);
       this.setState({
         [details]: json,
         previousFocus: this.state.currentFocus,
@@ -459,5 +459,4 @@ class App extends Component {
     }
   };
 };
-
 export default App;
