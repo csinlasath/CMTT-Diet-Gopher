@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import fetch from 'isomorphic-unfetch';
 import Main from '../compositions/main';
 import MainLoggedIn from '../compositions/mainLoggedIn';
 import HeroJumbotron from '../components/hero-jumbotron';
@@ -14,7 +15,7 @@ import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
-import fetch from 'isomorphic-unfetch';
+import LoginJumbotron from '../components/login-jumbotron';
 import FavoriteRecipes from '../components/favorites-recipes';
 
 class App extends Component {
@@ -388,6 +389,7 @@ class App extends Component {
             <MainLoggedIn favorites={this.favorites}>
               <HeroJumbotron />
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
+              <LoginJumbotron />
               <LoginModal>
                 This is a test
               </LoginModal>

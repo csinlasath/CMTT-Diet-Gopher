@@ -13,10 +13,40 @@ const recipeMongoRoutes = require('./controllers/mongodb/recipesController');
 const menuMongoRoutes = require('./controllers/mongodb/menuController');
 const groceryMongoRoutes = require('./controllers/mongodb/groceryController');
 
+
+
 app.prepare().then(() => {
   const server = express();
   const PORT = process.env.PORT || 3000;
 
+  //Auth Stuff
+  const mongoose = require('mongoose');
+  const passport = require('passport');
+  const bodyParser = require('body-parser');
+  const User = require('./models/mongodb/user');
+  const LocalStrategy = require('passport-local');
+  const passportLocalMongoose = require('passport-local-mongoose');
+  mongoose.connect('mongodb://localhost/diet_gopher_db');
+  server.use(require('express-session')({
+    secret: 'Love You 3000!',
+    resave: false,
+    saveUninitialized: false
+  }));
+  server.use(passport.initialize());
+  server.use(passport.session());
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+
+  //AUTH ROUTES
+  server.post('/signup', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.post('/login', (req, res) => {
+    return handle(req, res);
+  });
+
+  //Server Stuff
   server.use(express.urlencoded({ extended: false }));
   server.use(express.json());
   server.use(express.static('pages'));
@@ -24,7 +54,7 @@ app.prepare().then(() => {
   server.use(recipeMongoRoutes);
   server.use(menuMongoRoutes);
   server.use(groceryMongoRoutes);
-  
+
   require('./routes/apiRoutes')(server);
   require('./routes/foodRoutes')(server);
   require('./routes/recipeRoutes')(server);

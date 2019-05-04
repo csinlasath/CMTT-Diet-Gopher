@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
+    "username": "test",
+    "password": "password",
     "database": "diet_gopher_db",
     "host": "localhost",
     "port": 3306,
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "",
+    "username": "test",
+    "password": "password",
     "database": "diet_gopher_db",
     "host": "localhost",
     "port": 3306,
