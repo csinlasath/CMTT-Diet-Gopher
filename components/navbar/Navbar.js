@@ -11,6 +11,10 @@ const NavbarComponent = (props) => (
       <Nav className="mr-auto">
         <Nav.Link href="/about">About</Nav.Link>
         <Nav.Link href="/technology">Technology</Nav.Link>
+      
+       
+        
+      
       </Nav>
       <Form inline>
         <Nav.Link type='button' className='btn btn-outline-dark sign-on-btn' id='login-btn' data-toggle='modal' data-target='#loginModal' onClick={(e) => props.loginButtonHandler(e)}>Login</Nav.Link>
