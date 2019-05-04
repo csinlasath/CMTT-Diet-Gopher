@@ -16,7 +16,6 @@ import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
 import LoginJumbotron from '../components/login-jumbotron';
-import FavoriteRecipes from '../components/favorites-recipes';
 
 class App extends Component {
   constructor(props) {
