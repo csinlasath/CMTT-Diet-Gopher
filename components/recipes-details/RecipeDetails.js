@@ -45,12 +45,12 @@ const RecipeDetails = (props) => (
                             <div className="col-md-12">
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <h5 className="estimated-times">Estimated Prep Time: {props.result.preparationMinutes} mins.</h5>
+                                        {props.result.preparationMinutes ? <h5 className="estimated-times">Estimated Prep Time: {props.result.preparationMinutes} mins.</h5> : <h5 className="estimated-times">Estimated Prep Time: N/A</h5>}
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        <h5 className="estimated-times"> Estimated Cook Time: {props.result.cookingMinutes} mins.</h5>
+                                        {props.result.cookingMinutes ? <h5 className="estimated-times">Estimated Prep Time: {props.result.cookingMinutes} mins.</h5> : <h5 className="estimated-times">Estimated Prep Time: N/A</h5>}
                                     </div>
                                 </div>
                             </div>
