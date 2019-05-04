@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 
-const UserProfile = props => (
+const Edit = props => (
+ 
   <Fragment>
     <div className="container" />
     <div className="container" />
-    <h1 className="display-8 text-center">Save your preferences.</h1>
+    <h1 className="display-8 text-center">Update your preferences.</h1>
     <br />
 
     <form action="/" />
@@ -28,6 +29,46 @@ const UserProfile = props => (
         E-mail Address
         <br />
         <input id="e-mail" name="E-mail Address" type="text" />
+      </label>
+      <br />
+
+      <br />
+      <label>
+        <br />
+        <input
+          id="userpassword"
+          name="current"
+          placeholder="Enter current password"
+          type="password"
+          minlength="8"
+          required
+          title="enter at least 8 characters, must include upper and lowercase letters, number and special character"
+        />
+      </label>
+
+      <label>
+        Change Password
+        <br />
+        <input
+          id="newpassword"
+          name="enter new password"
+          placeholder="Enter new password"
+          type="password"
+          minlength="8"
+          required
+        />
+      </label>
+
+      <label>
+        <br />
+        <input
+          id="verifypassword"
+          name="verify password"
+          placeholder="Re-enter new password"
+          type="password"
+          minlength="8"
+          required
+        />
       </label>
       <br />
 
@@ -114,6 +155,25 @@ const UserProfile = props => (
    
     margin: .5rem;
 
+
+   }
+   #currentpassword{
+   
+    margin: .5rem;
+
+
+   }
+   #newpassword{
+   
+    margin: .5rem;
+
+
+   }
+   #verifypassword{
+   
+    margin: .5rem;
+
+
    }
    #name{
    
@@ -156,6 +216,7 @@ const UserProfile = props => (
 
     <div className="user-spacer" />
   </Fragment>
+ 
 );
 
-export default UserProfile;
+export default Edit;
