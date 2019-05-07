@@ -3,16 +3,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 
+
 const NavbarLoggedIn = (props) => (
+  <Fragment>
   <Navbar bg="light" expand="sm">
-   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkgsG1Z97pExKQn9dYkGBM90Wi8QZcu0bu-_szAs2xckwDmExo" className="profile-image img-circle" height="75" width="75" alt="Gopher" border-radius="50%" />
+   <img src="static/img/gopher.jpg" img id="logo" height="100" width="100" alt="Gopher" />
     <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
         <Nav.Link href="/about">About</Nav.Link>
         <Nav.Link href="/technology">Technology</Nav.Link>
-       
+        <Nav.Link href="/user">profile</Nav.Link>
+        <Nav.Link href="/useredit">edit profile</Nav.Link>
         
        
       </Nav>
@@ -24,8 +27,21 @@ const NavbarLoggedIn = (props) => (
       </Nav>
     </Navbar.Collapse>
   </Navbar>
+  <style jsx>{`
+                #logo {
+                 
+                  border-radius: 50%;
+                  padding-bottom: 0px;
+                  margin-bottom: 0px;
+            
+                }
 
-  
+            
+            `}</style>
+
+
+</Fragment>
 );
+
 
 export default NavbarLoggedIn;

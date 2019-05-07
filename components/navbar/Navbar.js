@@ -4,7 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 
 const NavbarComponent = (props) => (
+  <Fragment>
   <Navbar bg="light" expand="sm">
+  <img src="static/img/gopher.jpg" img id="logo" height="100" width="100" alt="Gopher" />
     <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
@@ -22,6 +24,22 @@ const NavbarComponent = (props) => (
       </Form>
     </Navbar.Collapse>
   </Navbar>
+  <style jsx>{`
+                #logo {
+                 
+                  border-radius: 50%;
+                  padding-bottom: 0px;
+                  margin-bottom: 0px;
+            
+                }
+
+            
+            `}</style>
+
+
+
+
+  </Fragment>
 );
 
 export default NavbarComponent;
