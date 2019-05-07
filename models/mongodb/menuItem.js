@@ -13,6 +13,8 @@ const menuSchema = new Schema({
     fat: { type: String },
     protein: { type: String }
   }},
+  bookmarked: [{ type: Schema.Types.ObjectId, ref: "Favorite"}],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment"}]
 });
 
 const MenuItem = mongoose.model("MenuItem", menuSchema);

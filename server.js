@@ -19,14 +19,12 @@ app.prepare().then(() => {
   const server = express();
   const PORT = process.env.PORT || 3000;
 
-  //Auth Stuff
-  const mongoose = require('mongoose');
   const passport = require('passport');
   const bodyParser = require('body-parser');
   const User = require('./models/mongodb/user');
   const LocalStrategy = require('passport-local');
   const passportLocalMongoose = require('passport-local-mongoose');
-  mongoose.connect('mongodb://localhost/diet_gopher_db');
+  server.use(bodyParser.urlencoded({ extended: true }));
   server.use(require('express-session')({
     secret: 'Love You 3000!',
     resave: false,
@@ -34,15 +32,20 @@ app.prepare().then(() => {
   }));
   server.use(passport.initialize());
   server.use(passport.session());
+  passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
 
-  //AUTH ROUTES
-  server.post('/signup', (req, res) => {
-    return handle(req, res);
-  });
+  const isLoggedIn = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login');
+  }
 
-  server.post('/login', (req, res) => {
+  //Protected Routes
+  server.get('/testpage', isLoggedIn, (req, res) => {
+    console.log("accessed test page.");
     return handle(req, res);
   });
 
@@ -61,6 +64,7 @@ app.prepare().then(() => {
   require('./routes/userRoutes')(server);
 
   server.get('/', (req, res) => {
+    console.log(req.session);
     return handle(req, res);
   });
 

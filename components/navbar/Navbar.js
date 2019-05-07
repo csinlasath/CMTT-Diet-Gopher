@@ -5,22 +5,33 @@ import Form from 'react-bootstrap/Form';
 
 const NavbarComponent = (props) => (
   <Navbar bg="light" expand="sm">
-    <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto">
-        <Nav.Link href="/about">About</Nav.Link>
-        <Nav.Link href="/technology">Technology</Nav.Link>
-      
-       
-        
-      
-      </Nav>
-      <Form inline>
-        <Nav.Link type='button' className='btn btn-outline-dark sign-on-btn' id='login-btn' data-toggle='modal' data-target='#loginModal' onClick={(e) => props.loginButtonHandler(e)}>Login</Nav.Link>
-        <Nav.Link type='button' className='btn btn-outline-dark sign-on-btn' id='signup-btn' data-toggle='modal' data-target='#loginModal' onClick={(e) => props.loginButtonHandler(e)}>Sign Up</Nav.Link>
-      </Form>
-    </Navbar.Collapse>
+    <div className='container'>
+      <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <form className='form-inline'>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <select className='form-control btn-outline-dark my-sm-0'>
+                  <option>Recipes</option>
+                  <option>Groceries Items</option>
+                  <option>Menu Items</option>
+                </select>
+              </div>
+              <input type='search' className='form-control mr-sm-2 col-auto' id='searchBox' placeholder='Chicken Parm'></input>
+              <div className='input-group-append'>
+                <button className='form-control btn btn-sm btn-outline-dark my-2 my-sm-0'>Search</button>
+              </div>
+            </div>
+          </form>
+        </Nav>
+        <Form inline>
+          <Nav.Link className='nav-link' id='login-btn' href='/login' onClick={(e) => props.loginButtonHandler(e)}>Login</Nav.Link>
+          <Nav.Link className='nav-link' id='signup-btn' href='/signup' onClick={(e) => props.loginButtonHandler(e)}>Sign Up</Nav.Link>
+        </Form>
+      </Navbar.Collapse>
+    </div>
   </Navbar>
 );
 

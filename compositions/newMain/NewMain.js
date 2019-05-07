@@ -1,19 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import Head from '../../components/head';
-import NavbarLoggedIn from '../../components/navbar-logged-in';
-import SecondaryNavbar from '../../components/secondary-navbar';
+import NewNav from '../../components/new-nav';
 import Footer from '../../components/footer';
 
-const MainLoggedIn = (props) => (
-    <Fragment>
-        <Head />
-        <NavbarLoggedIn favorites={props.favorites} />
-        <SecondaryNavbar />
-        <div className='container container-wrapper'>
-            {props.children}
-        </div>
-        <Footer />
-        <style jsx>{`
+const NewMain = (props) => (
+        <Fragment>
+            <Head />
+            <NewNav />
+            <div className='container container-wrapper'>
+                {props.children}
+            </div>
+            <Footer />
+            <style jsx>{`
             .container-wrapper {
                 min-height: 100%;
                 margin-bottom: 0;
@@ -26,7 +24,10 @@ const MainLoggedIn = (props) => (
                 min-width: 1000px;
             }
         `}</style>
-    </Fragment>
+        </Fragment>
 );
 
-export default MainLoggedIn;
+
+        
+
+export default NewMain;
