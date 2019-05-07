@@ -14,7 +14,7 @@ import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
 
-class Technology extends Component {
+class Support extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -390,7 +390,7 @@ class Technology extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <Techicons> </Techicons>
+              <h1 className='text-center'>F.A.Q. (Frequently Asked Questions)</h1>
             </MainLoggedIn>
           );
       };
@@ -456,7 +456,7 @@ class Technology extends Component {
         default:
           return (
             <Main>
-              <Techicons> </Techicons>
+              <h1 className='text-center'>F.A.Q. (Frequently Asked Questions)</h1>
             </Main>
           );
       };
@@ -464,4 +464,4 @@ class Technology extends Component {
   };
 };
 
-export default Technology;
+export default Support;

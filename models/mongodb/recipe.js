@@ -19,7 +19,9 @@ const recipeSchema = new Schema({
   type: { type: String, required: true },
   vegan: { type: Boolean, required: false },
   vegetarian: { type: Boolean, required: false },
-  whole30: { type: Boolean, required: false }
+  whole30: { type: Boolean, required: false },
+  favorited: [{ type: Schema.Types.ObjectId, ref: "Favorite"}],
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment"}]
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

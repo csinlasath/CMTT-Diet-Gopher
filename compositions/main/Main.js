@@ -1,23 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import Head from '../../components/head';
 import NavbarComponent from '../../components/navbar';
+import SecondaryNavbar from '../../components/secondary-navbar';
 import Footer from '../../components/footer';
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-
-    signOnButton = (e) => {
-        console.log(e.target.id);
-    }
-
     render() {
         return (
             <Fragment>
                 <Head />
                 <NavbarComponent loginButtonHandler={this.signOnButton} />
+                <SecondaryNavbar />
                 <div className='container container-wrapper'>
                     {this.props.children}
                 </div>

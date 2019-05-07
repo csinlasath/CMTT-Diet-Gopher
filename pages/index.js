@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import Link from 'next/link';
+import Router, { withRouter } from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import Main from '../compositions/main';
 import MainLoggedIn from '../compositions/mainLoggedIn';
@@ -15,14 +17,18 @@ import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
-import LoginJumbotron from '../components/login-jumbotron';
+import UserSettingsJumbotron from '../components/user-settings-jumbotron';
+import DescriptionCardDeck from '../components/description-card-deck';
+import TeamJumbotron from '../components/team-jumbotron';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: false,
+      user: {},
       userId: "808",
+      username: "",
       currentFocus: "8675309",
       previousFocus: "8675309",
       menuSearchQuery: "",
@@ -45,6 +51,32 @@ class App extends Component {
       favoritesArr: []
     };
   };
+
+  componentDidMount() {
+    fetch('/api/user/verify').then((res, err) => {
+      if (err) throw err;
+      return res.json();
+    }).then((json) => {
+      console.log('This is the json from checking if logged in');
+      console.log(json);
+      this.setState((state) => ({
+        isLoggedIn: true,
+        username: json
+      }), () => {
+        console.log(this.state);
+        fetch(`/api/finduser/${this.state.username}`).then((res, err) => {
+          if (err) throw err;
+          return res.json();
+        }).then((json) => {
+          this.setState((state) => ({
+            user: json
+          }), () => {
+            console.log(this.state);
+          });
+        });
+      });
+    });
+  }
 
   pickSearch = (e) => {
     this.setState({
@@ -226,27 +258,27 @@ class App extends Component {
     toFavorite.itemId = id;
     switch (type) {
       case "recipe":
-      body = this.state.recipeDetails;
-      body.type = "recipe";
-      toFavorite.image = this.state.recipeDetails.image;
-      toFavorite.title = this.state.recipeDetails.title;
-      break;
+        body = this.state.recipeDetails;
+        body.type = "recipe";
+        toFavorite.image = this.state.recipeDetails.image;
+        toFavorite.title = this.state.recipeDetails.title;
+        break;
       case "grocery":
-      body = this.state.groceryDetails;
-      body.type = "grocery";
-      toFavorite.image = this.state.groceryDetails.images[1];
-      toFavorite.title = this.state.groceryDetails.title;
-      break;
+        body = this.state.groceryDetails;
+        body.type = "grocery";
+        toFavorite.image = this.state.groceryDetails.images[1];
+        toFavorite.title = this.state.groceryDetails.title;
+        break;
       case "menu":
-      body = this.state.menuDetails;
-      body.type = "menu";
-      toFavorite.image = this.state.menuDetails.images[1];
-      toFavorite.title = this.state.menuDetails.title;
-      toFavorite.restaurantChain = this.state.menuDetails.restaurantChain;
-      break;
+        body = this.state.menuDetails;
+        body.type = "menu";
+        toFavorite.image = this.state.menuDetails.images[1];
+        toFavorite.title = this.state.menuDetails.title;
+        toFavorite.restaurantChain = this.state.menuDetails.restaurantChain;
+        break;
     };
     if (!this.state.favorite && this.state.isLoggedIn) {
-      fetch("/api/"+type+"/add",
+      fetch("/api/" + type + "/add",
         {
           headers: {
             'Accept': 'application/json',
@@ -383,12 +415,8 @@ class App extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <HeroJumbotron />
+              <UserSettingsJumbotron firstName={this.state.user.firstName}/>
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
-              <LoginJumbotron />
-              <LoginModal>
-                This is a test
-              </LoginModal>
             </MainLoggedIn>
           );
       };
@@ -456,9 +484,8 @@ class App extends Component {
             <Main>
               <HeroJumbotron />
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
-              <LoginModal>
-                This is a test
-          </LoginModal>
+              <DescriptionCardDeck />
+              <TeamJumbotron />
             </Main>
           );
       };
