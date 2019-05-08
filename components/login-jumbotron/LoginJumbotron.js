@@ -2,13 +2,12 @@ import React, { Component, Fragment } from 'react';
 import Link from 'next/link';
 
 class LoginJumbotron extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userClick: ""
-        }
-    }
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      userClick: ""
+    };
+  }
     render() {
         return (
             <Fragment>
@@ -52,32 +51,47 @@ class LoginJumbotron extends Component {
                             </div>
                         </div>
                     </div>
+                    <button
+                      type="submit"
+                      className="btn btn-outline-dark"
+                      id="jumbotronSignUpBtn"
+                    >
+                      Sign Up
+                    </button>
+                    <p className="other-auth-text">
+                      Already have an Account? <a href="#">Login</a>
+                    </p>
+                  </form>
                 </div>
-                <style jsx>{`
-                    #jumbotronImg {
-                        margin-bottom: 50px;
-                    }
+              </div>
+            </div>
+          </div>
+        </div>
+        <style jsx>{`
+          #jumbotronImg {
+            margin-bottom: 50px;
+          }
 
-                    #jumbotronLabelSignUp {
-                        margin-bottom: 30px;
-                    }
+          #jumbotronLabelSignUp {
+            margin-bottom: 30px;
+          }
 
-                    #jumbotronSignUpBtn {
-                        display: block;
-                        margin: 0 auto;
-                        width: 100%;
-                    }
-                    #jumbotronSignUpContent {
-                        margin: 0 auto;
-                    }
+          #jumbotronSignUpBtn {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+          }
+          #jumbotronSignUpContent {
+            margin: 0 auto;
+          }
 
-                    .other-auth-text {
-                        margin-top: 30px;
-                    }
-                `}</style>
-            </Fragment>
-        )
-    }
+          .other-auth-text {
+            margin-top: 30px;
+          }
+        `}</style>
+      </Fragment>
+    );
+  }
 }
 
 export default LoginJumbotron;
