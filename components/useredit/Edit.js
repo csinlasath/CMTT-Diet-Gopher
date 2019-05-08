@@ -75,32 +75,42 @@ class UserEdit extends Component {
                           Uppercase Letter, an Lowercase Letter, a Symbol, and a
                           Number.
                         </small>
-
-                        <div className="form-group col-md-12">
-                          <label htmlFor="new-Password">
-                            Type new Password
-                          </label>
-                          <input
-                            type="password"
-                            className="form-control bg-light"
-                            id="Password"
-                            placeholder="Type in a new password"
-                          />
-
-                          <div className="form-group col-md-12">
-                            <label htmlFor="Password-verify">
-                              Verify new Password
-                            </label>
-                            <input
-                              type="password"
-                              className="form-control bg-light"
-                              id="Password-verify"
-                              placeholder="Type in your new password"
-                            />
-                          </div>
-                        </div>
                       </div>
                     </div>
+                    <div className="form-row">
+                      <div className="form-group col-md-12">
+                        <label htmlFor="newPassword">New Password</label>
+                        <input
+                          type="password"
+                          className="form-control bg-light"
+                          id="newPassword"
+                          placeholder="Type in your new password"
+                        />
+                        <small className="text-muted">
+                          Passwords must contain a minimum of 8 characters, an
+                          Uppercase Letter, an Lowercase Letter, a Symbol, and a
+                          Number.
+                        </small>
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group col-md-12">
+                        <label htmlFor="Password-change">Confirm Password Change</label>
+                        <input
+                          type="password"
+                          className="form-control bg-light"
+                          id="verifyPassword"
+                          placeholder="Re-type your new current password"
+                        />
+                        <small className="text-muted">
+                          Passwords must contain a minimum of 8 characters, an
+                          Uppercase Letter, an Lowercase Letter, a Symbol, and a
+                          Number.
+                        </small>
+                      </div>
+                    </div>
+
+
                   </form>
                 </div>
               </div>
@@ -114,6 +124,9 @@ class UserEdit extends Component {
             width: 100%;
           }
           #jumbotronSignUpContent {
+            margin-top: 30px;
+          }
+          #form-row {
             margin: 0 auto;
           }
 
