@@ -48,7 +48,14 @@ class App extends Component {
       groceryDetails: [],
       itemId: "",
       favorite: false,
-      favoritesArr: []
+      favoritesArr: [],
+      currentItem: "53409",
+      commentInput: "",
+      comments: [{
+        body: "Test",
+        user: "Bacchus",
+        id: 1
+      }]
     };
   };
 
@@ -69,7 +76,8 @@ class App extends Component {
           return res.json();
         }).then((json) => {
           this.setState((state) => ({
-            user: json
+            user: json,
+            userId: json._id,
           }), () => {
             console.log(this.state);
           });
@@ -87,7 +95,7 @@ class App extends Component {
 
   primarySearchFormChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value.trim()
+      [e.target.name]: e.target.value
     });
   };
 
@@ -192,7 +200,8 @@ class App extends Component {
       this.setState({
         [details]: json,
         previousFocus: this.state.currentFocus,
-        currentFocus: type + "Detail"
+        currentFocus: type + "Detail",
+        currentItem: id
       });
       window.scrollTo(0, 0);
     });
@@ -208,6 +217,18 @@ class App extends Component {
         };
       };
     });
+    if (type === "recipe") {
+      fetch('/api/comments/all/' + id, {
+      }).then((res) => {
+        if (res) {
+          return res.json();
+        }
+      }).then((json) => {
+        this.setState({
+          comments: json
+        });
+      });
+    };
   };
 
   //When you click an item in favorites
@@ -224,8 +245,21 @@ class App extends Component {
         [details]: json,
         previousFocus: this.state.currentFocus,
         currentFocus: type + "Detail",
-        favorite: true
+        favorite: true,
+        currentItem: id
       });
+      if (type === "recipe") {
+        fetch('/api/comments/all/' + id, {
+        }).then((res) => {
+          if (res) {
+            return res.json();
+          }
+        }).then((json) => {
+          this.setState({
+            comments: json
+          });
+        });
+      };
       window.scrollTo(0, 0);
     });
   };
@@ -339,7 +373,34 @@ class App extends Component {
 
   clickClose = () => {
     document.dispatchEvent(new MouseEvent('click'));
-  }
+  };
+
+  commentSubmit = () => {
+    let comment = {};
+    comment.body = this.state.commentInput;
+    comment.userName = this.state.username;
+    comment.itemId = this.state.currentItem;
+    console.log(this.state.commentInput);
+    fetch("/api/comment/add/" + this.state.currentItem,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ comment })
+      }).then((res) => {
+        if (res) {
+          return res.json();
+        }
+      }).then((json) => {
+        this.setState({
+          comments: json
+        });
+      })
+      .catch(function (res) { console.log(res) });
+  };
+
 
   render() {
     if (this.state.isLoggedIn) {
@@ -383,7 +444,7 @@ class App extends Component {
         case "recipeDetail":
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <RecipeDetails result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
+              <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
@@ -415,7 +476,7 @@ class App extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <UserSettingsJumbotron firstName={this.state.user.firstName}/>
+              <UserSettingsJumbotron firstName={this.state.user.firstName} />
               <SecondaryHeroJumbotron formStateChange={this.secondSearchFieldChange} searchValue={this.state.secondHeroSearch} btnClickFront={this.pickSearch} />
             </MainLoggedIn>
           );
@@ -461,7 +522,7 @@ class App extends Component {
         case "recipeDetail":
           return (
             <Main>
-              <RecipeDetails clickBack={this.backButton} favorite={this.state.favorite} favoriteClick={this.favoriteClick} result={this.state.recipeDetails} />
+              <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} result={this.state.recipeDetails} />
             </Main>
           );
           break;

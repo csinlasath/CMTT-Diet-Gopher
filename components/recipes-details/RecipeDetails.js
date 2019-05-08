@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 
 const RecipeDetails = (props) => (
     <Fragment>
         <div className="container main">
             <div className="row">
                 <div className="col-lg-6 imageDiv">
-                    <i data-id="recipes" onClick={(e) => { props.clickBack(e)}} className=" arrow fas fa-arrow-circle-left"></i>
+                    <i data-id="recipes" onClick={(e) => { props.clickBack(e) }} className=" arrow fas fa-arrow-circle-left"></i>
                     <img className='recipeImg' alt={`${props.result.title} Image`} src={props.result.image} />
                     {props.favorite ? <i className="star fas fa-heart favorite" onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type="recipe"></i> : <i className="star fas fa-heart" onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type="recipe"></i>}
                     <div className="row">
@@ -77,19 +81,53 @@ const RecipeDetails = (props) => (
                     <h5 id="ingredients-title" className="text-center">Ingredients</h5>
                     <ul id="ingredients">
                         {props.result.extendedIngredients.map(ing => {
-                                    return <li key={ing.original}>{ing.original}</li>
-                                })}
+                            return <li key={ing.original}>{ing.original}</li>
+                        })}
                     </ul>
                 </div>
                 <div className="col-lg-6">
                     <h5 id="instructions-title" className="text-center">Instructions</h5>
                     <ul id="instructions">
                         {props.result.analyzedInstructions[0].steps.map(inst => {
-                                    return <li key={inst.number}>{inst.step}</li>
-                                })}
+                            return <li key={inst.number}>{inst.step}</li>
+                        })}
                     </ul>
                 </div>
             </div>
+            {props.comments.map(comment => {
+                return <Card key={comment.id}>
+                    <Card.Body>
+                        <blockquote className="blockquote mb-0">
+                            <p>
+                                {' '}
+                                {comment.body}
+                                {' '}
+                            </p>
+                            <footer className="blockquote-footer">
+                                <cite title="Source Title">{comment.userName}</cite>
+                            </footer>
+                        </blockquote>
+                    </Card.Body>
+                </Card>
+            })}
+            <Card>
+                <Card.Header>Add Your Thoughts</Card.Header>
+                <Card.Body>
+                    <InputGroup className="mb-3">
+                        <FormControl
+                            placeholder="Add Comments Here"
+                            aria-label="Add Comments Here"
+                            aria-describedby="basic-addon2"
+                            value={props.commentInput}
+                            onChange={props.onChange}
+                            name="commentInput"
+                        />
+                        <InputGroup.Append>
+                            <Button variant="outline-secondary" onClick={props.commentSubmit}>Submit</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Card.Body>
+            </Card>
             <style jsx>{`{
                 .card{
                     background:lightgrey;
