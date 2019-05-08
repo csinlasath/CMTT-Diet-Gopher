@@ -30,6 +30,7 @@
   "homepage": "https://github.com/csinlasath/CMTT-Diet-Gopher#readme",
   "dependencies": {
     "babel-plugin-import-static-files": "^1.0.4",
+    "bad-words": "^3.0.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "css-mediaquery": "^0.1.2",
