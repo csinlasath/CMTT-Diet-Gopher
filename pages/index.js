@@ -51,11 +51,7 @@ class App extends Component {
       favoritesArr: [],
       currentItem: "53409",
       commentInput: "",
-      comments: [{
-        body: "Test",
-        user: "Bacchus",
-        id: 1
-      }]
+      comments: []
     };
   };
 
@@ -84,13 +80,14 @@ class App extends Component {
         });
       });
     });
-  }
+  };
 
   pickSearch = (e) => {
     this.setState({
       currentFocus: e.target.name,
       favorite: false
     });
+    window.scrollTo(0, 0);
   };
 
   primarySearchFormChange = (e) => {
@@ -104,6 +101,7 @@ class App extends Component {
       currentFocus: e,
       favorite: false
     });
+    window.scrollTo(0, 0);
   };
 
   grocerySearchSubmit = () => {
@@ -377,11 +375,12 @@ class App extends Component {
 
   commentSubmit = () => {
     var Filter = require('bad-words'),
-    filter = new Filter();
+      filter = new Filter();
     let comment = {};
     comment.body = filter.clean(this.state.commentInput);
     comment.userName = this.state.username;
     comment.itemId = this.state.currentItem;
+    comment.userId = this.state.userId
     fetch("/api/comment/add/" + this.state.currentItem,
       {
         headers: {
@@ -403,6 +402,17 @@ class App extends Component {
       .catch(function (res) { console.log(res) });
   };
 
+  deleteComment = (e) => {
+    const id = e.target.getAttribute('data-id');
+    fetch("/api/comments/delete/" + id + "/" + this.state.currentItem, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      this.setState({
+        comments: json
+      });
+    });
+  };
 
   render() {
     if (this.state.isLoggedIn) {
@@ -446,7 +456,7 @@ class App extends Component {
         case "recipeDetail":
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
+              <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} />
             </MainLoggedIn>
           );
           break;
@@ -524,7 +534,7 @@ class App extends Component {
         case "recipeDetail":
           return (
             <Main>
-              <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} result={this.state.recipeDetails} />
+              <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} delete={this.deleteComment} result={this.state.recipeDetails} />
             </Main>
           );
           break;

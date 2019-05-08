@@ -47,4 +47,20 @@ module.exports = function (server) {
             res.json(dbComments);
         });
     });
+    //delete comment
+    server.get('/api/comments/delete/:id/:itemId', (req, res) => {
+        db.comment.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            db.comment.findAll({
+                where: {
+                    itemId: req.params.itemId
+                }
+            }).then((dbComments) => {
+                res.json(dbComments);
+            });
+        });
+    });
 };
