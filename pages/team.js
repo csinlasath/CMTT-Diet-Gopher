@@ -14,7 +14,7 @@ import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
 
-class Technology extends Component {
+class Team extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -390,7 +390,65 @@ class Technology extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <Techicons> </Techicons>
+              <div id='teamWrapper'>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Christopher Sinlasath</h5>
+                        <p className='card-text'>Backend Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Mason Dobbs</h5>
+                        <p className='card-text'>Front End Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Tiffany Keller</h5>
+                        <p className='card-text'>Front End Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Travis Morris</h5>
+                        <p className='card-text'>Backend Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <style jsx>{`
+                  #teamWrapper {
+                    margin-bottom: 100px;
+                  }
+                `}</style>
+              </div>
             </MainLoggedIn>
           );
       };
@@ -456,7 +514,65 @@ class Technology extends Component {
         default:
           return (
             <Main>
-              <Techicons> </Techicons>
+              <div id='teamWrapper'>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Christopher Sinlasath</h5>
+                        <p className='card-text'>Backend Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Mason Dobbs</h5>
+                        <p className='card-text'>Front End Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Tiffany Keller</h5>
+                        <p className='card-text'>Front End Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='card text-center' data-interval="5000">
+                  <div className='row no-gutters'>
+                    <div className='col-md-4'>
+                      <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                    </div>
+                    <div className='col-md-8'>
+                      <div className='card-body'>
+                        <h5 className='card-title'>Travis Morris</h5>
+                        <p className='card-text'>Backend Developer</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <style jsx>{`
+                  #teamWrapper {
+                    margin-bottom: 100px;
+                  }
+                `}</style>
+              </div>
             </Main>
           );
       };
@@ -464,4 +580,4 @@ class Technology extends Component {
   };
 };
 
-export default Technology;
+export default Team;

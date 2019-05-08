@@ -12,7 +12,7 @@ class Footer extends Component {
               Copyright &copy; 2019
               </span>
               <li>
-                <a href='https://www.sinlasath.com/' target='_blank'> Christopher Sinlasath </a>
+                <a href='http://www.sinlasath.com/' target='_blank'> Christopher Sinlasath </a>
               </li>
               <li>
                 <a href='https://github.com/MasonDobbs' target='_blank'>Mason Dobbs</a>

@@ -7,39 +7,43 @@ import Form from 'react-bootstrap/Form';
 const NavbarLoggedIn = (props) => (
   <Fragment>
   <Navbar bg="light" expand="sm">
-   <img src="static/img/gopher.jpg" img id="logo" height="100" width="100" alt="Gopher" />
-    <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto">
-        <Nav.Link href="/about">About</Nav.Link>
-        <Nav.Link href="/technology">Technology</Nav.Link>
-        <Nav.Link href="/user">profile</Nav.Link>
-        <Nav.Link href="/useredit">edit profile</Nav.Link>
-        
-       
-      </Nav>
-      <Nav className="mr-auto">
-        <Nav.Link name="favorites" onClick={props.favorites}>Favorites</Nav.Link>
-        <Nav.Link name="plan" onClick={props.favorites}>Plan</Nav.Link>
-        <Nav.Link name="history" onClick={props.favorites}>History</Nav.Link>
-  
-      </Nav>
-    </Navbar.Collapse>
+    <div className='container'>
+      <Navbar.Brand href="/">Diet Gopher</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <form className='form-inline'>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <select className='form-control btn btn-sm btn-outline-dark my-sm-0'>
+                  <option>Recipes</option>
+                  <option>Groceries Items</option>
+                  <option>Menu Items</option>
+                </select>
+              </div>
+              <input type='search' className='form-control mr-sm-2 col-auto' id='searchBox' placeholder='Chicken Parm'></input>
+              <div className='input-group-append'>
+                <button className='form-control btn btn-sm btn-outline-dark my-2 my-sm-0'>Search</button>
+              </div>
+            </div>
+          </form>
+        </Nav>
+        <Form inline>
+          <Nav.Link name="favorites" onClick={props.favorites}>Favorites</Nav.Link>
+          <Nav.Link name="plan" onClick={props.favorites}>Plan</Nav.Link>
+          <Nav.Link name="history" onClick={props.favorites}>History</Nav.Link>
+          <Nav.Link name="logout" href='/logout'>Log Out</Nav.Link>
+        </Form>
+      </Navbar.Collapse>
+    </div>
   </Navbar>
   <style jsx>{`
-                #logo {
-                 
+                #logo {            
                   border-radius: 50%;
                   padding-bottom: 0px;
                   margin-bottom: 0px;
-            
                 }
-
-            
             `}</style>
-
-
 </Fragment>
 );
 
