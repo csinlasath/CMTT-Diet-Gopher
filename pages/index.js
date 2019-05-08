@@ -380,7 +380,6 @@ class App extends Component {
     comment.body = this.state.commentInput;
     comment.userName = this.state.username;
     comment.itemId = this.state.currentItem;
-    console.log(this.state.commentInput);
     fetch("/api/comment/add/" + this.state.currentItem,
       {
         headers: {

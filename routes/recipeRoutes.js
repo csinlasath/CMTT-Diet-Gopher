@@ -33,7 +33,6 @@ module.exports = function (server) {
                     itemId: req.params.id
                 }
             }).then((dbComments) => {
-                console.log(dbComments)
                 res.json(dbComments);
             });
         });
