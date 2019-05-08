@@ -25,4 +25,27 @@ module.exports = function (server) {
             res.json(result)
         })
     });
+    //add comments
+    server.post('/api/comment/add/:id', (req, res) => {
+        db.comment.create(req.body.comment).then((result) => {
+            db.comment.findAll({
+                where: {
+                    itemId: req.params.id
+                }
+            }).then((dbComments) => {
+                console.log(dbComments)
+                res.json(dbComments);
+            });
+        });
+    });
+    //get comments
+    server.get('/api/comments/all/:id', (req, res) => {
+        db.comment.findAll({
+            where: {
+                itemId: req.params.id
+            }
+        }).then((dbComments) => {
+            res.json(dbComments);
+        });
+    });
 };
