@@ -28,7 +28,7 @@ class App extends Component {
       isLoggedIn: false,
       user: {},
       userId: "808",
-      username: "",
+      username: "Guest",
       currentFocus: "8675309",
       previousFocus: "8675309",
       menuSearchQuery: "",
@@ -394,7 +394,8 @@ class App extends Component {
         }
       }).then((json) => {
         this.setState({
-          comments: json
+          comments: json,
+          commentInput: ""
         });
       })
       .catch(function (res) { console.log(res) });
