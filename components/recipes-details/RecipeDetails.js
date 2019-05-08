@@ -111,6 +111,7 @@ const RecipeDetails = (props) => (
                                 <cite>{moment(comment.createdAt).format("MMMM Do YYYY, h:mm a")}</cite>
                             </footer>
                         </blockquote>
+                        {comment.userId === props.userId && comment.userId !== "808" ? <div><span data-id={comment.id} id="delete" onClick={(e) => {props.delete(e)}}> delete</span></div> : ""}
                     </Card.Body>
                 </Card>
             })}
@@ -199,6 +200,18 @@ const RecipeDetails = (props) => (
                 }
                 #ingredients-title, #instructions-title {
                     padding-top: 20px;
+                }
+                #edit {
+                    color: blue;
+                }
+                #edit:hover {
+                    cursor: pointer;
+                }
+                #delete {
+                    color: red;
+                }
+                #delete:hover {
+                    cursor: pointer;
                 }
             }`}</style>
         </div>
