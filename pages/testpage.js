@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
 import Main from '../compositions/main';
-import SignUpJumbotron from '../components/signup-jumbotron';
+import MealPlanCalendar from '../components/meal-plan-calendar';
 
 class SignUpPage extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class SignUpPage extends Component {
             <Fragment>
                 <Main>
                     <h1>THIS IS THE SECRET PAGE</h1>
+                    <MealPlanCalendar />
                 </Main>
             </Fragment>
         );
