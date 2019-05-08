@@ -376,8 +376,10 @@ class App extends Component {
   };
 
   commentSubmit = () => {
+    var Filter = require('bad-words'),
+    filter = new Filter();
     let comment = {};
-    comment.body = this.state.commentInput;
+    comment.body = filter.clean(this.state.commentInput);
     comment.userName = this.state.username;
     comment.itemId = this.state.currentItem;
     fetch("/api/comment/add/" + this.state.currentItem,
