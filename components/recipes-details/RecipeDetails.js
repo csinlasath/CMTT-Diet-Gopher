@@ -94,6 +94,7 @@ const RecipeDetails = (props) => (
                     </ul>
                 </div>
             </div>
+            <Card.Header>Comments</Card.Header>
             {props.comments.map(comment => {
                 return <Card key={comment.id}>
                     <Card.Body>
