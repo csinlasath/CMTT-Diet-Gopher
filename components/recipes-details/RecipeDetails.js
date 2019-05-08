@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+const moment = require('moment');
 
 const RecipeDetails = (props) => (
     <Fragment>
@@ -106,6 +107,8 @@ const RecipeDetails = (props) => (
                             </p>
                             <footer className="blockquote-footer">
                                 <cite title="Source Title">{comment.userName}</cite>
+                                <br />
+                                <cite>{moment(comment.createdAt).format("MMMM Do YYYY, h:mm a")}</cite>
                             </footer>
                         </blockquote>
                     </Card.Body>
