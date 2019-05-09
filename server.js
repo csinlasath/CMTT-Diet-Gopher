@@ -45,7 +45,27 @@ app.prepare().then(() => {
 
   //Protected Routes
   server.get('/testpage', isLoggedIn, (req, res) => {
-    console.log("accessed test page.");
+    console.log("Accessed /Test page.");
+    return handle(req, res);
+  });
+
+  server.get('/user', isLoggedIn, (req, res) => {
+    console.log("Accessed /User page.");
+    return handle(req, res);
+  });
+
+  server.get('/useredit', isLoggedIn, (req, res) => {
+    console.log("Accessed /User page.");
+    return handle(req, res);
+  });
+
+  server.get('/user', isLoggedIn, (req, res) => {
+    console.log("Accessed /User page.");
+    return handle(req, res);
+  });
+
+  server.get('/plan', isLoggedIn, (req, res) => {
+    console.log("Accessed /Plan page.");
     return handle(req, res);
   });
 

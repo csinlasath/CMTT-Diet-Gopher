@@ -28,7 +28,7 @@ router.post('/signup', (req, res) => {
     }
     passport.authenticate('local')(req, res, function() {
       console.log(user);
-      res.redirect('/testpage');
+      res.redirect('/');
     });
   });
 });
