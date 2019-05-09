@@ -31,7 +31,7 @@ const NavbarLoggedIn = (props) => (
         <Form inline>
           <Nav.Link name="favorites" onClick={props.favorites}>Favorites</Nav.Link>
           <Nav.Link name="plan" href='/plan'>Plan</Nav.Link>
-          <Nav.Link name="history" onClick={props.favorites}>History</Nav.Link>
+          <Nav.Link name="history" href='/history'>History</Nav.Link>
           <Nav.Link name="logout" href='/logout'>Log Out</Nav.Link>
         </Form>
       </Navbar.Collapse>

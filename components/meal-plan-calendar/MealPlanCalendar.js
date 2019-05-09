@@ -99,7 +99,7 @@ const CalendarDaysOfWeek = (props) => {
             <div className='calendar-row calendar-weekdays'>
                 {props.daysOfWeek.map((dayOfWeek) => {
                     return (
-                        <div key={`dayLabel-${dayOfWeek}`} className='calendar-box' id={`day-${dayOfWeek}`}>{dayOfWeek}</div>
+                        <div key={`dayLabel-${dayOfWeek}`} className='calendar-box' id={`day-${dayOfWeek}`}><h4 className='weekday-text'>{dayOfWeek}</h4></div>
                     )
                 })}
             </div>
@@ -129,6 +129,10 @@ const CalendarDaysOfWeek = (props) => {
                     color: #1a1a1a;
                     margin-top: 20px;
                 }
+
+                .weekday-text {
+                    font-weight: bold;
+                }
             `}</style>
         </Fragment>
     );
@@ -141,14 +145,8 @@ const DaysOfTheMonth = (props) => {
     let currentDate;
     let isValidDate;
     let weekColumns = Array.apply(null, { length: 7 }).map(Number.call, Number);
-    let startDay = props.firstDayOfMonth.getUTCDay();
     let firstDayOfMonth = props.firstDayOfMonth.getDay();
-    let rows = 5;
-
-    if (startDay == 5 && props.daysInMonth == 31 || startDay == 6 && props.daysInMonth > 29) {
-        rows = 6;
-    }
-    weekRows = Array.apply(null, { length: rows }).map(Number.call, Number);
+    weekRows = Array.apply(null, { length: 6 }).map(Number.call, Number);
     day = props.startingDateNumber + 1 - firstDayOfMonth;
     while (day > 1) {
         day -= 7;
@@ -259,7 +257,7 @@ class MealPlanCalendar extends Component {
             weekNumbers: false,
             minDate: this.props.minDate ? this.props.minDate : null,
             disablePastDate: this.props.disablePastDate ? this.props.disablePast : false,
-            days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            days: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
             monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             monthsLong: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             firstDayOfMonth: null,
@@ -356,6 +354,7 @@ class MealPlanCalendar extends Component {
                 secondClickId: null
             }), () => {
                 console.log(this.state);
+                console.log(this.state.firstDayOfMonth.getUTCDay());
             });
         }
         if (this.state.clickCount === 1) {
@@ -371,6 +370,7 @@ class MealPlanCalendar extends Component {
                 secondClickId: dataId
             }), () => {
                 console.log(this.state);
+                console.log(this.state.firstDayOfMonth.getUTCDay());
             });
         }
     }
@@ -382,41 +382,41 @@ class MealPlanCalendar extends Component {
         // /api/favmenu/:id
         fetch('/api/fav' + type + '/' + id, {
         }).then((res) => {
-          return res.json();
-        }).then((json) => {
-          this.setState({
-            [details]: json,
-            previousFocus: this.state.currentFocus,
-            currentFocus: type + "Detail",
-            favorite: true
-          });
-          window.scrollTo(0, 0);
-        });
-      };
-    
-      backButton = (e) => {
-        if (this.state.previousFocus === "favorites") {
-          fetch("/api/favorited/" + this.state.userId, {
-          }).then((res) => {
             return res.json();
-          }).then((json) => {
+        }).then((json) => {
             this.setState({
-              favoritesArr: json
+                [details]: json,
+                previousFocus: this.state.currentFocus,
+                currentFocus: type + "Detail",
+                favorite: true
             });
-          });
+            window.scrollTo(0, 0);
+        });
+    };
+
+    backButton = (e) => {
+        if (this.state.previousFocus === "favorites") {
+            fetch("/api/favorited/" + this.state.userId, {
+            }).then((res) => {
+                return res.json();
+            }).then((json) => {
+                this.setState({
+                    favoritesArr: json
+                });
+            });
         };
         this.setState({
-          currentFocus: this.state.previousFocus,
-          favorite: false
+            currentFocus: this.state.previousFocus,
+            favorite: false
         });
-      };
+    };
 
     render() {
         return (
             <Fragment>
                 <div className='' id='planningCalendar'>
                     <div className='' id='innerPlanningCalendar'>
-                        <CalendarHeader monthsShort={this.state.monthsLong} month={this.state.month} year={this.state.year} previousMonth={this.getPreviousMonth} nextMonth={this.getNextMonth} />
+                        <CalendarHeader monthsShort={this.state.monthsShort} month={this.state.month} year={this.state.year} previousMonth={this.getPreviousMonth} nextMonth={this.getNextMonth} />
                         <CalendarDaysOfWeek daysOfWeek={this.state.days} />
                         <DaysOfTheMonth firstDayOfMonth={this.state.firstDayOfMonth} year={this.state.year} month={this.state.month} daysInMonth={this.state.daysInMonth} startingDateNumber={this.state.startingDateNumber} selectedDate={this.state.selectedDate} weekNumbers={this.state.weekNumbers} disablePastDate={this.state.disablePastDate} minDate={this.state.minDate} selectDateFunc={this.selectDate} />
 
@@ -426,19 +426,24 @@ class MealPlanCalendar extends Component {
                                     <div className='modal-content'>
                                         <div className='modal-header'>
                                             <h5 className='modal-title' id='calendarPlanTitle'>{`Meals for ${this.state.selectedFullDate}`}</h5>
-                                            <button type='button' className='close' data-dismiss='modal'>
-                                                <span>&times;</span>
+                                            <button type='button' className='close close-btn' data-dismiss='modal'>
+                                                <i className="far fa-window-close"></i>
                                             </button>
                                         </div>
                                         <div className='modal-body'>
-                                                {this.state.plannedMeals.length > 0 ? (this.state.plannedMeals.map((plannedMeal) => {
-
-                                                    return (
-                                                        <SearchResultsMenu key={plannedMeal.itemId} resultName={plannedMeal.title} restaurantChain={plannedMeal.restaurantChain} resultId={plannedMeal.itemId} type={plannedMeal.type} back="plan" imageLink={plannedMeal.image} clickHandler={this.clickFavorite}  />
-                                                    );
-                                                })) : (<h3 className='calendar-modal-text text-center'>Doesn't look like you planned or eaten anything for this day.</h3>)}
-                                            <a className='btn btn-outline-dark modal-btn' href='/'>Add Meals</a>
-                                            <a className='btn btn-outline-dark modal-btn' href='/'>Log Meals</a>
+                                            {this.state.plannedMeals.length > 0 ? (this.state.plannedMeals.map((plannedMeal) => {
+                                                return (
+                                                    <SearchResultsMenu key={plannedMeal.itemId} resultName={plannedMeal.title} restaurantChain={plannedMeal.restaurantChain} resultId={plannedMeal.itemId} type={plannedMeal.type} back="plan" imageLink={plannedMeal.image} clickHandler={this.clickFavorite} />
+                                                );
+                                            })) : (<h3 className='calendar-modal-text text-center'>Doesn't look like you planned or eaten anything for this day.</h3>)}
+                                            <div className='row'>
+                                                <div className='col-md-6'>
+                                                    <a className='btn btn-outline-dark modal-btn' href='/'>Add Meals</a>
+                                                </div>
+                                                <div className='col-md-6'>
+                                                    <a className='btn btn-outline-dark modal-btn' href='/'>Log Meals</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
