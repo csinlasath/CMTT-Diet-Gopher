@@ -26,7 +26,7 @@ router.post('/signup', (req, res) => {
       console.error(err);
       res.redirect('/signup');
     }
-    passport.authenticate('local')(req, res, function() {
+    passport.authenticate('local')(req, res, function () {
       console.log(user);
       res.redirect('/');
     });
@@ -51,15 +51,20 @@ router.get('/api/user/verify', isLoggedIn, (req, res) => {
   console.log("User Data.");
   console.log(req.session);
   let session;
-  console.log(req.session.passport.user);
-  if (req.session.passport.user === undefined) {
-    session = 'Not Signed In';
-    res.json(session);
-  }
-  else {
-    session = req.session.passport;
-    return res.json(session.user);
-  }
+
+  db.User.findOne({ username: req.session.passport.user }).then((dbUser) => {
+    if (req.session.passport.user === undefined) {
+      session = 'Not Signed In';
+      res.json(session);
+    }
+    else {
+      return res.json(dbUser);
+    }
+  }).catch((err) => {
+    res.json(err);
+  });
+
+
 });
 
 //Database Routes
@@ -67,63 +72,63 @@ router.get('/api/user/verify', isLoggedIn, (req, res) => {
 //Get All Users in Database
 router.get('/api/users/all', (req, res) => {
   db.User.find({}).then((dbUsers) => {
-      res.json(dbUsers);
+    res.json(dbUsers);
   }).catch((err) => {
-      console.error(err);
+    console.error(err);
   });
 });
 
 //Get User Info By Username
 router.get('/api/finduser/:username', (req, res) => {
-  db.User.findOne({ username: req.params.username}).then((dbUser) => {
-      res.json(dbUser);
+  db.User.findOne({ username: req.params.username }).then((dbUser) => {
+    res.json(dbUser);
   }).catch((err) => {
-      res.json(err);
+    res.json(err);
   });
 });
 
 //Get All Favorites for User
 router.get('/api/user/:userId/favorite/get/', (req, res) => {
-  db.User.findOne({_id: req.params.userId}).then((dbFavorites) => {
-      res.json(dbFavorites);
+  db.User.findOne({ _id: req.params.userId }).then((dbFavorites) => {
+    res.json(dbFavorites);
   }).catch((err) => {
-      console.error(err)
+    console.error(err)
   });
 });
 
 //Add Favorite for User
 router.get('/api/user/:userId/favorite/save/:itemId', (req, res) => {
-  db.User.findOneAndUpdate({ _id: req.params.userId }, { $push: { favorited: req.params.itemId } }, { new: true }).then(function(dbUser) {
-    res.json(dbUser);  
+  db.User.findOneAndUpdate({ _id: req.params.userId }, { $push: { favorited: req.params.itemId } }, { new: true }).then(function (dbUser) {
+    res.json(dbUser);
   }).catch((err) => {
-      console.error(err);
+    console.error(err);
   });
 });
 
 //Remove Favorite for User
 router.get('/api/user/:userId/favorite/remove/:itemId', (req, res) => {
-  db.User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { favorited: req.params.itemId } }, { new: true }).then(function(dbUser) {
-    res.json(dbUser);  
+  db.User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { favorited: req.params.itemId } }, { new: true }).then(function (dbUser) {
+    res.json(dbUser);
   }).catch((err) => {
-      console.error(err);
+    console.error(err);
   });
 });
 
 //Remove All Favorites from User
 router.get('/api/user/:userId/favorite/remove/all', (req, res) => {
-  db.User.findOneAndUpdate({ _id: req.params.userId }, { $set: { favorited: [] } }, { new: true }).then(function(dbUser) {
-    res.json(dbUser);  
+  db.User.findOneAndUpdate({ _id: req.params.userId }, { $set: { favorited: [] } }, { new: true }).then(function (dbUser) {
+    res.json(dbUser);
   }).catch((err) => {
-      console.error(err);
+    console.error(err);
   });
 });
 
 //Add to User Search History
 router.get('/api/user/:userId/favorite/save/:itemId', (req, res) => {
-  db.User.findOneAndUpdate({ _id: req.params.userId }, { $push: { searchHistory: req.params.itemId } }, { new: true }).then(function(dbUser) {
-    res.json(dbUser);  
+  db.User.findOneAndUpdate({ _id: req.params.userId }, { $push: { searchHistory: req.params.itemId } }, { new: true }).then(function (dbUser) {
+    res.json(dbUser);
   }).catch((err) => {
-      console.error(err);
+    console.error(err);
   });
 });
 

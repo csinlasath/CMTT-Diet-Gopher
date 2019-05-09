@@ -13,8 +13,6 @@ const recipeMongoRoutes = require('./controllers/mongodb/recipesController');
 const menuMongoRoutes = require('./controllers/mongodb/menuController');
 const groceryMongoRoutes = require('./controllers/mongodb/groceryController');
 
-
-
 app.prepare().then(() => {
   const server = express();
   const PORT = process.env.PORT || 3000;
@@ -69,6 +67,11 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
+  server.get('/history', isLoggedIn, (req, res) => {
+    console.log("Accessed /History page.");
+    return handle(req, res);
+  });
+
   //Server Stuff
   server.use(express.urlencoded({ extended: false }));
   server.use(express.json());
@@ -81,6 +84,7 @@ app.prepare().then(() => {
   require('./routes/apiRoutes')(server);
   require('./routes/foodRoutes')(server);
   require('./routes/recipeRoutes')(server);
+  require('./routes/historyRoutes')(server);
   require('./routes/userRoutes')(server);
 
   server.get('/', (req, res) => {

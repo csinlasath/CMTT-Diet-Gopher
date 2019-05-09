@@ -1,18 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import Link from 'next/link';
-import Router, { withRouter } from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import Main from '../compositions/main';
 import MainLoggedIn from '../compositions/mainLoggedIn';
 import HeroJumbotron from '../components/hero-jumbotron';
 import SecondaryHeroJumbotron from '../components/secondary-hero-jumbotron';
-import LoginModal from '../components/login-modal';
 import SearchRecipes from '../components/search-recipes';
 import SearchMenuItems from '../components/search-menu-items';
 import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
-// import SignedInHero from '../components/signed-in-hero/';
 import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
@@ -51,7 +47,8 @@ class App extends Component {
       favoritesArr: [],
       currentItem: "53409",
       commentInput: "",
-      comments: []
+      comments: [],
+      historyArr: [],
     };
   };
 
@@ -64,20 +61,17 @@ class App extends Component {
       console.log(json);
       this.setState((state) => ({
         isLoggedIn: true,
-        username: json
+        user: json,
+        username: json.username,
+        userId: json.userId
       }), () => {
-        console.log(this.state);
-        fetch(`/api/finduser/${this.state.username}`).then((res, err) => {
-          if (err) throw err;
-          return res.json();
-        }).then((json) => {
-          this.setState((state) => ({
-            user: json,
-            userId: json._id,
-          }), () => {
-            console.log(this.state);
+          fetch(`/api/history/${this.state.userId}/all`).then((res) => {
+              return res.json();
+          }).then((json) => {
+              this.setState({
+                  historyArr: json.reverse()
+              });
           });
-        });
       });
     });
   };
@@ -189,32 +183,86 @@ class App extends Component {
         let temp = json.nutrition.nutrients;
         json.nutrition.nutrients = temp.slice(0, 8);
       };
-      if (json.analyzedInstructions.length > 1) {
-        for (let i = 1; i < json.analyzedInstructions.length; i++) {
-          json.analyzedInstructions[0].steps.push(json.analyzedInstructions[i].steps[0])
+      if (type === 'recipe') {
+        if (json.analyzedInstructions.length > 1) {
+          for (let i = 1; i < json.analyzedInstructions.length; i++) {
+            json.analyzedInstructions[0].steps.push(json.analyzedInstructions[i].steps[0])
+          };
         };
-      };
+      }
       console.log(json);
-      this.setState({
+      this.setState((state) => ({
         [details]: json,
         previousFocus: this.state.currentFocus,
         currentFocus: type + "Detail",
         currentItem: id
+      }), () => {
+        if (this.state.userId !== "808") {
+          let body = [];
+          let toHistory = {};
+          toHistory.userId = this.state.userId;
+          toHistory.type = type;
+          toHistory.itemId = id;
+          switch (type) {
+            case "recipe":
+              body = this.state.recipeDetails;
+              body.type = "recipe";
+              toHistory.image = this.state.recipeDetails.image;
+              toHistory.title = this.state.recipeDetails.title;
+              break;
+            case "grocery":
+              body = this.state.groceryDetails;
+              body.type = "grocery";
+              toHistory.image = this.state.groceryDetails.images[1];
+              toHistory.title = this.state.groceryDetails.title;
+              break;
+            case "menu":
+              body = this.state.menuDetails;
+              body.type = "menu";
+              toHistory.image = this.state.menuDetails.images[1];
+              toHistory.title = this.state.menuDetails.title;
+              toHistory.restaurantChain = this.state.menuDetails.restaurantChain;
+              break;
+          };
+          console.log(toHistory);
+          fetch(`/api/history/${this.state.userId}/${type}/add/`, {
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify({ 
+               itemId: toHistory.itemId,
+               image: toHistory.image,
+               title: toHistory.title,
+               restaurantChain: toHistory.restaurantChain
+            })
+          })
+            .then((res) => {
+              console.log(res);
+            }).catch((res) => {
+              console.log(res);
+            });
+        }
       });
       window.scrollTo(0, 0);
     });
-    fetch('/api/favorited/' + this.state.userId, {
-    }).then((res) => {
-      return res.json();
-    }).then((json) => {
-      for (let i = 0; i < json.length; i++) {
-        if (json[i].itemId === id && json[i].type === type) {
-          this.setState({
-            favorite: true
-          });
+
+    if (this.state.userId !== "808" || this.username !== 'Guest') {
+      fetch('/api/favorited/' + this.state.userId, {
+      }).then((res) => {
+        return res.json();
+      }).then((json) => {
+        for (let i = 0; i < json.length; i++) {
+          if (json[i].itemId === id && json[i].type === type) {
+            this.setState({
+              favorite: true
+            });
+          };
         };
-      };
-    });
+      });
+    }
+
     if (type === "recipe") {
       fetch('/api/comments/all/' + id, {
       }).then((res) => {
