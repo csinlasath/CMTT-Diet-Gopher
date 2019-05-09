@@ -63,7 +63,7 @@ class History extends Component {
               isLoggedIn: true,
               user: json,
               username: json.username,
-              userId: json.userId
+              userId: json._id
             }), () => {
                 fetch(`/api/history/${this.state.userId}/all`).then((res) => {
                     return res.json();

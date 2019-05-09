@@ -63,15 +63,15 @@ class App extends Component {
         isLoggedIn: true,
         user: json,
         username: json.username,
-        userId: json.userId
+        userId: json._id
       }), () => {
-          fetch(`/api/history/${this.state.userId}/all`).then((res) => {
-              return res.json();
-          }).then((json) => {
-              this.setState({
-                  historyArr: json.reverse()
-              });
+        fetch(`/api/history/${this.state.userId}/all`).then((res) => {
+          return res.json();
+        }).then((json) => {
+          this.setState({
+            historyArr: json.reverse()
           });
+        });
       });
     });
   };
@@ -231,11 +231,11 @@ class App extends Component {
               'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify({ 
-               itemId: toHistory.itemId,
-               image: toHistory.image,
-               title: toHistory.title,
-               restaurantChain: toHistory.restaurantChain
+            body: JSON.stringify({
+              itemId: toHistory.itemId,
+              image: toHistory.image,
+              title: toHistory.title,
+              restaurantChain: toHistory.restaurantChain
             })
           })
             .then((res) => {
@@ -247,21 +247,20 @@ class App extends Component {
       });
       window.scrollTo(0, 0);
     });
-
-    if (this.state.userId !== "808" || this.username !== 'Guest') {
-      fetch('/api/favorited/' + this.state.userId, {
-      }).then((res) => {
-        return res.json();
-      }).then((json) => {
-        for (let i = 0; i < json.length; i++) {
-          if (json[i].itemId === id && json[i].type === type) {
-            this.setState({
-              favorite: true
-            });
-          };
+    
+    fetch('/api/favorited/' + this.state.userId, {
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      for (let i = 0; i < json.length; i++) {
+        if (json[i].itemId === id && json[i].type === type) {
+          this.setState({
+            favorite: true
+          });
         };
-      });
-    }
+      };
+    });
+
 
     if (type === "recipe") {
       fetch('/api/comments/all/' + id, {
