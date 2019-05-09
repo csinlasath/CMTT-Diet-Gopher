@@ -33,6 +33,10 @@ const SecondaryNavbar = (props) => (
             #secondaryNavLinks li{
                 display: inline-block;
             }
+
+            .nav-link:hover {
+                text-decoration: underline;
+            }
         `}</style>
     </Fragment>
 );

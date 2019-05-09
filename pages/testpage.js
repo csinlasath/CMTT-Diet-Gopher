@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
 import Main from '../compositions/main';
-import MealPlanCalendar from '../components/meal-plan-calendar';
 
-class SignUpPage extends Component {
+class TestPage extends Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -14,12 +13,11 @@ class SignUpPage extends Component {
         return (
             <Fragment>
                 <Main>
-                    <h1>THIS IS THE SECRET PAGE</h1>
-                    <MealPlanCalendar />
+                    <h1>THIS IS THE SECRET PAGE ONLY ACCESSIBLE IF SIGNED IN</h1>
                 </Main>
             </Fragment>
         );
     }
 }
 
-export default SignUpPage;
+export default TestPage;

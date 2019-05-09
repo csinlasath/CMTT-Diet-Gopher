@@ -30,7 +30,7 @@ const NavbarLoggedIn = (props) => (
         </Nav>
         <Form inline>
           <Nav.Link name="favorites" onClick={props.favorites}>Favorites</Nav.Link>
-          <Nav.Link name="plan" onClick={props.favorites}>Plan</Nav.Link>
+          <Nav.Link name="plan" href='/plan'>Plan</Nav.Link>
           <Nav.Link name="history" onClick={props.favorites}>History</Nav.Link>
           <Nav.Link name="logout" href='/logout'>Log Out</Nav.Link>
         </Form>
@@ -38,12 +38,10 @@ const NavbarLoggedIn = (props) => (
     </div>
   </Navbar>
   <style jsx>{`
-                #logo {            
-                  border-radius: 50%;
-                  padding-bottom: 0px;
-                  margin-bottom: 0px;
-                }
-            `}</style>
+    .nav-link:hover {
+                text-decoration: underline;
+            }
+  `}</style>
 </Fragment>
 );
 

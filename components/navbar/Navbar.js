@@ -35,15 +35,9 @@ const NavbarComponent = (props) => (
     </div>
   </Navbar>
   <style jsx>{`
-                #logo {
-                 
-                  border-radius: 50%;
-                  padding-bottom: 0px;
-                  margin-bottom: 0px;
-            
-                }
-
-            
+            .nav-link:hover {
+                text-decoration: underline;
+            }         
             `}</style>
   </Fragment>
 );
