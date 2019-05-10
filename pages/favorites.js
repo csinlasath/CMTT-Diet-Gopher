@@ -270,7 +270,7 @@ class Favorites extends Component {
                 return (
                     <MainLoggedIn favorites={this.favorites}>
                         <ResultsContainer>
-                            <h1 className='text-center page-header'>Favorites History</h1>
+                            <h1 className='text-center page-header'>Favorites</h1>
                             {this.state.favoritesArr.length > 0 ? (this.state.favoritesArr.map((favorite) => {
                                 return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} />
                             })) : (
@@ -278,7 +278,7 @@ class Favorites extends Component {
                                         <div className='jumbotron jumbotron-fluid empty-array-jumbotron'>
                                             <div className='container'>
                                                 <div className='row'>
-                                                    <h3 className='empty-array-text'>Doesn't look like you have searched anything.</h3>
+                                                    <h3 className='empty-array-text'>Doesn't look like you have Favorited anything.</h3>
                                                 </div>
                                                 <div className='row button-group'>
                                                     <a className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' href='/search' onClick={(e) => { this.props.btnClickFunc(e) }}>Start Searching</a>
