@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         planMeal: {
-            type: DataTypes.String,
+            type: DataTypes.STRING,
             allowNull: true
         },
         type: {
-            type: DataTypes.String,
+            type: DataTypes.STRING,
             allowNull: false
         },
         image: {
