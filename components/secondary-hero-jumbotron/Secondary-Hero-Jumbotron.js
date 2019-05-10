@@ -12,16 +12,7 @@ const SecondaryHeroJumbotron = (props) => (
                 <form>
                     <div className='form-group'>
                         <div className='input-group' id='secondary-hero-search'>
-                            <MediaQuery maxDeviceWidth={767}>
-                                <button type='button' className='btn btn-outline-dark mobile' name="recipes" id='secondary-hero-search-btn-recipe' onClick={(e) => { props.btnClickFront(e) }}>Search Recipes</button>
-                                <button type='button' className='btn btn-outline-dark mobile' name="menu" id='secondary-hero-search-btn-menu' onClick={(e) => { props.btnClickFront(e) }}>Search Menu Items</button>
-                                <button type='button' className='btn btn-outline-dark mobile' name="grocery" id='secondary-hero-search-btn-grocery' onClick={(e) => { props.btnClickFront(e) }}>Search Grocery</button>
-                            </MediaQuery>
-                            <MediaQuery minDeviceWidth={768}>
-                                <button type='button' className='btn btn-outline-dark desktop' name="recipes" id='secondary-hero-search-btn-recipe' onClick={(e) => { props.btnClickFront(e) }}>Search Recipes</button>
-                                <button type='button' className='btn btn-outline-dark desktop' name="menu" id='secondary-hero-search-btn-menu' onClick={(e) => { props.btnClickFront(e) }}>Search Menu Items</button>
-                                <button type='button' className='btn btn-outline-dark desktop' name="grocery" id='secondary-hero-search-btn-grocery' onClick={(e) => { props.btnClickFront(e) }}>Search Grocery</button>
-                            </MediaQuery>
+                            <a className='btn btn-outline-dark mobile' name="recipes" id='secondary-hero-search-btn-recipe' href="/search">Begin Searching</a>
                         </div>
                     </div>
                 </form>

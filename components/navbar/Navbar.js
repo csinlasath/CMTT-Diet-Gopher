@@ -11,23 +11,9 @@ const NavbarComponent = (props) => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <form className='form-inline'>
-            <div className='input-group'>
-              <div className='input-group-prepend'>
-                <select className='form-control btn-outline-dark my-sm-0'>
-                  <option>Recipes</option>
-                  <option>Groceries Items</option>
-                  <option>Menu Items</option>
-                </select>
-              </div>
-              <input type='search' className='form-control mr-sm-2 col-auto' id='searchBox' placeholder='Chicken Parm'></input>
-              <div className='input-group-append'>
-                <button className='form-control btn btn-sm btn-outline-dark my-2 my-sm-0'>Search</button>
-              </div>
-            </div>
-          </form>
         </Nav>
         <Form inline>
+          <Nav.Link name="search" href='/search'>Search</Nav.Link>
           <Nav.Link className='nav-link' id='login-btn' href='/login' onClick={(e) => props.loginButtonHandler(e)}>Login</Nav.Link>
           <Nav.Link className='nav-link' id='signup-btn' href='/signup' onClick={(e) => props.loginButtonHandler(e)}>Sign Up</Nav.Link>
         </Form>
