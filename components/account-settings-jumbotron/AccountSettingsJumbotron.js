@@ -11,15 +11,16 @@ class UserEdit extends Component {
   render() {
     return (
       <Fragment>
-        <div className="jumbotron jumbotron-fluid">
-          <div className="container">
-            <div className="row" id="jumbotronUserProfile">
-              <div className="col-md-6">
-                <div className="container">
-                  <div className="card">
+        <div className='jumbotron jumbotron-fluid'>
+          <div className='container'>
+            <h1 className='account-settings-heading'>Account Settings</h1>
+            <div className='row' id='accountSettingsJumbotron'>
+              <div className='col-md-6'>
+                <div className='container'>
+                  <div className='card'>
                     <img
                       src="static/img/healthy-breakfast.jpg"
-                      className="card-img profileImg"
+                      className="card-img"
                     />
                   </div>
                 </div>
@@ -52,12 +53,23 @@ class UserEdit extends Component {
                     </div>
                     <div className="form-row">
                       <div className="form-group col-md-12">
-                        <label htmlFor="Email">Email Address</label>
+                        <label htmlFor="Email">Current Email Address</label>
                         <input
-                          type="text"
+                          type='email'
                           className="form-control bg-light"
                           id="signUpEmail"
                           placeholder="john@dietgopher.com"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group col-md-12">
+                        <label htmlFor="newEmail">New Email Address</label>
+                        <input
+                          type="text"
+                          className="form-control bg-light"
+                          id="newEmail"
+                          placeholder="johnny@dietgopher.com"
                         />
                       </div>
                     </div>
@@ -109,8 +121,7 @@ class UserEdit extends Component {
                         </small>
                       </div>
                     </div>
-
-
+                    <button type='submit' className='btn btn-outline-dark btn-block' id='submitAccountSettings'>Save Changes</button>
                   </form>
                 </div>
               </div>
@@ -118,6 +129,15 @@ class UserEdit extends Component {
           </div>
         </div>
         <style jsx>{`
+          .account-settings-heading {
+            text-align: center;
+            margin-bottom: 50px;
+          }
+
+          #submitAccountSettings {
+            margin-top: 25px;
+          }
+
           #profileSaveBtn {
             display: block;
             margin: 0 auto;
