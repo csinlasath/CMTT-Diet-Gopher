@@ -13,12 +13,12 @@ const UserSettingsJumbotron = (props) => (
                     <div className='form-group'>
                         <div className='input-group' id='userSettingsBtnGroup'>
                             <MediaQuery maxDeviceWidth={767}>
-                                <a className='btn btn-outline-dark mobile' href='/useredit'>Customize Profile</a>
+                                <a className='btn btn-outline-dark mobile' href='/users'>Customize Profile</a>
                                 <a className='btn btn-outline-dark mobile' href='/profile'>Personal Info</a>
                                 <a className='btn btn-outline-dark mobile' href='/accountsettings'>Account Settings</a>
                             </MediaQuery>
                             <MediaQuery minDeviceWidth={768}>
-                                <a className='btn btn-outline-dark desktop' href='/useredit'>Customize Profile</a>
+                                <a className='btn btn-outline-dark desktop' href='/users'>Customize Profile</a>
                                 <a className='btn btn-outline-dark desktop' href='/profile'>Personal Info</a>
                                 <a className='btn btn-outline-dark desktop' href='/accountsettings'>Account Settings</a>
                             </MediaQuery>

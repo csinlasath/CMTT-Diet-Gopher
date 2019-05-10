@@ -1,4 +1,4 @@
-import Useredit from "../useredit/Edit";
+import Useredit from "../account-settings-jumbotron/AccountSettingsJumbotron";
 
 const EditJumbotron = (props) => (
     <div className='jumbotron jumbotron-fluid' id='edit-jumbotron'>

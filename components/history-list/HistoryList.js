@@ -2,15 +2,39 @@ import React, { Component, Fragment } from 'react';
 import MediaQuery from 'react-responsive';
 import ResultsContainer from '../results-container';
 import SearchResultsMenu from '../search-results-menu';
+import RecipeDetails from '../recipes-details';
 
 class HistoryList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoggedIn: false,
             user: {},
-            userName: props.username,
-            userId: props.userId,
-            historyArr: props.historyArr
+            userId: "808",
+            currentFocus: "8675309",
+            previousFocus: "8675309",
+            menuSearchQuery: "",
+            grocerySearchQuery: "",
+            recipeSearchQuery: "",
+            recipeSearchDiet: "none",
+            recipeSearchType: "none",
+            recipeSearchCuisine: "none",
+            recipeSearchInclude: "",
+            recipeSearchExclude: "",
+            recipeSearchAllergies: "none",
+            recipeResultsArr: [],
+            recipeDetails: [],
+            menuResultsArr: [],
+            menuDetails: [],
+            groceryResultsArr: [],
+            groceryDetails: [],
+            itemId: "",
+            favorite: false,
+            favoritesArr: [],
+            currentItem: "53409",
+            commentInput: "",
+            comments: [],
+            historyArr: [],
         };
     };
 
