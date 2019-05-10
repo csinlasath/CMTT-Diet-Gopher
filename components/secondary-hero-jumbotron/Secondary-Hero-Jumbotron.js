@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import MediaQuery from 'react-responsive';
+import Link from 'next/link'
 
 const SecondaryHeroJumbotron = (props) => (
     <Fragment>
@@ -12,7 +12,7 @@ const SecondaryHeroJumbotron = (props) => (
                 <form>
                     <div className='form-group'>
                         <div className='input-group' id='secondary-hero-search'>
-                            <a className='btn btn-outline-dark mobile' name="recipes" id='secondary-hero-search-btn-recipe' href="/search">Begin Searching</a>
+                            <Link href='/search'><a className='btn btn-outline-dark mobile' name='recipes' id='secondary-hero-search-btn-recipe'>Begin Searching</a></Link>
                         </div>
                     </div>
                 </form>

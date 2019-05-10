@@ -57,8 +57,8 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.get('/user', isLoggedIn, (req, res) => {
-    console.log("Accessed /User page.");
+  server.get('/users', isLoggedIn, (req, res) => {
+    console.log("Accessed /Users page.");
     return handle(req, res);
   });
 
@@ -69,6 +69,21 @@ app.prepare().then(() => {
 
   server.get('/history', isLoggedIn, (req, res) => {
     console.log("Accessed /History page.");
+    return handle(req, res);
+  });
+
+  server.get('/favorites', isLoggedIn, (req, res) => {
+    console.log("Accessed /Favorites page.");
+    return handle(req, res);
+  });
+
+  server.get('/accountsettings', isLoggedIn, (req, res) => {
+    console.log("Accessed /AccountSettings page.");
+    return handle(req, res);
+  });
+
+  server.get('/profile', isLoggedIn, (req, res) => {
+    console.log("Accessed /AccountSettings page.");
     return handle(req, res);
   });
 

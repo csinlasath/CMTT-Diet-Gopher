@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import MediaQuery from 'react-responsive';
+import Link from 'next/link';
 
 const UserSettingsJumbotron = (props) => (
     <Fragment>
@@ -13,14 +14,14 @@ const UserSettingsJumbotron = (props) => (
                     <div className='form-group'>
                         <div className='input-group' id='userSettingsBtnGroup'>
                             <MediaQuery maxDeviceWidth={767}>
-                                <a className='btn btn-outline-dark mobile' href='/users'>Customize Profile</a>
-                                <a className='btn btn-outline-dark mobile' href='/profile'>Personal Info</a>
-                                <a className='btn btn-outline-dark mobile' href='/accountsettings'>Account Settings</a>
+                                <Link href='/users'><a className='btn btn-outline-dark mobile'>Customize Profile</a></Link>
+                                <Link href='/profile'><a className='btn btn-outline-dark mobile'>Personal Info</a></Link>
+                                <Link href='/accountsettings'><a className='btn btn-outline-dark mobile'>Account Settings</a></Link>
                             </MediaQuery>
                             <MediaQuery minDeviceWidth={768}>
-                                <a className='btn btn-outline-dark desktop' href='/users'>Customize Profile</a>
-                                <a className='btn btn-outline-dark desktop' href='/profile'>Personal Info</a>
-                                <a className='btn btn-outline-dark desktop' href='/accountsettings'>Account Settings</a>
+                                <Link href='/users'><a className='btn btn-outline-dark desktop'>Customize Profile</a></Link>
+                                <Link href='/profile'><a className='btn btn-outline-dark desktop'>Personal Info</a></Link>
+                                <Link href='/accountsettings'><a className='btn btn-outline-dark desktop'>Account Settings</a></Link>
                             </MediaQuery>
                         </div>
                     </div>

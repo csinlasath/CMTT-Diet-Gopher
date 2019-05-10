@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import MediaQuery from 'react-responsive';
 import ResultsContainer from '../results-container';
 import SearchResultsMenu from '../search-results-menu';
 import RecipeDetails from '../recipes-details';
@@ -75,7 +74,7 @@ class HistoryList extends Component {
         return (
             <Fragment>
                 <ResultsContainer>
-                    <h1>Search History</h1>
+                    <h1 className='text-center page-header'>Search History</h1>
                     {this.props.historyArr.length > 0 ? (this.props.historyArr.map((history, i) => {
                         if (i < 10) {
                             return (
@@ -93,16 +92,7 @@ class HistoryList extends Component {
                                             <h3 className='empty-array-text'>Doesn't look like you have searched anything.</h3>
                                         </div>
                                         <div className='row button-group'>
-                                            <MediaQuery maxDeviceWidth={767}>
-                                                <button type='button' className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Recipes</button>
-                                                <button type='button' className='btn btn-outline-dark mobile' name="menu" id='history-search-btn-menu' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Menu Items</button>
-                                                <button type='button' className='btn btn-outline-dark mobile' name="grocery" id='history-search-btn-grocery' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Grocery</button>
-                                            </MediaQuery>
-                                            <MediaQuery minDeviceWidth={768}>
-                                                <button type='button' className='btn btn-outline-dark desktop' name="recipes" id='history-search-btn-recipe' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Recipes</button>
-                                                <button type='button' className='btn btn-outline-dark desktop' name="menu" id='history-search-btn-menu' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Menu Items</button>
-                                                <button type='button' className='btn btn-outline-dark desktop' name="grocery" id='history-search-btn-grocery' onClick={(e) => { this.props.btnClickFunc(e) }}>Search Grocery</button>
-                                            </MediaQuery>
+                                            <a className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' href='/search' onClick={(e) => { this.props.btnClickFunc(e) }}>Start Searching</a>
                                         </div>
                                     </div>
                                 </div>
@@ -110,6 +100,10 @@ class HistoryList extends Component {
                         )}
                 </ResultsContainer>
                 <style jsx>{`
+                        .page-header {
+                            margin-bottom: 25px;
+                        }
+
                         .empty-array-text {
                             margin: 0 auto;
                             margin-bottom: 50px;

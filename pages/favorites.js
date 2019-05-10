@@ -270,10 +270,60 @@ class Favorites extends Component {
                 return (
                     <MainLoggedIn favorites={this.favorites}>
                         <ResultsContainer>
-                            {this.state.favoritesArr.map((favorite) => {
+                            <h1 className='text-center page-header'>Favorites</h1>
+                            {this.state.favoritesArr.length > 0 ? (this.state.favoritesArr.map((favorite) => {
                                 return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} />
-                            })}
+                            })) : (
+                                    <Fragment>
+                                        <div className='jumbotron jumbotron-fluid empty-array-jumbotron'>
+                                            <div className='container'>
+                                                <div className='row'>
+                                                    <h3 className='empty-array-text'>Doesn't look like you have Favorited anything.</h3>
+                                                </div>
+                                                <div className='row button-group'>
+                                                    <a className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' href='/search' onClick={(e) => { this.props.btnClickFunc(e) }}>Start Searching</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Fragment>
+                                )}
                         </ResultsContainer>
+                        <style jsx>{`
+                            .page-header {
+                                margin-bottom: 25px;
+                            }
+                                
+                            .empty-array-text {
+                                margin: 0 auto;
+                                margin-bottom: 50px;
+                            }
+
+                            .modal-btn {
+                                display: block;
+                                margin: 0 auto;
+                                margin-bottom: 10px;
+                            }
+
+                            #empty-array-jumbotron {
+                                height: fit-content;
+                            }
+
+                            .button-group {
+                                margin: 0 auto;
+                                width: fit-content;
+                                text-align: center;
+                            }
+
+                            .desktop {
+                                margin: 5px;
+                            }
+
+                            .mobile {
+                                margin: 5px auto
+                            }
+
+                            @media 
+                `}</style>
                     </MainLoggedIn>
                 );
                 break;

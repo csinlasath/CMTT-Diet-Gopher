@@ -9,14 +9,14 @@ const buttonStyle = {
 
 const SearchGrocery = (props) => (
     <Fragment>
-            <div className="input-group">
-                <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} title="Search">
-                    <div className="search">
-                        <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
+            <div className='input-group'>
+                <DropdownButton id='dropdown-basic-button' name='searchType' variant='default' style={buttonStyle} title='Search'>
+                    <div className='search'>
+                        <i className='closeButton far fa-window-close' onClick={props.clickClose}></i>
                         <div className='form-group inputs'>
-                            <div className="form-group inputs">
-                                <label htmlFor="grocerySearchQuery">Grocery Search</label>
-                                <input type="text" className="form-control" name='grocerySearchQuery' value={props.searchValueQuery} placeholder='(e.g. Cool Ranch Doritos)' id='grocerySearchQuery' onChange={(e) => props.formStateChange(e)} />
+                            <div className='form-group inputs'>
+                                <label htmlFor='grocerySearchQuery'>Grocery Search</label>
+                                <input type='text' className='form-control' name='grocerySearchQuery' value={props.searchValueQuery} placeholder='(e.g. Cool Ranch Doritos)' id='grocerySearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                         </div>
                         <div className='input-group-append'>
@@ -24,8 +24,8 @@ const SearchGrocery = (props) => (
                         </div>
                     </div>
                 </DropdownButton>
-                <div className="input-group-prepend">
-                    <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title="Grocery Items">
+                <div className='input-group-prepend'>
+                    <DropdownButton id='dropdown-basic-button' name='searchType' variant='default' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title='Grocery Items'>
                         <Dropdown.Item eventKey='recipes'>Recipes</Dropdown.Item>
                         <Dropdown.Item eventKey='grocery'>Grocery Items</Dropdown.Item>
                         <Dropdown.Item eventKey='menu'>Menu Items</Dropdown.Item>
