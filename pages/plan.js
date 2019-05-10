@@ -13,6 +13,7 @@ import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
 import MealPlanCalendar from '../components/meal-plan-calendar';
+import FoodPlanModal from '../components/food-plan-modal';
 
 class Plan extends Component {
     constructor(props) {
@@ -39,7 +40,8 @@ class Plan extends Component {
             groceryDetails: [],
             itemId: "",
             favorite: false,
-            favoritesArr: []
+            favoritesArr: [],
+            plan: false
         };
     };
 
@@ -181,6 +183,111 @@ class Plan extends Component {
         };
     };
 
+    //When you click on a recipe in plan
+    clickPlan = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const type = e.target.getAttribute('data-type');
+        const plans = type + "Plan"
+        console.log(id, type, plans);
+        fetch('/api/plan' + type + '/' + id, {
+        }).then((res) => {
+            return res.json();
+        }).then((json) => {
+            console.log(json);
+            this.setState({
+                [details]: json,
+                previousFocus: this.state.currentFocus,
+                currentFocus: type + "Plan",
+                favorite: true,
+                currentItem: id
+            });
+            if (type === "recipe") {
+                fetch('/api/comments/all/' + id, {
+                }).then((res) => {
+                    if (res) {
+                        return res.json();
+                    }
+                }).then((json) => {
+                    this.setState({
+                        comments: json
+                    });
+                });
+            };
+            window.scrollTo(0, 0);
+        });
+    };
+
+    //when you click the submit button in planning a meal
+    planClick = (e) => {
+        const id = e.target.getAttribute('data-id');
+        const type = e.target.getAttribute('data-type');
+        let body = [];
+        let toPlan = {};
+        toPlan.userId = this.state.userId;
+        toPlane.type = type;
+        toPlane.itemId = id;
+        switch (type) {
+            case "recipe":
+            body = this.state.recipeDetails;
+            body.type = "recipe";
+            toPlan.image = this.state.recipeDetails.image;
+            toPlan.title = this.state.recipeDetails.title;
+            break;
+            case "grocery":
+            body = this.state.groceryDetails;
+            body.type = "grocery";
+            toPlan.image = this.state.groceryDetails.image[1];
+            toPlan.title = this.state.groceryDetails.title;
+            break;
+            case "menu":
+            body = this.state.menuDetails;
+            body.type = "menu";
+            toPlan.image = this.state.menuDetails[1];
+            toPlan.title = this.state.menuDetails.title;
+            toPlane.restaurantChain = this.state.menuDetails.restaurantChain;
+            break;
+        };
+        if (!this.state.plan && this.state.isLoggedIn) {
+            fetch(`/api/${type}/add`,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({ body })
+            })
+            .then(function (res) { console.log(res) })
+            .catch(function (res) { console.log(res) });
+            fetch('/api/add/plan',
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({ toPlan })
+            })
+            .then((result) => {
+                this.setState({
+                    plan:true
+                });
+            }).catch(function (res) { console.log(res) });
+        }
+        else if (this.state.plan && this.state.isLoggedIn) {
+            fetch('/api/delete/plan',
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({ toPlan })
+            })
+            .then(function (res) {console.log(res) });
+        };
+    };
+
     //when you click favorites in the navbar
     favorites = () => {
         fetch(`/api/favorited/${this.state.userId}`, {
@@ -203,7 +310,7 @@ class Plan extends Component {
             case "recipeDetail":
                 return (
                     <MainLoggedIn favorites={this.favorites}>
-                        <RecipeDetails result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
+                        <RecipeDetails planClick={this.planClick} plan={this.state.plan} result={this.state.recipeDetails} favorite={this.state.favorite} clickBack={this.backButton} favoriteClick={this.favoriteClick} />
                     </MainLoggedIn>
                 );
                 break;

@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import FoodPlanModal from '../food-plan-modal';
 const moment = require('moment');
 
 const RecipeDetails = (props) => (
@@ -74,6 +75,7 @@ const RecipeDetails = (props) => (
                                 </ul>
                             </div>
                         </div>
+                        <FoodPlanModal />
                     </div>
                 </div>
             </div>
