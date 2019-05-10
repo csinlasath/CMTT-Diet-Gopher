@@ -12,7 +12,7 @@ class Header extends Component {
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                     {/* Font-Awesome Icons */}
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossOrigin="anonymous"></link>
-                    {/* Bootswatch */}
+                    {/* Bootswatch BootStrap */}
                     <link
                         rel="stylesheet"
                         href="https://bootswatch.com/4/lux/bootstrap.min.css"
@@ -22,9 +22,10 @@ class Header extends Component {
                     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossOrigin="anonymous"></script>
                     {/* Google Fonts */}
                     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"></link>
-                    {/* <link href="static/css/style.css" rel="stylesheet"></link> */}
+                    {/* Custom Styles */}
+                    <link href="static/css/style.css" rel="stylesheet"></link>
                     {/* App Logic */}
-                    {/* <script src="/static/js/app.js" defer></script> */}
+                    <script src="/static/js/app.js" defer></script>
                 </Head>
             </Fragment>
 

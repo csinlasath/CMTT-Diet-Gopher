@@ -1,35 +1,36 @@
 import React, { Component, Fragment } from "react";
+import Link from 'next/link';
 
 class Footer extends Component {
   render() {
     return (
       <Fragment>
-      <footer className='page-footer'>
-        <nav className='navbar footer-copyright'>
-          <div className='container'>
-            <div className='row hide-on-large-only center'>
-              <span id='copyright'>
-              Copyright &copy; 2019
+        <footer className='page-footer'>
+          <nav className='navbar footer-copyright'>
+            <div className='container'>
+              <div className='row hide-on-large-only center'>
+                <span id='copyright'>
+                  Copyright &copy; 2019
               </span>
-              <li>
-                <a href='http://www.sinlasath.com/' target='_blank'> Christopher Sinlasath </a>
-              </li>
-              <li>
-                <a href='https://github.com/MasonDobbs' target='_blank'>Mason Dobbs</a>
-              </li>
-              <li>
-                <a href='https://tiffanykeller.github.io/marchportfolio/' target='_blank'>
-                  Tiffany Keller
-                </a>
-              </li>
-              <li>
-                  <a href='https://travismorris.io/' target='_blank'>Travis Morris</a>
+                <li>
+                  <Link href='http://www.sinlasath.com/'><a target='_blank'> Christopher Sinlasath </a></Link>
                 </li>
+                <li>
+                  <Link href='https://github.com/MasonDobbs'><a target='_blank'>Mason Dobbs</a></Link>
+                </li>
+                <li>
+                  <Link href='https://tiffanykeller.github.io/marchportfolio/'><a target='_blank'>
+                    Tiffany Keller
+                </a></Link>
+                </li>
+                <li>
+                  <Link href='https://travismorris.io/'><a target='_blank'>Travis Morris</a></Link>
+                </li>
+              </div>
             </div>
-          </div>
-        </nav>
-      </footer>
-      <style jsx>{`
+          </nav>
+        </footer>
+        <style jsx>{`
         #copyright {
           margin: 0px 20px 0px 0px;
         }

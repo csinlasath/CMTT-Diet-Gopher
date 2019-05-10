@@ -9,18 +9,18 @@ const buttonStyle = {
 
 const SearchRecipes = (props) => (
     <Fragment>
-        <div className="input-group">
-            <div className="input-group-prepend">
-                <DropdownButton id="dropdown-basic-button" variant='default' style={buttonStyle} title="Search">
+        <div className='input-group'>
+            <div className='input-group-prepend'>
+                <DropdownButton id='dropdown-basic-button' variant='default' style={buttonStyle} title='Search'>
                     <MediaQuery maxDeviceWidth={530}>
-                        <div className="searchMobile">
-                            <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchQuery">Recipe Search</label>
-                                <input type="text" className="form-control" name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
+                        <div className='searchMobile'>
+                            <i className='closeButton far fa-window-close' onClick={props.clickClose}></i>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchQuery'>Recipe Search</label>
+                                <input type='text' className='form-control' name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchType">Recipe Type</label>
+                                <label htmlFor='recipeSearchType'>Recipe Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchType' id='recipeSearchType' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Type (Optional)</option>
                                     <option value='appetizer'>Appetizer</option>
@@ -37,7 +37,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchDiet">Diet Type</label>
+                                <label htmlFor='recipeSearchDiet'>Diet Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchDiet' id='recipeSearchDiet' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Diet (Optional)</option>
                                     <option value='ketogenic'>Ketogenic</option>
@@ -47,7 +47,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchAllergies">Allergies/Intolerances</label>
+                                <label htmlFor='recipeSearchAllergies'>Allergies/Intolerances</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchAllergies' id='recipeSearchAllergies' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Intolerances/allergies (Optional)</option>
                                     <option value='dairy+free'>Dairy Free</option>
@@ -65,7 +65,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchCuisine">Cuisine Type</label>
+                                <label htmlFor='recipeSearchCuisine'>Cuisine Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchCuisine' id='recipeSearchCuisine' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Cuisine (Optional)</option>
                                     <option value='american'>American</option>
@@ -94,12 +94,12 @@ const SearchRecipes = (props) => (
                                     <option value='vietnamese'>Vietnamese</option>
                                 </select>
                             </div>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchInclude">Include Ingredients</label>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchInclude'>Include Ingredients</label>
                                 <input type='text' className='form-control' name='recipeSearchInclude' value={props.searchValue} placeholder='(optional: e.g. Cheese) ' id='recipeSearchInclude' onChange={props.formStateChange}></input>
                             </div>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchExclude">Exclude Ingredients</label>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchExclude'>Exclude Ingredients</label>
                                 <input type='text' className='form-control' name='recipeSearchExclude' value={props.searchValue} placeholder='(optional: e.g. Onions) ' id='recipeSearchExclude' onChange={props.formStateChange}></input>
                             </div>
                             <div className='input-group-append'>
@@ -108,14 +108,14 @@ const SearchRecipes = (props) => (
                         </div>
                     </MediaQuery>
                     <MediaQuery minDeviceWidth={531}>
-                        <div className="searchDesktop">
-                            <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchQuery">Recipe Search</label>
-                                <input type="text" className="form-control" name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
+                        <div className='searchDesktop'>
+                            <i className='closeButton far fa-window-close' onClick={props.clickClose}></i>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchQuery'>Recipe Search</label>
+                                <input type='text' className='form-control' name='recipeSearchQuery' value={props.searchValueQuery} placeholder='(optional: e.g. Chicken Parm)' id='recipeSearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchType">Recipe Type</label>
+                                <label htmlFor='recipeSearchType'>Recipe Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchType' id='recipeSearchType' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Type (Optional)</option>
                                     <option value='appetizer'>Appetizer</option>
@@ -132,7 +132,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchDiet">Diet Type</label>
+                                <label htmlFor='recipeSearchDiet'>Diet Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchDiet' id='recipeSearchDiet' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Diet (Optional)</option>
                                     <option value='ketogenic'>Ketogenic</option>
@@ -142,7 +142,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchAllergies">Allergies/Intolerances</label>
+                                <label htmlFor='recipeSearchAllergies'>Allergies/Intolerances</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchAllergies' id='recipeSearchAllergies' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Intolerances/allergies (Optional)</option>
                                     <option value='dairy+free'>Dairy Free</option>
@@ -160,7 +160,7 @@ const SearchRecipes = (props) => (
                                 </select>
                             </div>
                             <div className='form-group row itemDrop'>
-                                <label htmlFor="recipeSearchCuisine">Cuisine Type</label>
+                                <label htmlFor='recipeSearchCuisine'>Cuisine Type</label>
                                 <select className='form-control btn btn-outline-dark dropdowns' name='recipeSearchCuisine' id='recipeSearchCuisine' onChange={(e) => props.formStateChange(e)}>
                                     <option value='none' defaultValue>Choose Cuisine (Optional)</option>
                                     <option value='american'>American</option>
@@ -189,12 +189,12 @@ const SearchRecipes = (props) => (
                                     <option value='vietnamese'>Vietnamese</option>
                                 </select>
                             </div>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchInclude">Include Ingredients</label>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchInclude'>Include Ingredients</label>
                                 <input type='text' className='form-control' name='recipeSearchInclude' value={props.searchValue} placeholder='(optional: e.g. Cheese) ' id='recipeSearchInclude' onChange={props.formStateChange}></input>
                             </div>
-                            <div className="form-group inputs">
-                                <label htmlFor="recipeSearchExclude">Exclude Ingredients</label>
+                            <div className='form-group inputs'>
+                                <label htmlFor='recipeSearchExclude'>Exclude Ingredients</label>
                                 <input type='text' className='form-control' name='recipeSearchExclude' value={props.searchValue} placeholder='(optional: e.g. Onions) ' id='recipeSearchExclude' onChange={props.formStateChange}></input>
                             </div>
                             <div className='input-group-append'>
@@ -203,8 +203,8 @@ const SearchRecipes = (props) => (
                         </div>
                     </MediaQuery>
                 </DropdownButton>
-                <div className="input-group-append">
-                    <DropdownButton id="dropdown-basic-button" variant='defualt' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title="Recipes">
+                <div className='input-group-append'>
+                    <DropdownButton id='dropdown-basic-button' variant='defualt' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title='Recipes'>
                         <Dropdown.Item eventKey='recipes'>Recipes</Dropdown.Item>
                         <Dropdown.Item eventKey='grocery'>Grocery Items</Dropdown.Item>
                         <Dropdown.Item eventKey='menu'>Menu Items</Dropdown.Item>

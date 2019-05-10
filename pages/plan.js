@@ -45,27 +45,27 @@ class Plan extends Component {
 
     componentDidMount() {
         fetch('/api/user/verify').then((res, err) => {
-          if (err) throw err;
-          return res.json();
+            if (err) throw err;
+            return res.json();
         }).then((json) => {
-          console.log('This is the json from checking if logged in');
-          console.log(json);
-          this.setState((state) => ({
-            isLoggedIn: true,
-            user: json,
-            username: json.username,
-            userId: json._id
-          }), () => {
-            fetch(`/api/history/${this.state.userId}/all`).then((res) => {
-              return res.json();
-            }).then((json) => {
-              this.setState({
-                historyArr: json.reverse()
-              });
+            console.log('This is the json from checking if logged in');
+            console.log(json);
+            this.setState((state) => ({
+                isLoggedIn: true,
+                user: json,
+                username: json.username,
+                userId: json._id
+            }), () => {
+                fetch(`/api/history/${this.state.userId}/all`).then((res) => {
+                    return res.json();
+                }).then((json) => {
+                    this.setState({
+                        historyArr: json.reverse()
+                    });
+                });
             });
-          });
         });
-      };
+    };
 
     //When you click an item in favorites
     clickFavorite = (e) => {
@@ -235,7 +235,9 @@ class Plan extends Component {
             default:
                 return (
                     <MainLoggedIn favorites={this.favorites}>
-                        <MealPlanCalendar />
+                        <ResultsContainer>
+                            <MealPlanCalendar />
+                        </ResultsContainer>
                     </MainLoggedIn>
                 );
         };

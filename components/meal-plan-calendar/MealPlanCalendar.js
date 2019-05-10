@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import ResultsContainer from '../results-container';
 import SearchResultsMenu from '../search-results-menu';
 
 const CalendarHeader = (props) => {

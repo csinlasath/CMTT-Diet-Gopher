@@ -8,14 +8,14 @@ const buttonStyle = {
 
 const SearchMenuItems = (props) => (
     <Fragment>
-            <div className="input-group">
-                <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} title="Search">
-                    <div className="search">
-                        <i className="closeButton far fa-window-close" onClick={props.clickClose}></i>
+            <div className='input-group'>
+                <DropdownButton id='dropdown-basic-button' name='searchType' variant='default' style={buttonStyle} title='Search'>
+                    <div className='search'>
+                        <i className='closeButton far fa-window-close' onClick={props.clickClose}></i>
                         <div className='form-group inputs'>
-                            <div className="form-group inputs">
-                                <label htmlFor="menuSearchQuery">Menu Search</label>
-                                <input type="text" className="form-control" name='menuSearchQuery' value={props.searchValueQuery} placeholder='(e.g. Doritos Locos Tacos)' id='menuSearchQuery' onChange={(e) => props.formStateChange(e)} />
+                            <div className='form-group inputs'>
+                                <label htmlFor='menuSearchQuery'>Menu Search</label>
+                                <input type='text' className='form-control' name='menuSearchQuery' value={props.searchValueQuery} placeholder='(e.g. Doritos Locos Tacos)' id='menuSearchQuery' onChange={(e) => props.formStateChange(e)} />
                             </div>
                         </div>
                         <div className='input-group-append'>
@@ -23,8 +23,8 @@ const SearchMenuItems = (props) => (
                         </div>
                     </div>
                 </DropdownButton>
-                <div className="input-group-prepend">
-                    <DropdownButton id="dropdown-basic-button" name='searchType' variant='default' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title="Menu Items">
+                <div className='input-group-prepend'>
+                    <DropdownButton id='dropdown-basic-button' name='searchType' variant='default' style={buttonStyle} onSelect={(e) => props.typeStateChange(e)} title='Menu Items'>
                         <Dropdown.Item eventKey='recipes'>Recipes</Dropdown.Item>
                         <Dropdown.Item eventKey='grocery'>Grocery Items</Dropdown.Item>
                         <Dropdown.Item eventKey='menu'>Menu Items</Dropdown.Item>

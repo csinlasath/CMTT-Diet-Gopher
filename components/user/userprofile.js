@@ -77,10 +77,6 @@ class UserProfile extends Component {
                         </small>
                       </div>
                     </div>
-                    
-  
-
-
                   </form>
                 </div>
               </div>

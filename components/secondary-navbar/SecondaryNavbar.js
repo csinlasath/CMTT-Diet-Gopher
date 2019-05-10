@@ -1,19 +1,18 @@
 import React, { Fragment } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
+import Link from 'next/link';
 
 const SecondaryNavbar = (props) => (
     <Fragment>
         <Navbar bg='secondary' expand='sm'>
             <div className='container'>
                 <div className='row'>
-                    <ul className="col-auto" id='secondaryNavLinks'>
-                        <li><a href="/" className='nav-link'>Home</a></li>
-                        <li><a href="/about" className='nav-link'>About</a></li>
-                        <li><a href="/technology" className='nav-link'>Technology</a></li>
-                        <li><a href="/team" className='nav-link'>Team</a></li>
-                        <li><a href="/support" className='nav-link'>Support</a></li>
+                    <ul className='col-auto' id='secondaryNavLinks'>
+                        <li><Link href='/'><a className='nav-link'>Home</a></Link></li>
+                        <li><Link href='/about'><a className='nav-link'>About</a></Link></li>
+                        <li><Link href='/technology'><a className='nav-link'>Technology</a></Link></li>
+                        <li><Link href='/team'><a className='nav-link'>Team</a></Link></li>
+                        <li><Link href='/support'><a className='nav-link'>Support</a></Link></li>
                     </ul>
                 </div>
             </div>
