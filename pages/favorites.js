@@ -22,7 +22,8 @@ class Favorites extends Component {
             favorite: false,
             favoritesArr: [],
             comments: [],
-            commentInput: ""
+            commentInput: "",
+            type:  "recipe"
         };
     };
 
@@ -236,21 +237,21 @@ class Favorites extends Component {
             case "recipeDetail":
                 return (
                     <MainLoggedIn favorites={this.favorites}>
-                        <RecipeDetails result={this.state.recipeDetails} isLoggedIn={this.state.isLoggedIn} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} />
+                        <RecipeDetails result={this.state.recipeDetails} isLoggedIn={this.state.isLoggedIn} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                     </MainLoggedIn>
                 );
                 break;
             case "groceryDetail":
                 return (
                     <MainLoggedIn favorites={this.favorites}>
-                        <GroceryDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
+                        <GroceryDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                     </MainLoggedIn>
                 );
                 break;
             case "menuDetail":
                 return (
                     <MainLoggedIn favorites={this.favorites}>
-                        <MenuDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+                        <MenuDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                     </MainLoggedIn>
                 );
                 break;
@@ -260,7 +261,7 @@ class Favorites extends Component {
                         <ResultsContainer>
                             <h1 className='text-center page-header'>Favorites</h1>
                             {this.state.favoritesArr.length > 0 ? (this.state.favoritesArr.map((favorite) => {
-                                return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} />
+                                return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} modalType={this.state.type}/>
                             })) : (
                                     <Fragment>
                                         <div className='jumbotron jumbotron-fluid empty-array-jumbotron'>
