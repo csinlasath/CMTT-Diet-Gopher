@@ -390,65 +390,89 @@ class Team extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <div id='teamWrapper'>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Christopher Sinlasath</h5>
-                        <p className='card-text'>Backend Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Mason Dobbs</h5>
-                        <p className='card-text'>Front End Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Tiffany Keller</h5>
-                        <p className='card-text'>Front End Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Travis Morris</h5>
-                        <p className='card-text'>Backend Developer</p>
-                      </div>
+               <Fragment>
+                <div className='jumbotron jumbotron-fluid team-card-jumbotron'>
+                  <div className='container'>
+                    <div className='row'>
+                      <h3 className='team-jumbotron-title'>Meet our team.</h3>
                     </div>
                   </div>
                 </div>
                 <style jsx>{`
+                  .team-jumbotron-title {
+                    margin: 0 auto;
+                  }
+                `}</style>
+              </Fragment>
+              <Fragment>
+                <div id='teamWrapper'>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Christopher Sinlasath</h5>
+                          <p className='card-text'>Backend Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Mason Dobbs</h5>
+                          <p className='card-text'>Front End Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Tiffany Keller</h5>
+                          <p className='card-text'>Front End Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Travis Morris</h5>
+                          <p className='card-text'>Backend Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <style jsx>{`
+                  .team-jumbotron-title {
+                    margin: 0 auto;
+                  }
+
                   #teamWrapper {
                     margin-bottom: 100px;
                   }
+
+                  .team-card {
+                    margin-bottom: 50px;
+                  }
                 `}</style>
-              </div>
+                </div>
+              </Fragment>
             </MainLoggedIn>
           );
       };
@@ -514,65 +538,89 @@ class Team extends Component {
         default:
           return (
             <Main>
-              <div id='teamWrapper'>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Christopher Sinlasath</h5>
-                        <p className='card-text'>Backend Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Mason Dobbs</h5>
-                        <p className='card-text'>Front End Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Tiffany Keller</h5>
-                        <p className='card-text'>Front End Developer</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='card text-center' data-interval="5000">
-                  <div className='row no-gutters'>
-                    <div className='col-md-4'>
-                      <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
-                    </div>
-                    <div className='col-md-8'>
-                      <div className='card-body'>
-                        <h5 className='card-title'>Travis Morris</h5>
-                        <p className='card-text'>Backend Developer</p>
-                      </div>
+              <Fragment>
+                <div className='jumbotron jumbotron-fluid team-card-jumbotron'>
+                  <div className='container'>
+                    <div className='row'>
+                      <h3 className='team-jumbotron-title'>Meet our team.</h3>
                     </div>
                   </div>
                 </div>
                 <style jsx>{`
+                  .team-jumbotron-title {
+                    margin: 0 auto;
+                  }
+                `}</style>
+              </Fragment>
+              <Fragment>
+                <div id='teamWrapper'>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/chrispicture.jpeg' className='card-img d-block' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Christopher Sinlasath</h5>
+                          <p className='card-text'>Backend Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/masonpicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Mason Dobbs</h5>
+                          <p className='card-text'>Front End Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Tiffany Keller</h5>
+                          <p className='card-text'>Front End Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='card text-center team-card'>
+                    <div className='row no-gutters'>
+                      <div className='col-md-4'>
+                        <img src='static/img/travispicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                      </div>
+                      <div className='col-md-8'>
+                        <div className='card-body'>
+                          <h5 className='card-title'>Travis Morris</h5>
+                          <p className='card-text'>Backend Developer</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <style jsx>{`
+                  .team-jumbotron-title {
+                    margin: 0 auto;
+                  }
+
                   #teamWrapper {
                     margin-bottom: 100px;
                   }
+
+                  .team-card {
+                    margin-bottom: 50px;
+                  }
                 `}</style>
-              </div>
+                </div>
+              </Fragment>
             </Main>
           );
       };

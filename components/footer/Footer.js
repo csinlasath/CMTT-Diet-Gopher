@@ -37,6 +37,8 @@ class Footer extends Component {
 
         footer {
           height: 50px;
+          border-top: 1px solid lightgray;
+          margin-top: 50px;
         }
 
         li {

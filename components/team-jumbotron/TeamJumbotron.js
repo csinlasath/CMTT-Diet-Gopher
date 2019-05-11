@@ -7,12 +7,6 @@ const TeamJumbotron = (props) => (
                 <div className='card-body'>
                     <h3 className='text-center team-header'>Meet the Team</h3>
                     <div id='teamCarousel' className='carousel slide carousel-fade' data-ride='carousel'>
-                        <ol className='carousel-indicators'>
-                            <li data-target='heroCarousel' data-slide-to='0' className='active bg-dark'></li>
-                            <li data-target='heroCarousel' data-slide-to='1' className='bg-dark'></li>
-                            <li data-target='heroCarousel' data-slide-to='2' className='bg-dark'></li>
-                            <li data-target='heroCarousel' data-slide-to='3' className='bg-dark'></li>
-                        </ol>
                         <div className='carousel-inner'>
                             <div className='card carousel-item active text-center' data-interval="5000">
                                 <div className='row no-gutters'>
