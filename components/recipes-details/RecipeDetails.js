@@ -15,6 +15,7 @@ const RecipeDetails = (props) => (
             <div className='row'>
                 <div className='col-lg-6 imageDiv'>
                     <i data-id='recipes' onClick={(e) => { props.clickBack(e) }} className=' arrow fas fa-arrow-circle-left'></i>
+                    {props.isLoggedIn ? <div><button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button><button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button></div> : ""}
                     <button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button>
                     <button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button>
                     <img className='recipeImg' alt={`${props.result.title} Image`} src={props.result.image} />
@@ -61,7 +62,7 @@ const RecipeDetails = (props) => (
                                 </div>
                                 <div className='row'>
                                     <div className='col-md-12'>
-                                        {props.result.cookingMinutes ? <h5 className='estimated-times'>Estimated Prep Time: {props.result.cookingMinutes} mins.</h5> : <h5 className='estimated-times'>Estimated Prep Time: N/A</h5>}
+                                        {props.result.cookingMinutes ? <h5 className='estimated-times'>Estimated Cook Time: {props.result.cookingMinutes} mins.</h5> : <h5 className='estimated-times'>Estimated Prep Time: N/A</h5>}
                                     </div>
                                 </div>
                             </div>

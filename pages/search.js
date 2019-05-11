@@ -464,21 +464,21 @@ class Search extends Component {
                 case "recipeDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
+                            <RecipeDetails result={this.state.recipeDetails} isLoggedIn={this.state.isLoggedIn} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
                 case "groceryDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
+                            <GroceryDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
                 case "menuDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
+                            <MenuDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
@@ -535,21 +535,21 @@ class Search extends Component {
                 case "recipeDetail":
                     return (
                         <Main>
-                            <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} delete={this.deleteComment} result={this.state.recipeDetails} modalType={this.state.type}/>
+                            <RecipeDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} delete={this.deleteComment} result={this.state.recipeDetails} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
                 case "groceryDetail":
                     return (
                         <Main>
-                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
+                            <GroceryDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
                 case "menuDetail":
                     return (
                         <Main>
-                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
+                            <MenuDetails clickBack={this.backButton} isLoggedIn={this.state.isLoggedIn} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
