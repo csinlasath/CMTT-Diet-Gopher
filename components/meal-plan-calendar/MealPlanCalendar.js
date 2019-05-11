@@ -195,7 +195,7 @@ const DaysOfTheMonth = (props) => {
                                     return (
                                         <div key={`not-valid-date-${props.month + 1}-${currentDateNumber}-${props.year}`} className='calendar-box-hidden'></div>
                                     );
-                                } */}
+                                }
 
 
 
