@@ -2,9 +2,9 @@ import React, { Component, Fragment } from 'react';
 import fetch from 'isomorphic-unfetch';
 import Main from '../compositions/main';
 import MainLoggedIn from '../compositions/mainLoggedIn';
-import TestSearchRecipes from '../components/test-search-recipes';
-import TestSearchMenuItems from '../components/test-search-menu-items';
-import TestSearchGrocery from '../components/test-search-grocery';
+import SearchRecipes from '../components/search-recipes';
+import SearchMenuItems from '../components/search-menu-items';
+import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
 import SearchResultsMenu from '../components/search-results-menu';
@@ -17,6 +17,7 @@ class Search extends Component {
         super(props);
         this.state = {
             isLoggedIn: false,
+            isOpen: false,
             userId: "808",
             currentFocus: "recipes",
             previousFocus: "8675309",
@@ -139,6 +140,9 @@ class Search extends Component {
 
     recipeSearchSubmit = (e) => {
         e.preventDefault();
+        this.setState({
+            isOpen: false
+        });
         const body = {
             'query': this.state.recipeSearchQuery,
             'diet': this.state.recipeSearchDiet,
@@ -409,13 +413,20 @@ class Search extends Component {
         });
     };
 
+    refineClick = () => {
+        console.log(this.state.isOpen);
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    };
+
     render() {
         if (this.state.isLoggedIn) {
             switch (this.state.currentFocus) {
                 case "recipes":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <TestSearchRecipes formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
+                            <SearchRecipes formStateChange={this.primarySearchFormChange} openClick={this.refineClick} isOpen={this.state.isOpen} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
                             <ResultsContainer>
                                 {this.state.recipeResultsArr.map((recipe) => {
                                     return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
@@ -427,7 +438,7 @@ class Search extends Component {
                 case "grocery":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <TestSearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
+                            <SearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.groceryResultsArr.map((recipe) => {
                                     return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
@@ -439,7 +450,7 @@ class Search extends Component {
                 case "menu":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <TestSearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
+                            <SearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.menuResultsArr.map((recipe) => {
                                     return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
@@ -486,7 +497,7 @@ class Search extends Component {
                 case "recipes":
                     return (
                         <Main>
-                            <TestSearchRecipes formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
+                            <SearchRecipes formStateChange={this.primarySearchFormChange} openClick={this.refineClick} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
                             <ResultsContainer>
                                 {this.state.recipeResultsArr.map((recipe) => {
                                     return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
@@ -498,7 +509,7 @@ class Search extends Component {
                 case "grocery":
                     return (
                         <Main>
-                            <TestSearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
+                            <SearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.groceryResultsArr.map((recipe) => {
                                     return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
@@ -510,7 +521,7 @@ class Search extends Component {
                 case "menu":
                     return (
                         <Main>
-                            <TestSearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
+                            <SearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.menuResultsArr.map((recipe) => {
                                     return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
