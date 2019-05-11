@@ -3,6 +3,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+
+import LogMealModal from '../log-meal-modal';
+import PlanMealModal from '../plan-meal-modal';
+
 const moment = require('moment');
 
 const RecipeDetails = (props) => (
@@ -11,6 +15,8 @@ const RecipeDetails = (props) => (
             <div className='row'>
                 <div className='col-lg-6 imageDiv'>
                     <i data-id='recipes' onClick={(e) => { props.clickBack(e) }} className=' arrow fas fa-arrow-circle-left'></i>
+                    <button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button>
+                    <button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button>
                     <img className='recipeImg' alt={`${props.result.title} Image`} src={props.result.image} />
                     {props.favorite ? <i className='star fas fa-heart favorite' onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type='recipe'></i> : <i className='star fas fa-heart' onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type='recipe'></i>}
                     <div className='row'>
@@ -133,7 +139,41 @@ const RecipeDetails = (props) => (
                     </InputGroup>
                 </Card.Body>
             </Card>
+            <LogMealModal results={props.result} userId={props.userId} modalType={props.modalType} />
+            <PlanMealModal />
             <style jsx>{`{
+                .log-meal-btn {
+                    font-size: 0.765625rem;
+                    background-color: white;
+                    border: 1px solid black;
+                    color: #1a1a1a;
+                    padding: 10px;
+                    border-radius: 2%;
+                    position: absolute;
+                    bottom: 30%;
+                    left: 5%;
+                }
+                .plan-meal-btn {
+                    font-size: 0.765625rem;
+                    background-color: white;
+                    border: 1px solid black;
+                    color: #1a1a1a;
+                    padding: 10px;
+                    border-radius: 2%;
+                    position: absolute;
+                    bottom: 30%;
+                    right: 5%;
+                }
+                .log-meal-btn:hover {
+                    cursor: pointer;
+                    background-color: #1a1a1a;
+                    color: #ffffff;
+                }
+                .plan-meal-btn:hover {
+                    cursor: pointer;
+                    background-color: #1a1a1a;
+                    color: #ffffff;
+                }
                 .card{
                     background:lightgrey;
                 }

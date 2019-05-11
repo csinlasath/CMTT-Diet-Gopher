@@ -39,22 +39,15 @@ module.exports = function(server) {
         });
     });
     //add eaten food to user id
-    server.post('/api/food/add/:id', (req, res) => {
+    server.post('/api/food/add/:userId', (req, res) => {
         db.food.create({
-            foodName: req.body.foodName,
-            foodType: req.body.foodName,
-            foodIngredients: req.body.foodIngredients,
-            foodCalories: req.body.foodCalories,
-            foodFat: req.body.foodFat,
-            foodProtein: req.body.foodProtein,
-            foodGluten: req.body.foodGluten,
-            foodVeggie: req.body.foodVeggie,
-            foodVegan: req.body.foodVegan,
-            foodNuts: req.body.foodNuts,
-            foodEatenDate: req.body.foodEatenDate,
-            calRange: req.body.calRange,
-            proRange: rteq.body.proRange,
-            notes: req.body.notes
+            itemId: req.body.itemId,
+            userId: req.params.userId,
+            logDate: req.body.logDate,
+            logMeal: req.body.logMeal,
+            type: req.body.type,
+            image: req.body.image,
+            title: req.body.title
         }).then((dbFood) => {
             res.status(204);
             return res.json(dbFood);
