@@ -391,7 +391,7 @@ class About extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-             <AboutPage></AboutPage>>
+             <AboutPage />
             </MainLoggedIn>
           );
       };
@@ -457,7 +457,7 @@ class About extends Component {
         default:
           return (
             <Main>
-             <AboutPage></AboutPage>
+             <AboutPage />
             </Main>
           );
       };
