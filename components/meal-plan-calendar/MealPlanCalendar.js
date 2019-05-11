@@ -168,18 +168,24 @@ const DaysOfTheMonth = (props) => {
 
                                     }
                                 }
-                                {/* console.log(props.allItems) */}
+                                {/* console.log(props.allItems) */ }
                                 if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
-                                    for (let i = 0; i < props.allItems.length; i++) {
-                                        if (props.allItems[i].date === `${props.month + 1}-${currentDateNumber}-${props.year}`) {
-                                            return (
-                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box hasItems`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
-                                            );
-                                        } else {
-                                            return (
-                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
-                                            );
+                                    if (props.allItems.length > 0) {
+                                        for (let i = 0; i < props.allItems.length; i++) {
+                                            if (props.allItems[i].date === `${props.month + 1}-${currentDateNumber}-${props.year}`) {
+                                                return (
+                                                    <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box hasItems`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                                );
+                                            } else {
+                                                return (
+                                                    <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                                );
+                                            };
                                         };
+                                    } else {
+                                        return (
+                                            <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                        );
                                     };
                                 }
                                 else {
@@ -297,7 +303,7 @@ class MealPlanCalendar extends Component {
             });
             fetch('/api/food/' + this.state.userId, {
             }).then((res) => {
-                return res.json(); 
+                return res.json();
             }).then((json) => {
                 console.log(json);
                 this.setState({
