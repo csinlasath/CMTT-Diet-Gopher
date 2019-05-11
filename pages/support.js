@@ -13,6 +13,10 @@ import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
+import Tab from 'react-bootstrap/Tab';
+import Row from 'react-bootstrap/Row';
+import Nav from 'react-bootstrap/Nav';
+import Col from 'react-bootstrap/Col';
 
 class Support extends Component {
   constructor(props) {
@@ -456,7 +460,63 @@ class Support extends Component {
         default:
           return (
             <Main>
-              <h1 className='text-center'>F.A.Q. (Frequently Asked Questions)</h1>
+              <div>
+                <h1 className="text-center upcomingFeatures">Upcoming Features In Production</h1>
+                <h3 className="features">Suggestions</h3>
+                <p>Our team plans on adding in a suggestions feature that will give the user and idea of what they will want to eat based on calorie consumption and diet or allergy restrictions.</p>
+                <h3 className="features">Social Media Authentication</h3>
+                <p>Another feature we plan to add is allowing users to log in through their social media platforms, for example google or facebook.</p>
+                <h3 className="features">Auto-Logging</h3>
+                <p>We plan on adding in a toggleable feature that will automatically log meals that the user put in their meal planner when the time of that meal has passed.</p>
+                <h1 className='text-center FAQ'>F.A.Q. (Frequently Asked Questions)</h1>
+                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                  <Row>
+                    <Col sm={3}>
+                      <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                          <Nav.Link eventKey="first">Q: What if I have a food allergy, how do I get recipes without the food I'm allergic to?</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                          <Nav.Link eventKey="second">Q: Can I use the website if I don't have an account?</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Link eventKey="third">Q: Do you guys have jobs in web development?</Nav.Link>
+                      </Nav>
+                    </Col>
+                    <Col sm={9}>
+                      <Tab.Content>
+                        <Tab.Pane eventKey="first">
+                          <h5>Click on search, then click "Refine Search", then go the the box that says "Allergies/Intolerence" and there you can pick your allergy.</h5>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="second">
+                          <h5>Yes you can use the website without and account, but many of our premium features require you to have an account.</h5>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="third">
+                          <h5>No we do not but, you can check out our portfolio pages in the footer of every page.</h5>
+                        </Tab.Pane>
+                      </Tab.Content>
+                    </Col>
+                  </Row>
+                </Tab.Container>
+                
+                <style jsx>{`
+                  #questionOne{
+                    color: black;
+                  }
+                  #questionTwo{
+                    color:black;
+                  }
+                  #questionThree{
+                    color: black;
+                  }
+                  .features{
+                    margin-top: 5%;
+                  }
+                  .FAQ{
+                    margin-top: 10%;
+                    margin-bottom: 5%;
+                  }
+                `}</style>
+              </div>
             </Main>
           );
       };
