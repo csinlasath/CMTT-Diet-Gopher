@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import SearchResultsMenu from '../search-results-menu';
+import Link from 'next/link';
 
 const CalendarHeader = (props) => {
     return (
@@ -169,7 +170,7 @@ const DaysOfTheMonth = (props) => {
                                     }
                                 }
                                 {/* console.log(props.allItems) */ }
-                                if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
+                                {/* if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
                                     if (props.allItems.length > 0) {
                                         for (let i = 0; i < props.allItems.length; i++) {
                                             if (props.allItems[i].date === `${props.month + 1}-${currentDateNumber}-${props.year}`) {
@@ -192,7 +193,21 @@ const DaysOfTheMonth = (props) => {
                                     return (
                                         <div key={`not-valid-date-${props.month + 1}-${currentDateNumber}-${props.year}`} className='calendar-box-hidden'></div>
                                     );
+                                } */}
+
+
+
+                                if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
+                                    return (
+                                        <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                    );
                                 }
+                                else {
+                                    return (
+                                        <div key={`not-valid-date-${props.month + 1}-${currentDateNumber}-${props.year}`} className='calendar-box-hidden'></div>
+                                    );
+                                }
+
                             })}
                         </div>);
                 })}
@@ -368,10 +383,7 @@ class MealPlanCalendar extends Component {
         this.setState(state);
     }
 
-    selectDate = (e) => {
-        if (this.state.selectedElement) {
-            this.state.selectedElement.classList.remove('box-selected');
-        };
+    selectDate = (e) => {   
         let temp = [];
         for (let i = 0; i < this.state.allItems.length; i++) {
             if (e.target.id === this.state.allItems[i].date) {
@@ -446,10 +458,10 @@ class MealPlanCalendar extends Component {
                                             })) : (<h3 className='calendar-modal-text text-center'>Doesn't look like you planned or eaten anything for this day.</h3>)}
                                             <div className='row'>
                                                 <div className='col-md-6'>
-                                                    <a className='btn btn-outline-dark modal-btn' href='/'>Add Meals</a>
+                                                    <Link href='/'><a className='btn btn-outline-dark modal-btn'>Add Meals</a></Link>
                                                 </div>
                                                 <div className='col-md-6'>
-                                                    <a className='btn btn-outline-dark modal-btn' href='/'>Log Meals</a>
+                                                    <Link href='/'><a className='btn btn-outline-dark modal-btn' >Log Meals</a></Link>
                                                 </div>
                                             </div>
                                         </div>
