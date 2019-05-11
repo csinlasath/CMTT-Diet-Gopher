@@ -143,7 +143,6 @@ class LogMealModal extends Component {
                 image: image,
                 title: title
             })
-
         }).then((res) => {
             console.log(res);
         }).catch((res) => {
