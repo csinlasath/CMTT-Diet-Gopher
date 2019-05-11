@@ -115,7 +115,7 @@ app.prepare().then(() => {
   let db = require('./models/mysql');
 
   db.sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(() => {
       server.listen(PORT, err => {
         if (err) throw err;
