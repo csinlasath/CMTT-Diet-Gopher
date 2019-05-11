@@ -78,7 +78,7 @@ class HistoryList extends Component {
                     {this.props.historyArr.length > 0 ? (this.props.historyArr.map((history, i) => {
                         if (i < 10) {
                             return (
-                                <SearchResultsMenu key={`history.itemId-${i}`} resultName={history.title} restaurantChain={history.restaurantChain} resultId={history.itemId} type={history.type} back="plan" imageLink={history.image} clickHandler={this.clickFavorite} />
+                                <SearchResultsMenu key={`history.itemId-${i}`} resultName={history.title} restaurantChain={history.restaurantChain} resultId={history.itemId} type={history.type} back="plan" imageLink={history.image} />
                             );
                         }
                         else {
@@ -92,7 +92,7 @@ class HistoryList extends Component {
                                             <h3 className='empty-array-text'>Doesn't look like you have searched anything.</h3>
                                         </div>
                                         <div className='row button-group'>
-                                            <a className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' href='/search' onClick={(e) => { this.props.btnClickFunc(e) }}>Start Searching</a>
+                                            <a className='btn btn-outline-dark mobile' name="recipes" id='history-search-btn-recipe' href='/search'>Start Searching</a>
                                         </div>
                                     </div>
                                 </div>
