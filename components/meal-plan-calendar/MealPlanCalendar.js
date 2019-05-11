@@ -166,21 +166,24 @@ const DaysOfTheMonth = (props) => {
                                     currentDate = new Date(props.year, props.month, currentDateNumber);
                                     if (props.disablePast && currentDate < constructor.todaysDate) {
 
-                                    }
-                                }
-                                {/* console.log(props.allItems) */ }
+                                    };
+                                };
+                                let hasItem = false;
                                 if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
                                     if (props.allItems.length > 0) {
                                         for (let i = 0; i < props.allItems.length; i++) {
                                             if (props.allItems[i].date === `${props.month + 1}-${currentDateNumber}-${props.year}`) {
-                                                return (
-                                                    <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box hasItems`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
-                                                );
-                                            } else {
-                                                return (
-                                                    <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
-                                                );
+                                                hasItem = true;
                                             };
+                                        };
+                                        if (hasItem) {
+                                            return (
+                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box hasItems`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                            );
+                                        } else {
+                                            return (
+                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                            );
                                         };
                                     } else {
                                         return (
@@ -367,8 +370,52 @@ class MealPlanCalendar extends Component {
         Object.assign(state, this.calculateYearAndMonth.call(null, state.year, state.month));
         this.setState(state);
     }
+    selectDate = (e, year, month, date) => {
+        let dataYear = e.target.dataset.year;
+        let dataMonth = e.target.dataset.month;
+        let dataDate = e.target.dataset.date;
+        let dataId = e.target.id;
+        let dataElement = e.target;
+        let dataFullDate = `${e.target.dataset.month}/${e.target.dataset.date}/${e.target.dataset.year}`;
 
-    selectDate = (e) => {
+        if (this.state.selectedElement) {
+            this.state.selectedElement.classList.remove('box-selected');
+        }
+        // e.target.classList.add('box-selected');
+
+        if (this.state.clickCount === 0) {
+            this.setState((state) => ({
+                selectedYear: dataYear,
+                selectedMonth: dataMonth,
+                selectedDate: dataDate,
+                selectedDateTime: new Date(year, month, date),
+                selectedElement: dataElement,
+                selectedFullDate: dataFullDate,
+                clickCount: state.clickCount + 1,
+                firstClickId: dataId,
+                secondClickId: null
+            }), () => {
+                console.log(this.state);
+                console.log(this.state.firstDayOfMonth.getUTCDay());
+            });
+        }
+        if (this.state.clickCount === 1) {
+            this.setState((state) => ({
+                selectedYear: dataYear,
+                selectedMonth: dataMonth,
+                selectedDate: dataDate,
+                selectedDateTime: new Date(year, month, date),
+                selectedElement: dataElement,
+                selectedFullDate: dataFullDate,
+                clickCount: state.clickCount - 1,
+                firstClickId: null,
+                secondClickId: dataId
+            }), () => {
+                console.log(this.state);
+                console.log(this.state.firstDayOfMonth.getUTCDay());
+            });
+        };
+
         if (this.state.selectedElement) {
             this.state.selectedElement.classList.remove('box-selected');
         };

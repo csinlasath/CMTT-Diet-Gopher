@@ -11,13 +11,12 @@ const moment = require('moment');
 
 const RecipeDetails = (props) => (
     <Fragment>
+        {console.log(props.isLoggedIn)}
         <div className='container main'>
             <div className='row'>
                 <div className='col-lg-6 imageDiv'>
                     <i data-id='recipes' onClick={(e) => { props.clickBack(e) }} className=' arrow fas fa-arrow-circle-left'></i>
-                    {props.isLoggedIn ? <div><button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button><button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button></div> : ""}
-                    <button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button>
-                    <button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button>
+                    {props.isLoggedIn ? <div id="buttons"><button className='btn btn-outline-dark log-meal-btn' data-toggle='modal' data-target='#logMealModal' >Log Meal</button><button className='btn btn-outline-dark plan-meal-btn' data-toggle='modal' data-target='#planMealModal'>Plan Meal</button></div> : ""}
                     <img className='recipeImg' alt={`${props.result.title} Image`} src={props.result.image} />
                     {props.favorite ? <i className='star fas fa-heart favorite' onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type='recipe'></i> : <i className='star fas fa-heart' onClick={(e) => { props.favoriteClick(e) }} data-id={props.result.id} data-type='recipe'></i>}
                     <div className='row'>
