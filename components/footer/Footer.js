@@ -16,7 +16,7 @@ class Footer extends Component {
                   <Link href='http://www.sinlasath.com/'><a target='_blank'> Christopher Sinlasath </a></Link>
                 </li>
                 <li>
-                  <Link href='https://github.com/MasonDobbs'><a target='_blank'>Mason Dobbs</a></Link>
+                  <Link href='https://masondobbs.github.io/Masons-Portfolio/'><a target='_blank'>Mason Dobbs</a></Link>
                 </li>
                 <li>
                   <Link href='https://tiffanykeller.github.io/marchportfolio/'><a target='_blank'>
