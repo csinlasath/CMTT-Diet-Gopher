@@ -1,69 +1,33 @@
 module.exports = (sequelize, DataTypes) => {
     const food = sequelize.define("food", {
-        foodName: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        foodType: {
+        itemId: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        foodIngredients: {
+        userId: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        foodCalories: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        foodFat: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        foodProtein: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        foodGluten: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true
-        },
-        foodVeggie: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true
-        },
-        foodVegan: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true
-        },
-        foodKeto: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true
-        },
-        foodNuts: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true
-        },
-        foodEatenDate: {
+        logDate: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        calRange: {
+        logMeal: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        proRange: {
+        type: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        notes: {
+        image: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        favorited: {
-            type: DataTypes.BOOLEAN,
-            default: false
-        }
+        title: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
     });
 
     return food;

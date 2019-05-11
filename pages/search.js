@@ -40,7 +40,8 @@ class Search extends Component {
             favorite: false,
             favoritesArr: [],
             comments: [],
-            commentInput: ""
+            commentInput: "",
+            type:  "recipe"
         };
     };
 
@@ -194,7 +195,8 @@ class Search extends Component {
                 [details]: json,
                 previousFocus: this.state.currentFocus,
                 currentFocus: type + "Detail",
-                currentItem: id
+                currentItem: id,
+                type: type
             }), () => {
                 if (this.state.userId !== "808") {
                     let body = [];
@@ -429,7 +431,7 @@ class Search extends Component {
                             <SearchRecipes formStateChange={this.primarySearchFormChange} openClick={this.refineClick} isOpen={this.state.isOpen} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
                             <ResultsContainer>
                                 {this.state.recipeResultsArr.map((recipe) => {
-                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </MainLoggedIn>
@@ -441,7 +443,7 @@ class Search extends Component {
                             <SearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.groceryResultsArr.map((recipe) => {
-                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </MainLoggedIn>
@@ -453,7 +455,7 @@ class Search extends Component {
                             <SearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.menuResultsArr.map((recipe) => {
-                                    return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </MainLoggedIn>
@@ -462,21 +464,21 @@ class Search extends Component {
                 case "recipeDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} />
+                            <RecipeDetails result={this.state.recipeDetails} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} clickBack={this.backButton} delete={this.deleteComment} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
                 case "groceryDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
+                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
                 case "menuDetail":
                     return (
                         <MainLoggedIn favorites={this.favorites}>
-                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </MainLoggedIn>
                     );
                     break;
@@ -485,7 +487,7 @@ class Search extends Component {
                         <MainLoggedIn favorites={this.favorites}>
                             <ResultsContainer>
                                 {this.state.favoritesArr.map((favorite) => {
-                                    return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} />
+                                    return <SearchResultsMenu key={favorite.itemId} resultName={favorite.title} restaurantChain={favorite.restaurantChain} resultId={favorite.itemId} type={favorite.type} back="favorites" imageLink={favorite.image} clickHandler={this.clickFavorite} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </MainLoggedIn>
@@ -500,7 +502,7 @@ class Search extends Component {
                             <SearchRecipes formStateChange={this.primarySearchFormChange} openClick={this.refineClick} clickClose={this.clickClose} btnClickFunc={this.recipeSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} searchValueDiet={this.state.recipeSearchDiet} searchValueType={this.state.recipeSearchType} searchValueCuisine={this.state.recipeSearchCuisine} searchValueInclude={this.state.recipeSearchInclude} searchValueExclude={this.state.recipeSearchExclude} searchValueAllergies={this.state.recipeSearchAllergies} />
                             <ResultsContainer>
                                 {this.state.recipeResultsArr.map((recipe) => {
-                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="recipe" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </Main>
@@ -512,7 +514,7 @@ class Search extends Component {
                             <SearchGrocery formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickGrocery={this.grocerySearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.groceryResultsArr.map((recipe) => {
-                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsRecipes key={recipe.id} resultName={recipe.title} resultId={recipe.id} type="grocery" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </Main>
@@ -524,7 +526,7 @@ class Search extends Component {
                             <SearchMenuItems formStateChange={this.primarySearchFormChange} clickClose={this.clickClose} btnClickMenu={this.menuSearchSubmit} typeStateChange={this.typeSearchChange} searchValueQuery={this.state.recipeQuery} />
                             <ResultsContainer>
                                 {this.state.menuResultsArr.map((recipe) => {
-                                    return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} />
+                                    return <SearchResultsMenu key={recipe.id} resultName={recipe.title} restaurantChain={recipe.restaurantChain} resultId={recipe.id} type="menu" imageLink={recipe.image} clickHandler={this.clickItem} modalType={this.state.type}/>
                                 })}
                             </ResultsContainer>
                         </Main>
@@ -533,21 +535,21 @@ class Search extends Component {
                 case "recipeDetail":
                     return (
                         <Main>
-                            <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} delete={this.deleteComment} result={this.state.recipeDetails} />
+                            <RecipeDetails clickBack={this.backButton} comments={this.state.comments} onChange={this.primarySearchFormChange} commentInput={this.state.commentInput} userId={this.state.userId} commentSubmit={this.commentSubmit} favorite={this.state.favorite} favoriteClick={this.favoriteClick} delete={this.deleteComment} result={this.state.recipeDetails} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
                 case "groceryDetail":
                     return (
                         <Main>
-                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} />
+                            <GroceryDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.groceryDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
                 case "menuDetail":
                     return (
                         <Main>
-                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} />
+                            <MenuDetails clickBack={this.backButton} favorite={this.state.favorite} result={this.state.menuDetails} favoriteClick={this.favoriteClick} modalType={this.state.type}/>
                         </Main>
                     );
                     break;
