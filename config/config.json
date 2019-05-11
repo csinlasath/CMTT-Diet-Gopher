@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "test",
     "password": "password",
     "database": "diet_gopher_db",
     "host": "localhost",
@@ -8,7 +8,7 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
+    "username": "test",
     "password": "password",
     "database": "diet_gopher_db",
     "host": "localhost",

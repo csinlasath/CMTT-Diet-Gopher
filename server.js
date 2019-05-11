@@ -101,6 +101,7 @@ app.prepare().then(() => {
   require('./routes/recipeRoutes')(server);
   require('./routes/historyRoutes')(server);
   require('./routes/userRoutes')(server);
+  require('./routes/planRoutes')(server);
 
   server.get('/', (req, res) => {
     console.log(req.session);

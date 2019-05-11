@@ -7,6 +7,8 @@ mongoose.connect(MONOGODB_URI, { useNewUrlParser: true});
 
 //adds a recipe
 router.route('/api/recipe/add').post((req, res) => {
+    console.log("API HIT");
+    console.log(req.body);
     db.Recipe.create(req.body.body)
       .then(dbRecipe => res.json(dbRecipe))
       .catch(err => res.status(422).json(err));

@@ -43,8 +43,8 @@ module.exports = function(server) {
         db.food.create({
             itemId: req.body.itemId,
             userId: req.params.userId,
-            logDate: req.body.logDate,
-            logMeal: req.body.logMeal,
+            date: req.body.date,
+            meal: req.body.meal,
             type: req.body.type,
             image: req.body.image,
             title: req.body.title
