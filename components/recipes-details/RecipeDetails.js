@@ -140,7 +140,7 @@ const RecipeDetails = (props) => (
                 </Card.Body>
             </Card>
             <LogMealModal results={props.result} userId={props.userId} modalType={props.modalType} />
-            <PlanMealModal />
+            <PlanMealModal results={props.result} userId={props.userId} modalType={props.modalType}/>
             <style jsx>{`{
                 .log-meal-btn {
                     font-size: 0.765625rem;
