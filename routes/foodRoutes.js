@@ -17,7 +17,7 @@ module.exports = function(server) {
                 }
             }).then((dbFood) => {
                 for (let i = 0; i < dbFood.length; i++) {
-                allFood[i].push(dbFood);
+                allFood.push(dbFood[i]);
                 };
                  return res.json(allFood);
             });
