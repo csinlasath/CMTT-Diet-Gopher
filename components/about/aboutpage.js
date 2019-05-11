@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-const AboutPage = props => (
+
+const AboutPage = () => (
     <Fragment>
     <div id='aboutWrapper'>
     <div className='card text-center about-card'>
