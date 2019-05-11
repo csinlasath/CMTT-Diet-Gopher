@@ -66,7 +66,7 @@ const AboutPage = props => (
         </div>
         <div className='col-md-8'>
           <div className='card-body'>
-            <h3 className='card-title'>Save your favorite recipes and leave comments.</h3>
+            <h5 className='card-title'>Save your favorite recipes and leave comments.</h5>
             <p className='card-text'></p>
           </div>
         </div>

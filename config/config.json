@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "Alaska1!",
     "database": "diet_gopher_db",
     "host": "localhost",
     "port": 3306,
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "root",
-    "password": "password",
+    "password": "Alaska1!",
     "database": "diet_gopher_db",
     "host": "localhost",
     "port": 3306,
