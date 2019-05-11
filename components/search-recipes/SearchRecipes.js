@@ -212,6 +212,9 @@ const SearchRecipes = (props) => (
                 </div>
             </div>
             <style jsx>{`
+                #dropdown-search-selector {
+                    height: 30px;
+                }
                 input {
                     width: 100%;
                     margin: auto;
