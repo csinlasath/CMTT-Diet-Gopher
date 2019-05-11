@@ -8,12 +8,13 @@ import SearchMenuItems from '../components/search-menu-items';
 import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
-import AboutPage from "../components/about/AboutPage";
+import AboutPage from '../components/about';
 import Techicons from '../components/technology/techicons';
 import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
 import MenuDetails from '../components/menu-details';
+
 
 class About extends Component {
   constructor(props) {
@@ -391,7 +392,7 @@ class About extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-             <AboutPage></AboutPage>>
+             <AboutPage />
             </MainLoggedIn>
           );
       };
@@ -457,7 +458,7 @@ class About extends Component {
         default:
           return (
             <Main>
-             <AboutPage></AboutPage>
+             <AboutPage />
             </Main>
           );
       };

@@ -12,22 +12,15 @@ module.exports = function (server) {
         });
     });
     //add eaten food to user id
-    server.post('/api/plan/add/:id', (req, res) => {
-        db.food.create({
-            foodName: req.body.foodName,
-            foodType: req.body.foodName,
-            foodIngredients: req.body.foodIngredients,
-            foodCalories: req.body.foodCalories,
-            foodFat: req.body.foodFat,
-            foodProtein: req.body.foodProtein,
-            foodGluten: req.body.foodGluten,
-            foodVeggie: req.body.foodVeggie,
-            foodVegan: req.body.foodVegan,
-            foodNuts: req.body.foodNuts,
-            foodPlanDate: req.body.foodEatenDate,
-            calRange: req.body.calRange,
-            proRange: rteq.body.proRange,
-            notes: req.body.notes
+    server.post('/api/plan/add/:userId', (req, res) => {
+        db.plan.create({
+            itemId: req.body.itemId,
+            userId: req.params.userId,
+            date: req.body.date,
+            meal: req.body.meal,
+            type: req.body.type,
+            image: req.body.image,
+            title: req.body.title
         }).then((dbFood) => {
             res.status(204);
             return res.json(dbFood);

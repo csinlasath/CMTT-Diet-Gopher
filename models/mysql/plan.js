@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        planDate: {
+        date: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        planMeal: {
+        meal: {
             type: DataTypes.STRING,
             allowNull: true
         },

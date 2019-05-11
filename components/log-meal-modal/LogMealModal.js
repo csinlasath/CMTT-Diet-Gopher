@@ -135,34 +135,31 @@ class LogMealModal extends Component {
             },
             method: "POST",
             body: JSON.stringify({
-                    result: result,
-                    itemId: itemId,
-                    date: logDate,
-                    meal: logMeal,
-                    type: type,
-                    image: image,
-                    title: title
-                })
-            
+                result: result,
+                itemId: itemId,
+                date: logDate,
+                meal: logMeal,
+                type: type,
+                image: image,
+                title: title
+            })
         }).then((res) => {
             console.log(res);
         }).catch((res) => {
             console.log(res);
         });
 
-        fetch(`/api/recipe/add`, {
+        fetch(`/api/${type}/add`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             method: "POST",
             body: JSON.stringify({ body })
-            
-        }).then((res) => {
-            console.log(res);
-        }).catch((res) => {
-            console.log(res);
-        });
+
+        })
+            .then(function (res) { console.log(res) })
+            .catch(function (res) { console.log(res) });
     }
 
     render() {
