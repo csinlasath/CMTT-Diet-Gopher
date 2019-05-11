@@ -1,41 +1,26 @@
 const db = require('../models/mysql');
 
 module.exports = function(server) {
-    //get all
-    server.get('/api/food/all', (req, res) => {
-        var query = {};
-        if (req.query.user_id) {
-            query.userId = req.query.user_id;
-        };
-        db.food.findAll({
-            where: query,
-        }).then((dbFood) => {
-            return res.json(dbFood);
-        });
-    });
-    //get all by day
-    server.get('/api/food/all/:day', (req, res) => {
-        var query = {};
-        if (req.query.user_id) {
-            query.userId = req.query.user_id;
-        };
-        db.food.findAll({
-            where: {
-                foodEatenDate: req.params.day,
-                query
-            }
-        }).then((dbFood) => {
-            return res.json(dbFood);
-        });       
-    });
-    //get food item info by ID
+    //get all eaten and planned food item info by user ID
     server.get('/api/food/:id', (req, res) => {
-        db.food.findOne({
+        let allFood = [];
+        console.log(req.params.id)
+        db.food.findAll({
             where: {
-                id: req.params.id
+                userId: req.params.id
             }
         }).then((dbFood) => {
-            return res.json(dbFood);
+            allFood = dbFood
+            db.plan.findAll({
+                where: {
+                    userId: req.params.id
+                }
+            }).then((dbFood) => {
+                for (let i = 0; i < dbFood.length; i++) {
+                allFood[i].push(dbFood);
+                };
+                 return res.json(allFood);
+            });
         });
     });
     //add eaten food to user id
@@ -43,8 +28,8 @@ module.exports = function(server) {
         db.food.create({
             itemId: req.body.itemId,
             userId: req.params.userId,
-            logDate: req.body.logDate,
-            logMeal: req.body.logMeal,
+            date: req.body.date,
+            meal: req.body.meal,
             type: req.body.type,
             image: req.body.image,
             title: req.body.title

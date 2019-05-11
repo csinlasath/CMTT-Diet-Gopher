@@ -1,13 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import Main from '../compositions/main';
 import MainLoggedIn from '../compositions/mainLoggedIn';
-import SearchRecipes from '../components/search-recipes';
-import SearchMenuItems from '../components/search-menu-items';
-import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
-import SearchResultsRecipes from '../components/search-results-recipes';
 import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
 import GroceryDetails from '../components/grocery-details';
@@ -22,24 +16,12 @@ class Plan extends Component {
             userId: "808",
             currentFocus: "8675309",
             previousFocus: "8675309",
-            menuSearchQuery: "",
-            grocerySearchQuery: "",
-            recipeSearchQuery: "",
-            recipeSearchDiet: "none",
-            recipeSearchType: "none",
-            recipeSearchCuisine: "none",
-            recipeSearchInclude: "",
-            recipeSearchExclude: "",
-            recipeSearchAllergies: "none",
-            recipeResultsArr: [],
             recipeDetails: [],
-            menuResultsArr: [],
             menuDetails: [],
-            groceryResultsArr: [],
             groceryDetails: [],
             itemId: "",
             favorite: false,
-            favoritesArr: []
+            allItems: []
         };
     };
 
@@ -50,19 +32,11 @@ class Plan extends Component {
         }).then((json) => {
             console.log('This is the json from checking if logged in');
             console.log(json);
-            this.setState((state) => ({
+            this.setState({
                 isLoggedIn: true,
                 user: json,
                 username: json.username,
                 userId: json._id
-            }), () => {
-                fetch(`/api/history/${this.state.userId}/all`).then((res) => {
-                    return res.json();
-                }).then((json) => {
-                    this.setState({
-                        historyArr: json.reverse()
-                    });
-                });
             });
         });
     };

@@ -137,8 +137,8 @@ class LogMealModal extends Component {
             body: JSON.stringify({
                     result: result,
                     itemId: itemId,
-                    logDate: logDate,
-                    logMeal: logMeal,
+                    date: logDate,
+                    meal: logMeal,
                     type: type,
                     image: image,
                     title: title

@@ -168,10 +168,19 @@ const DaysOfTheMonth = (props) => {
 
                                     }
                                 }
+                                {/* console.log(props.allItems) */}
                                 if (currentDateNumber >= 1 && currentDateNumber <= props.daysInMonth) {
-                                    return (
-                                        <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
-                                    );
+                                    for (let i = 0; i < props.allItems.length; i++) {
+                                        if (props.allItems[i].date === `${props.month + 1}-${currentDateNumber}-${props.year}`) {
+                                            return (
+                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box hasItems`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                            );
+                                        } else {
+                                            return (
+                                                <div key={`${props.month + 1}-${currentDateNumber}-${props.year}`} className={`calendar-box`} role='button' tabIndex='0' data-month={props.month + 1} data-year={props.year} data-date={currentDateNumber} id={`${props.month + 1}-${currentDateNumber}-${props.year}`} onClick={(e) => props.selectDateFunc(e, props.year, props.month, currentDateNumber)} data-toggle='modal' data-target='#calendarPlanModal'>{currentDateNumber}</div>
+                                            );
+                                        };
+                                    };
                                 }
                                 else {
                                     return (
@@ -189,7 +198,9 @@ const DaysOfTheMonth = (props) => {
                     width: 100%;
                     justify-content: space-evenly;
                 }
-
+                .hasItems {
+                    color: red!important;
+                }
                 .calendar-box {
                     align-items: center;
                     display: flex;
@@ -264,13 +275,37 @@ class MealPlanCalendar extends Component {
             clickCount: 0,
             firstClickId: null,
             secondClickId: null,
-            plannedMeals: []
+            plannedMeals: [],
+            allItems: [],
+            allItemsDay: []
         };
     };
 
     componentDidMount() {
         //FetchPlanned Items for User Here
-    }
+        fetch('/api/user/verify').then((res, err) => {
+            if (err) throw err;
+            return res.json();
+        }).then((json) => {
+            console.log('This is the json from checking if logged in');
+            console.log(json);
+            this.setState({
+                isLoggedIn: true,
+                user: json,
+                username: json.username,
+                userId: json._id
+            });
+            fetch('/api/food/' + this.state.userId, {
+            }).then((res) => {
+                return res.json(); 
+            }).then((json) => {
+                console.log(json);
+                this.setState({
+                    allItems: json
+                });
+            });
+        });
+    };
 
     UNSAFE_componentWillMount() {
         this.setState(this.calculateYearAndMonth.call(null, this.state.year, this.state.month));
@@ -327,52 +362,20 @@ class MealPlanCalendar extends Component {
         this.setState(state);
     }
 
-    selectDate = (e, year, month, date) => {
-        let dataYear = e.target.dataset.year;
-        let dataMonth = e.target.dataset.month;
-        let dataDate = e.target.dataset.date;
-        let dataId = e.target.id;
-        let dataElement = e.target;
-        let dataFullDate = `${e.target.dataset.month}/${e.target.dataset.date}/${e.target.dataset.year}`;
-
+    selectDate = (e) => {
         if (this.state.selectedElement) {
             this.state.selectedElement.classList.remove('box-selected');
-        }
-        e.target.classList.add('box-selected');
-
-        if (this.state.clickCount === 0) {
-            this.setState((state) => ({
-                selectedYear: dataYear,
-                selectedMonth: dataMonth,
-                selectedDate: dataDate,
-                selectedDateTime: new Date(year, month, date),
-                selectedElement: dataElement,
-                selectedFullDate: dataFullDate,
-                clickCount: state.clickCount + 1,
-                firstClickId: dataId,
-                secondClickId: null
-            }), () => {
-                console.log(this.state);
-                console.log(this.state.firstDayOfMonth.getUTCDay());
-            });
-        }
-        if (this.state.clickCount === 1) {
-            this.setState((state) => ({
-                selectedYear: dataYear,
-                selectedMonth: dataMonth,
-                selectedDate: dataDate,
-                selectedDateTime: new Date(year, month, date),
-                selectedElement: dataElement,
-                selectedFullDate: dataFullDate,
-                clickCount: state.clickCount - 1,
-                firstClickId: null,
-                secondClickId: dataId
-            }), () => {
-                console.log(this.state);
-                console.log(this.state.firstDayOfMonth.getUTCDay());
-            });
-        }
-    }
+        };
+        let temp = [];
+        for (let i = 0; i < this.state.allItems.length; i++) {
+            if (e.target.id === this.state.allItems[i].date) {
+                temp.push(this.state.allItems[i]);
+            };
+        };
+        this.setState({
+            allItemsDay: temp
+        });
+    };
 
     clickFavorite = (e) => {
         const id = e.target.getAttribute('data-id');
@@ -417,7 +420,7 @@ class MealPlanCalendar extends Component {
                     <div className='' id='innerPlanningCalendar'>
                         <CalendarHeader monthsShort={this.state.monthsShort} month={this.state.month} year={this.state.year} previousMonth={this.getPreviousMonth} nextMonth={this.getNextMonth} />
                         <CalendarDaysOfWeek daysOfWeek={this.state.days} />
-                        <DaysOfTheMonth firstDayOfMonth={this.state.firstDayOfMonth} year={this.state.year} month={this.state.month} daysInMonth={this.state.daysInMonth} startingDateNumber={this.state.startingDateNumber} selectedDate={this.state.selectedDate} weekNumbers={this.state.weekNumbers} disablePastDate={this.state.disablePastDate} minDate={this.state.minDate} selectDateFunc={this.selectDate} />
+                        <DaysOfTheMonth firstDayOfMonth={this.state.firstDayOfMonth} allItems={this.state.allItems} year={this.state.year} month={this.state.month} daysInMonth={this.state.daysInMonth} startingDateNumber={this.state.startingDateNumber} selectedDate={this.state.selectedDate} weekNumbers={this.state.weekNumbers} disablePastDate={this.state.disablePastDate} minDate={this.state.minDate} selectDateFunc={this.selectDate} />
 
                         <Fragment>
                             <div className='modal fade' id='calendarPlanModal' tabIndex='-1' role='dialog'>
@@ -430,7 +433,7 @@ class MealPlanCalendar extends Component {
                                             </button>
                                         </div>
                                         <div className='modal-body'>
-                                            {this.state.plannedMeals.length > 0 ? (this.state.plannedMeals.map((plannedMeal) => {
+                                            {this.state.allItemsDay.length > 0 ? (this.state.allItemsDay.map((plannedMeal) => {
                                                 return (
                                                     <SearchResultsMenu key={plannedMeal.itemId} resultName={plannedMeal.title} restaurantChain={plannedMeal.restaurantChain} resultId={plannedMeal.itemId} type={plannedMeal.type} back="plan" imageLink={plannedMeal.image} clickHandler={this.clickFavorite} />
                                                 );
