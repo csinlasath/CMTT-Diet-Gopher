@@ -583,7 +583,7 @@ class Team extends Component {
                   <div className='card text-center team-card'>
                     <div className='row no-gutters'>
                       <div className='col-md-4'>
-                        <img src='static/img/tiffanypicture.jpg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
+                        <img src='static/img/tiffanypicture.jpeg' className='card-img d-block w-100' height='345px' width='345px' alt='...'></img>
                       </div>
                       <div className='col-md-8'>
                         <div className='card-body'>

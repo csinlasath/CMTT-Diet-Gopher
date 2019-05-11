@@ -73,6 +73,20 @@ const AboutPage = props => (
       </div>
     </div>
     <br></br>
+    <div className='card text-center about-card'>
+      <div className='row no-gutters'>
+        <div className='col-md-8'>
+          <img src='static/img/logmeal.gif' className='card-img d-block w-100' height='350px' width='700px' alt='...'></img>
+        </div>
+        <div className='col-md-8'>
+          <div className='card-body'>
+            <h5 className='card-title'>Log meals that you have eaten and plan future meals with our calendar feature.</h5>
+            <p className='card-text'></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br></br>
     <style jsx>{`
     .about-jumbotron-title {
       margin: 0 auto;
