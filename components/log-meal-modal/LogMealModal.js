@@ -99,7 +99,7 @@ class LogMealModal extends Component {
         console.log(`Date: ${dataDate}`);
 
         this.setState((state) => ({
-            selectedMonth: dataDate
+            selectedDate: dataDate
         }), () => {
 
         });
@@ -127,6 +127,8 @@ class LogMealModal extends Component {
         let title = this.state.recipeDetails.title;
 
         let body = result;
+
+        console.log(logDate);
 
         fetch(`/api/food/add/${this.state.userId}`, {
             headers: {

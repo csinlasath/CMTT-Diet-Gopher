@@ -99,7 +99,7 @@ class PlanMealModal extends Component {
         console.log(`Date: ${dataDate}`);
 
         this.setState((state) => ({
-            selectedMonth: dataDate
+            selectedDate: dataDate
         }), () => {
 
         });
@@ -127,6 +127,7 @@ class PlanMealModal extends Component {
         let title = this.state.recipeDetails.title;
 
         let body = result;
+        console.log(logDate);
 
         fetch(`/api/plan/add/${this.state.userId}`, {
             headers: {
