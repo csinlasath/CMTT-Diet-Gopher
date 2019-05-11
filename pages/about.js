@@ -8,6 +8,7 @@ import SearchMenuItems from '../components/search-menu-items';
 import SearchGrocery from '../components/search-grocery';
 import ResultsContainer from '../components/results-container';
 import SearchResultsRecipes from '../components/search-results-recipes';
+import AboutPage from "../components/about/AboutPage";
 import Techicons from '../components/technology/techicons';
 import SearchResultsMenu from '../components/search-results-menu';
 import RecipeDetails from '../components/recipes-details';
@@ -390,21 +391,7 @@ class About extends Component {
         default:
           return (
             <MainLoggedIn favorites={this.favorites}>
-              <div>
-                <h1>About Diet Gopher</h1>
-                <p>We find foods to fit your dietary needs</p>
-                <p> because dieting is hard, so let us do some of the work for you.</p>
-                <div className="container">
-                  <div className="container">
-                    <img id="about-img" src="../static/img/berries-bananas-smoothie-bowl.jpg" />
-                  </div>
-                </div>
-                <style jsx>{`{
-                  .container{
-                    margin: 30px;
-                  }
-                }`}</style>
-              </div>
+             <AboutPage></AboutPage>>
             </MainLoggedIn>
           );
       };
