@@ -40,7 +40,7 @@
     "express-session": "^1.16.1",
     "form-data": "^2.3.3",
     "isomorphic-unfetch": "^3.0.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.11",
     "mime": "^2.4.2",
     "moment": "^2.24.0",
